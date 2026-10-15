@@ -46,7 +46,7 @@ class RemoteDbfRepository {
         val count = header.getInt(4).coerceAtLeast(0)
         val headerLength = header.getShort(8).toInt() and 0xffff
         val recordLength = header.getShort(10).toInt() and 0xffff
-        require(headerLength in 33..bytes.size && recordLength > 1) { "Cabecera DBF inválida para ${vehicle.folder}" }
+        require(headerLength in 33..bytes.size && recordLength > 1) { "Cabecera DBF inválida para " + vehicle.folder }
 
         val charset = Charset.forName("windows-1252")
         val fields = mutableListOf<Field>()
@@ -63,11 +63,13 @@ class RemoteDbfRepository {
         require(fields.isNotEmpty()) { "No se detectaron columnas DBF" }
         val byName = fields.associateBy { norm(it.name) }
         fun find(vararg names: String): Field? = names.firstNotNullOfOrNull { byName[norm(it)] }
-        val code = find("SERIAL", "PARTNO", "PART_NO", "PARTNUM", "PART", "ITEMNO", "ITEM", "CODE", "PN", "NUMBER", "NO")
-        val description = find("DESCRIPTION", "DESCRIPT", "PARTNAME", "NAME", "PARTDESC", "DESC", "DESCR", "ENGLISH", "ENGNAME")
-        val model = find("MODEL", "MODELCODE", "CARMODEL", "VEHICLE", "TYPE")
-        val qty = find("QUANTITY", "QTY", "COUNT", "AMOUNT", "NUM")
-        val loc = find("LOCATION", "LOC", "POSITION", "POS", "FIGURE", "SECTION", "GROUP")
+        val code = find("PARTNUMBER", "PARTNO", "PART_NO", "PARTNUM", "SERIAL", "ITEMNO", "ITEM", "CODE", "PN", "NUMBER")
+        val description = find("NAME", "DESCRIPTION", "DESCRIPT", "PARTNAME", "PARTDESC", "DESC", "DESCR", "ENGLISH", "ENGNAME")
+        val model = find("MODEL", "MODELCODE", "CARMODEL", "VEHICLE")
+        val qty = find("QUANTITY", "QTY", "COUNT", "AMOUNT")
+        val loc = find("DIRECTORY", "LOCATION", "LOC", "POSITION", "POS", "FIGURE", "SECTION", "GROUP")
+        val ref = find("NO", "N1", "SERIAL")
+        val parent = find("HYPOTAXIS", "PARENT", "PARENTNO", "PARENT_REF")
 
         val result = ArrayList<VehiclePart>(count)
         var record = headerLength
@@ -81,13 +83,17 @@ class RemoteDbfRepository {
                     row[f.name] = String(bytes.copyOfRange(fieldOffset, end), charset).trim().trim('\u0000')
                     fieldOffset += f.length
                 }
-                if (row.values.any { it.isNotBlank() }) {
-                    val serial = row.value(code).ifBlank { row.values.firstOrNull { it.isNotBlank() }.orEmpty() }
-                    val name = row.value(description).ifBlank { row.values.firstOrNull { it.isNotBlank() && it != serial }.orEmpty() }
+                val serial = row.value(code)
+                val name = row.value(description)
+                if (serial.isNotBlank() || name.isNotBlank()) {
                     result += VehiclePart(
                         vehicleId = vehicle.id, serial = serial, name = name,
-                        model = row.value(model), stock = row.value(qty).toDoubleOrNull()?.toInt() ?: 0,
-                        location = row.value(loc), rawFields = row
+                        model = row.value(model),
+                        stock = row.value(qty).toDoubleOrNull()?.toInt() ?: 0,
+                        location = row.value(loc),
+                        diagramRef = row.value(ref),
+                        parentRef = row.value(parent),
+                        rawFields = row
                     )
                 }
             }
