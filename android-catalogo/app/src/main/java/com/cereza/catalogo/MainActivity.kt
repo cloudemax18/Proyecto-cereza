@@ -21,6 +21,8 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.DirectionsCar
 import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.GridView
 import androidx.compose.material.icons.filled.ViewList
@@ -177,6 +179,7 @@ private fun Catalog(db: PartsDb) {
     var language by remember { mutableStateOf("Español") }
     var languageMenu by remember { mutableStateOf(false) }
     var listMode by remember { mutableStateOf(false) }
+    var selectedTab by remember { mutableIntStateOf(0) }
 
     LaunchedEffect(refreshToken) {
         if (parts.isEmpty() || refreshToken > 0) {
@@ -225,7 +228,7 @@ private fun Catalog(db: PartsDb) {
                     Text(if (english) "Vehicle" else "Vehículo", color = Color.Gray, modifier = Modifier.padding(start = 16.dp, top = 8.dp))
                     vehicles.forEach { vehicle ->
                         NavigationDrawerItem(label = { Text(vehicle) }, selected = vehicle == activeVehicle,
-                            onClick = { selectedVehicle = vehicle; selectedCategory = "Todas las categorías"; search = ""; drawerOpen = false },
+                            onClick = { selectedVehicle = vehicle; selectedCategory = "Todas las categorías"; search = ""; selectedTab = 0; onlyFavorites = false; drawerOpen = false },
                             modifier = Modifier.padding(horizontal = 8.dp))
                     }
                     HorizontalDivider(Modifier.padding(vertical = 12.dp))
@@ -239,6 +242,58 @@ private fun Catalog(db: PartsDb) {
         ) {
         Scaffold(
             containerColor = canvas,
+            bottomBar = {
+                if (activeVehicle.isNotBlank() && detail == null) {
+                    NavigationBar(
+                        containerColor = Color.White,
+                        contentColor = ink,
+                        tonalElevation = 8.dp
+                    ) {
+                        NavigationBarItem(
+                            selected = selectedTab == 0,
+                            onClick = { selectedTab = 0; onlyFavorites = false },
+                            icon = { Icon(Icons.Default.Home, contentDescription = null) },
+                            label = { Text(if (english) "Catalog" else "Catálogo", maxLines = 1) },
+                            alwaysShowLabel = true,
+                            colors = NavigationBarItemDefaults.colors(
+                                selectedIconColor = Color.White,
+                                selectedTextColor = red,
+                                indicatorColor = red,
+                                unselectedIconColor = Color(0xFF7B8492),
+                                unselectedTextColor = Color(0xFF7B8492)
+                            )
+                        )
+                        NavigationBarItem(
+                            selected = selectedTab == 1,
+                            onClick = { selectedTab = 1; onlyFavorites = true },
+                            icon = { Icon(Icons.Default.Favorite, contentDescription = null) },
+                            label = { Text(if (english) "Favorites" else "Favoritos", maxLines = 1) },
+                            alwaysShowLabel = true,
+                            colors = NavigationBarItemDefaults.colors(
+                                selectedIconColor = Color.White,
+                                selectedTextColor = red,
+                                indicatorColor = red,
+                                unselectedIconColor = Color(0xFF7B8492),
+                                unselectedTextColor = Color(0xFF7B8492)
+                            )
+                        )
+                        NavigationBarItem(
+                            selected = false,
+                            onClick = { drawerOpen = true },
+                            icon = { Icon(Icons.Default.DirectionsCar, contentDescription = null) },
+                            label = { Text(if (english) "Vehicle" else "Vehículo", maxLines = 1) },
+                            alwaysShowLabel = true,
+                            colors = NavigationBarItemDefaults.colors(
+                                selectedIconColor = Color.White,
+                                selectedTextColor = red,
+                                indicatorColor = red,
+                                unselectedIconColor = Color(0xFF7B8492),
+                                unselectedTextColor = Color(0xFF7B8492)
+                            )
+                        )
+                    }
+                }
+            },
             topBar = {
                 TopAppBar(colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.White, titleContentColor = ink, navigationIconContentColor = ink, actionIconContentColor = ink), title = {
                     Column {
@@ -313,8 +368,8 @@ private fun Catalog(db: PartsDb) {
                         }
                     }
                     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        FilterChip(selected = !onlyFavorites, onClick = { onlyFavorites = false }, label = { Text(if (english) "All" else "Todos") })
-                        FilterChip(selected = onlyFavorites, onClick = { onlyFavorites = true }, label = {
+                        FilterChip(selected = !onlyFavorites, onClick = { onlyFavorites = false; selectedTab = 0 }, label = { Text(if (english) "All" else "Todos") })
+                        FilterChip(selected = onlyFavorites, onClick = { onlyFavorites = true; selectedTab = 1 }, label = {
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Icon(Icons.Default.Favorite, null, modifier = Modifier.size(15.dp))
                                 Spacer(Modifier.width(4.dp)); Text(if (english) "Favorites" else "Favoritos")
