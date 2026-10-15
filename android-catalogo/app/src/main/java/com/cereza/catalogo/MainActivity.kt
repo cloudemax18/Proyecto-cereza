@@ -37,14 +37,14 @@ import kotlinx.coroutines.withContext
 import java.net.URL
 
 private const val RAW = "https://raw.githubusercontent.com/cloudemax18/Proyecto-cereza/main/v1%20web/importar/"
-private val CATALOG_SOURCES = listOf("chery_s12.csv", "chery_arauca_13.csv")
+private val CATALOG_SOURCES = listOf("chery_s12.csv")
 
 private data class Part(
     val code: String, val name: String, val qty: Int, val note: String,
     val node: String, val photos: Int, val vehicle: String, val category: String,
     val parentCode: String, val unit: String, val price: Double
 ) {
-    val favoriteKey: String get() = "$vehicle::$code"
+    val favoriteKey: String get() = "$vehicle::$code::$parentCode::$node"
 }
 
 private fun csvLine(s: String): List<String> {
@@ -66,17 +66,17 @@ private fun csvLine(s: String): List<String> {
 }
 
 private class PartsDb(context: android.content.Context) :
-    SQLiteOpenHelper(context, "cereza_catalogo.db", null, 1) {
+    SQLiteOpenHelper(context, "cereza_catalogo.db", null, 2) {
     override fun onCreate(db: SQLiteDatabase) {
         db.execSQL("""CREATE TABLE parts(
             code TEXT NOT NULL, name TEXT NOT NULL, qty INTEGER NOT NULL DEFAULT 0,
             note TEXT, node TEXT, photos INTEGER NOT NULL DEFAULT 0, vehicle TEXT NOT NULL,
             category TEXT NOT NULL, parentCode TEXT, unit TEXT, price REAL NOT NULL DEFAULT 0,
-            PRIMARY KEY(code, vehicle))""".trimIndent())
+            PRIMARY KEY(code, vehicle, parentCode, node))""".trimIndent())
         db.execSQL("CREATE TABLE fav(partKey TEXT PRIMARY KEY)")
         db.execSQL("CREATE INDEX idx_parts_vehicle_category ON parts(vehicle, category)")
     }
-    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) = Unit
+    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {\n        if (oldVersion < 2) {\n            db.execSQL("DROP TABLE IF EXISTS parts")\n            db.execSQL("""CREATE TABLE parts(\n                code TEXT NOT NULL, name TEXT NOT NULL, qty INTEGER NOT NULL DEFAULT 0,\n                note TEXT, node TEXT, photos INTEGER NOT NULL DEFAULT 0, vehicle TEXT NOT NULL,\n                category TEXT NOT NULL, parentCode TEXT, unit TEXT, price REAL NOT NULL DEFAULT 0,\n                PRIMARY KEY(code, vehicle, parentCode, node))""".trimIndent())\n            db.execSQL("CREATE INDEX idx_parts_vehicle_category ON parts(vehicle, category)")\n        }\n    }
 
     fun all(): List<Part> {
         val result = mutableListOf<Part>()
