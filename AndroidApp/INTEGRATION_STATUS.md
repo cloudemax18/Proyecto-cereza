@@ -1,14 +1,13 @@
 # Estado de integración
 
-- [x] Definir IDs separados para S12, M11 y S21.
-- [x] Añadir la función de filtrado para que la búsqueda opere solo sobre el vehículo elegido.
-- [x] Añadir textos de interfaz en español, inglés y ruso.
-- [x] Definir las rutas esperadas de cada carpeta y sus ilustraciones.
-- [ ] Verificar el nombre exacto del DBF de piezas dentro de `m11/`.
-- [ ] Verificar el nombre exacto del DBF de piezas dentro de `S21-Sep08/`.
-- [ ] Importar registros reales de los tres DBF y asignar el ID del vehículo según la carpeta de origen.
-- [ ] Conectar selector, búsqueda y pantallas de catálogo en la app completa.
-- [ ] Validar el formato de las ilustraciones en Android; archivos con extensión `.mjs` pueden contener SWF y no ser imágenes web estándar.
+- [x] Confirmar los DBF reales: `S12-Sep08/DData/chery.dbf`, `M11/DData/chery.dbf` y `S21-Sep08/DData/chery.dbf`.
+- [x] Confirmar las carpetas de ilustraciones: `Pictures/` (con mayúscula).
+- [x] Añadir un lector Kotlin que descarga el DBF real por HTTPS y conserva sus columnas.
+- [x] Etiquetar los registros con el vehículo de su carpeta y filtrar el catálogo por selección.
+- [x] Añadir textos en español, inglés y ruso.
+- [ ] Confirmar nombres de columnas y ajustar campos visibles de código, descripción, cantidad y ubicación.
+- [ ] Conectar `RemoteDbfRepository.loadParts()` a la pantalla principal y gestionar carga, errores y falta de Internet.
+- [ ] Validar las ilustraciones; algunos archivos `.mjs` pueden ser SWF/Flash.
 - [ ] Compilar y probar en Android Studio.
 
-La estructura de este PR es una base de integración, no una APK lista para instalar. No modifica ni elimina los archivos originales del repositorio.
+Solo se leen los archivos `chery.dbf`, no tablas de cuentas/usuarios. La descarga requiere Internet; para modo sin conexión se necesita caché local.
