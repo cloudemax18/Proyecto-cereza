@@ -1,26 +1,26 @@
 # Chery SPMS Android — catálogo multimodelo
 
-Proyecto Android Studio con Jetpack Compose para consultar el catálogo de repuestos de tres vehículos desde los DBF publicados en este repositorio.
+Aplicación Android con Jetpack Compose para consultar el catálogo DBF y abrir los diagramas de repuestos de los modelos S12, M11 y S21.
 
-## Abrir
-Abre la carpeta `AndroidApp/` con Android Studio reciente, con JDK 17 y Android SDK Platform 35. Sincroniza Gradle y ejecuta el módulo `app` en un dispositivo o emulador con Android 8.0 (API 26) o superior.
+## Abrir y compilar
+Abre la carpeta `AndroidApp/` en Android Studio reciente, con JDK 17 y Android SDK Platform 35. Sincroniza Gradle y ejecuta el módulo `app` en un dispositivo o emulador Android 8.0 (API 26) o superior.
 
-## Modelos y archivos fuente
-- S12-Sep08: `S12-Sep08/DData/chery.dbf`; ilustraciones en `S12-Sep08/pictures/`.
-- M11: `M11/DData/chery.dbf`; ilustraciones en `M11/Pictures/`.
-- S21-Sep08: `S21-Sep08/DData/chery.dbf`; ilustraciones en `S21-Sep08/Pictures/`.
+## Fuentes por modelo
+- S12-Sep08: `S12-Sep08/DData/chery.dbf`; dibujos en `S12-Sep08/pictures/`.
+- M11: `M11/DData/chery.dbf`; dibujos en `M11/Pictures/`.
+- S21-Sep08: `S21-Sep08/DData/chery.dbf`; dibujos en `S21-Sep08/Pictures/`.
 
-La aplicación descarga el DBF del modelo seleccionado desde la rama `main` usando HTTPS. Se necesita conexión a Internet. No se importan `account.dbf` ni `FOXUSER.DBF`.
+La aplicación descarga el DBF y el dibujo seleccionado desde la rama `main` por HTTPS. Se necesita conexión a Internet. No se importan `account.dbf` ni `FOXUSER.DBF`.
 
-## Uso
-1. Elige el vehículo en la lista superior.
-2. La app descarga el DBF de ese vehículo y etiqueta cada registro con el ID de su carpeta.
-3. Busca por código, nombre o cualquiera de los campos originales.
-4. Cambia la interfaz entre Español, English y Русский; la preferencia de idioma y vehículo se conserva localmente.
+## Funciones
+1. Selecciona un vehículo y busca por código, nombre, referencia o campos DBF.
+2. Toca una pieza para abrir su dibujo asociado.
+3. Los dibujos originales son archivos SWF/Flash guardados con extensión `.mjs`. Se muestran mediante Ruffle en un WebView; Ruffle se carga desde un CDN, por lo que el dispositivo necesita Internet para mostrar los diagramas.
+4. Cambia entre Español, English y Русский. La preferencia de idioma y vehículo se guarda localmente.
+5. Los campos originales del DBF se pueden expandir en el detalle de la pieza.
 
-## Limitaciones conocidas
-- La lectura DBF conserva todos los campos, pero los alias de código, descripción, cantidad y ubicación son heurísticos. Hasta validar los nombres de columnas contra los tres DBF, algunos datos podrían mostrarse como campos genéricos. El valor llamado cantidad es el valor del campo DBF detectado, no una garantía de inventario físico.
-- Esta pantalla conecta los catálogos DBF. El visor de diagramas aún requiere integración y prueba por modelo. Parte de las ilustraciones puede estar almacenada como SWF/Flash con extensión `.mjs`, formato que Android WebView no muestra de forma nativa.
-- No se ha generado ni validado un APK en este entorno. Compila y prueba en Android Studio antes de distribuir.
-
-Los archivos de datos originales del repositorio no se modifican.
+## Notas sobre los datos
+- El índice `app/src/main/assets/diagram-index.json` relaciona los códigos normalizados de las piezas con los nombres reales de los dibujos por modelo.
+- Los campos DBF identificados incluyen `PARTNUMBER` (código), `NAME` (descripción), `DIRECTORY` (ruta/categoría), `QUANTITY` (cantidad del catálogo) y `NO`/`N1` (referencia de la ilustración, según el modelo).
+- `QUANTITY` refleja el valor almacenado en el DBF; no garantiza inventario físico disponible.
+- Los archivos de datos originales no se modifican. Si una pieza no tiene un archivo asociado, la app muestra un aviso en lugar de un recuadro de imagen vacío.
