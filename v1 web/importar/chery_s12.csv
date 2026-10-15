@@ -1,22 +1,22 @@
 code,name,qty,note,node,photos,vehicle,category,parentCode,unit,price
 Chery,Chery S12 — Arauca 1.3,0,Precio mayorista: 0 | Grupo o referencia,sqr7160,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,Vehículo,,,0
-S12-FDJ,motor,0,Grupo o referencia,vehículo Chery s12,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,Vehículo,Chery,,0
-S12-FDJFJ,accesorios del motor,0,Grupo o referencia,vehículo Chery s12,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,Vehículo,Chery,,0
-S12-BSXZC,transmisión,0,Grupo o referencia,vehículo Chery s12,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,Vehículo,Chery,,0
-S12-CSZSJ,accesorios de carrocería,0,Grupo o referencia,vehículo Chery s12,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,Vehículo,Chery,,0
-S12-DQ,sistema eléctrico,0,Grupo o referencia,vehículo Chery s12,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,Vehículo,Chery,,0
-S12-DP,chasis,0,Grupo o referencia,vehículo Chery s12,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,Vehículo,Chery,,0
-S12-BCS,carrocería,0,Grupo o referencia,vehículo Chery s12,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,Vehículo,Chery,,0
-S12-KT,sistema de aire acondicionado,0,Grupo o referencia,vehículo Chery s12,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,Vehículo,Chery,,0
-S12BSXZC-BSX,transmisión,0,Grupo o referencia,vehículo Chery s12,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,Vehículo,S12-BSXZC,,0
+S12-FDJ,motor,0,Grupo o referencia,vehículo Chery s12,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,motor,Chery,,0
+S12-FDJFJ,accesorios del motor,0,Grupo o referencia,vehículo Chery s12,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,accesorios del motor,Chery,,0
+S12-BSXZC,transmisión,0,Grupo o referencia,vehículo Chery s12,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,Chery,,0
+S12-CSZSJ,accesorios de carrocería,0,Grupo o referencia,vehículo Chery s12,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,accesorios de carrocería,Chery,,0
+S12-DQ,sistema eléctrico,0,Grupo o referencia,vehículo Chery s12,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,sistema eléctrico,Chery,,0
+S12-DP,chasis,0,Grupo o referencia,vehículo Chery s12,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,chasis,Chery,,0
+S12-BCS,carrocería,0,Grupo o referencia,vehículo Chery s12,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,carrocería,Chery,,0
+S12-KT,sistema de aire acondicionado,0,Grupo o referencia,vehículo Chery s12,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,sistema de aire acondicionado,Chery,,0
+S12BSXZC-BSX,transmisión,0,Grupo o referencia,vehículo Chery s12,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12-BSXZC,,0
 S12BSX-CSQ,conjunto del diferencial,1,Grupo o referencia,s12\transmisión,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSXZC-BSX,,0
-QR519MHA-1701703,delantero y trasero rodamiento-diferencial,1,Repuesto,s12\transmisión\diferencial,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-CSQ,,0
-QR513MHA-1701506AC,arandela-sd engranaje,1,Repuesto,s12\transmisión\diferencial,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-CSQ,,0
-QR513MHA-1701506,arandela-sd engranaje,1,Repuesto,s12\transmisión\diferencial,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-CSQ,,0
-QR513MHA-1701506AB,arandela-sd engranaje,1,Repuesto,s12\transmisión\diferencial,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-CSQ,,0
-QR513MHA-1701506AD,arandela-sd engranaje,1,Repuesto,s12\transmisión\diferencial,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-CSQ,,0
-QR513MHA-1701506AE,arandela-sd engranaje,1,Repuesto,s12\transmisión\diferencial,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-CSQ,,0
-QR513MHA-1701506AA,arandela-sd engranaje,1,Repuesto,s12\transmisión\diferencial,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-CSQ,,0
+QR519MHA-1701703,rodamiento delantero y trasero del diferencial,1,Repuesto,s12\transmisión\diferencial,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-CSQ,,0
+QR513MHA-1701506AC,arandela del engranaje satélite,1,Repuesto,s12\transmisión\diferencial,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-CSQ,,0
+QR513MHA-1701506,arandela del engranaje satélite,1,Repuesto,s12\transmisión\diferencial,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-CSQ,,0
+QR513MHA-1701506AB,arandela del engranaje satélite,1,Repuesto,s12\transmisión\diferencial,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-CSQ,,0
+QR513MHA-1701506AD,arandela del engranaje satélite,1,Repuesto,s12\transmisión\diferencial,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-CSQ,,0
+QR513MHA-1701506AE,arandela del engranaje satélite,1,Repuesto,s12\transmisión\diferencial,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-CSQ,,0
+QR513MHA-1701506AA,arandela del engranaje satélite,1,Repuesto,s12\transmisión\diferencial,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-CSQ,,0
 QR513MHA-1701503,sd engranaje,1,Repuesto,s12\transmisión\diferencial,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-CSQ,,0
 QR523-1701713,pasador- eje planetario engranaje,1,Repuesto,s12\transmisión\diferencial,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-CSQ,,0
 QR513MHA-1701502,carcasa del diferencial,1,Repuesto,s12\transmisión\diferencial,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-CSQ,,0
@@ -161,7 +161,7 @@ QR513MHA-1701353AG,arandela -entrada eje trasero cojinete,1,Repuesto,s12\transmi
 QR513MHA-1701353AH,arandela -entrada eje trasero cojinete,1,Repuesto,s12\transmisión\eje-entrada\arandela -entrada eje trasero bea,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,SRZ-HZCDP,,0
 513MHA-1701306,acero rótula,1,Repuesto,s12\transmisión\eje-entrada\arandela -entrada eje trasero bea,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-SRZ,,0
 513MHA-1701326,bastidor-bloque,1,Repuesto,s12\transmisión\eje-entrada\arandela -entrada eje trasero bea,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-SRZ,,0
-S12BSX-XHDJG,gearshift mecanismo,1,Grupo o referencia,s12\transmisión,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSXZC-BSX,,0
+S12BSX-XHDJG,engranajeshift mecanismo,1,Grupo o referencia,s12\transmisión,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSXZC-BSX,,0
 QR519MHA-1702560,retorno resorte,1,Repuesto,s12\transmisión\gearshift mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-XHDJG,,0
 Q43612,anillo,1,Repuesto,s12\transmisión\gearshift mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-XHDJG,,0
 QR519MHA-1702515,bloque-reversa interruptor,1,Repuesto,s12\transmisión\gearshift mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-XHDJG,,0
@@ -174,27 +174,27 @@ QR519MHA-1702570,engranaje shfit brazo y soporte,1,Repuesto,s12\transmisión\gea
 513MHB-1702440,engranaje shfit brazo y soporte,1,Repuesto,s12\transmisión\gearshift mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-XHDJG,,0
 513MHB-1702430,engranaje shfit brazo y soporte,1,Repuesto,s12\transmisión\gearshift mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-XHDJG,,0
 QR513MHA-1702440,engranaje shfit brazo y soporte,1,Repuesto,s12\transmisión\gearshift mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-XHDJG,,0
-XHDJG-HDBZC,brazo conjunto-gearshift,0,Grupo o referencia,s12\transmisión\gearshift mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-XHDJG,,0
+XHDJG-HDBZC,brazo conjunto-engranajeshift,0,Grupo o referencia,s12\transmisión\gearshift mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-XHDJG,,0
 QR519MHA-1702540,engranaje cambio brazo conjunto,1,Repuesto,s12\transmisión\gearshift mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,XHDJG-HDBZC,,0
 QR513MHA-1702410,engranaje cambio brazo conjunto,1,Repuesto,s12\transmisión\gearshift mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,XHDJG-HDBZC,,0
 Q5280522,resorte pasador,1,Repuesto,s12\transmisión\gearshift mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-XHDJG,,0
-QR523-1702425,pasador-arm gearshift,1,Repuesto,s12\transmisión\gearshift mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-XHDJG,,0
+QR523-1702425,pasador-arm engranajeshift,1,Repuesto,s12\transmisión\gearshift mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-XHDJG,,0
 QR519MHA-1702530,cerradura michanism conjunto-reversa engranaje,1,Repuesto,s12\transmisión\gearshift mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-XHDJG,,0
 QR519MHA-1702525,perno,1,Repuesto,s12\transmisión\gearshift mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-XHDJG,,0
 Q40308,junta,1,Repuesto,s12\transmisión\gearshift mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-XHDJG,,0
-QR523-1702403,polvo boot-gearshift aceite retén,1,Repuesto,s12\transmisión\gearshift mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-XHDJG,,0
+QR523-1702403,polvo boot-engranajeshift aceite retén,1,Repuesto,s12\transmisión\gearshift mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-XHDJG,,0
 QR519MHA-1702516,corredera almohadilla-shift selector brazo,1,Repuesto,s12\transmisión\gearshift mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-XHDJG,,0
-QR523-1702415,pasador -palanca gearshift,1,Repuesto,s12\transmisión\gearshift mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-XHDJG,,0
-QR523-1702402,oilsealshaft-gearshift,1,Repuesto,s12\transmisión\gearshift mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-XHDJG,,0
+QR523-1702415,pasador -palanca engranajeshift,1,Repuesto,s12\transmisión\gearshift mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-XHDJG,,0
+QR523-1702402,aceitereténeje-engranajeshift,1,Repuesto,s12\transmisión\gearshift mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-XHDJG,,0
 QR513MHA-1702450,soporte conjunto - select brazo,1,Repuesto,s12\transmisión\gearshift mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-XHDJG,,0
-S12BSX-HDBC,horquilla - gearshift,1,Grupo o referencia,s12\transmisión,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSXZC-BSX,,0
-513MHA-1702200,horquilla conjunto-gearshift 3 y 4,1,Repuesto,s12\transmisión\horquilla - gearshift,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-HDBC,,0
+S12BSX-HDBC,horquilla - engranajeshift,1,Grupo o referencia,s12\transmisión,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSXZC-BSX,,0
+513MHA-1702200,horquilla conjunto-engranajeshift 3 y 4,1,Repuesto,s12\transmisión\horquilla - gearshift,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-HDBC,,0
 Q43612,anillo,1,Repuesto,s12\transmisión\horquilla - gearshift,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-HDBC,,0
 QR513MHA-1702301,horquilla-5 velocidad,1,Repuesto,s12\transmisión\horquilla - gearshift,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-HDBC,,0
 513MHA-1702310,soporte-shift 5 y reversa,1,Repuesto,s12\transmisión\horquilla - gearshift,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-HDBC,,0
 QR513MHA-1702304,reversa engranaje pasador,1,Repuesto,s12\transmisión\horquilla - gearshift,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-HDBC,,0
 QR519MHA-1702550,retorno resorte,1,Repuesto,s12\transmisión\horquilla - gearshift,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-HDBC,,0
-513MHA-1702100,horquilla conjunto-gearshift 1 y 2,1,Repuesto,s12\transmisión\horquilla - gearshift,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-HDBC,,0
+513MHA-1702100,horquilla conjunto-engranajeshift 1 y 2,1,Repuesto,s12\transmisión\horquilla - gearshift,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-HDBC,,0
 QR513MHA-1702305,interlocking pasador,1,Repuesto,s12\transmisión\horquilla - gearshift,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-HDBC,,0
 Q1840820T1F2,perno - brida,1,Repuesto,s12\transmisión\horquilla - gearshift,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-HDBC,,0
 Q5210510,posición pasador,1,Repuesto,s12\transmisión\horquilla - gearshift,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,transmisión,S12BSX-HDBC,,0
@@ -239,7 +239,7 @@ S12-3708111BA,acero manguito,0,Repuesto,s12\motor\473\motor arranque,0,Chery S12
 481H-1007018,válvula bloque,16,Repuesto,s12\motor\473\cilindro culata,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,motor,473-GG,,0
 473H-1003022,asiento arandela-escape válvula,16,Repuesto,s12\motor\473\cilindro culata,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,motor,473-GG,,0
 473H-1007012BA,válvula-escape,8,Repuesto,s12\motor\473\cilindro culata,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,motor,473-GG,,0
-481H-1003031,perno-cameshaft posición aceite tubo,2,Repuesto,s12\motor\473\cilindro culata,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,motor,473-GG,,0
+481H-1003031,perno-cameeje posición aceite tubo,2,Repuesto,s12\motor\473\cilindro culata,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,motor,473-GG,,0
 481H-1003033,arandela-cilindro tapa perno,10,Repuesto,s12\motor\473\cilindro culata,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,motor,473-GG,,0
 481H-1003082,cilindro culata perno-m10x1.5,10,Repuesto,s12\motor\473\cilindro culata,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,motor,473-GG,,0
 481F-1006020,aceite retén-árbol de levas 30x50x7,1,Repuesto,s12\motor\473\cilindro culata,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,motor,473-GG,,0
@@ -326,7 +326,7 @@ Q5210616,pasador 6m6x16,2,Repuesto,s12\motor\473\cilindro,0,Chery S12 (SQR7160) 
 473F-1002010,cilindro con bastidor conjunto,1,Repuesto,s12\motor\473\cilindro,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,motor,473-QGT,,0
 B11-3611031,detonación sensor,1,Repuesto,s12\motor\473\cilindro,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,motor,473-QGT,,0
 A11-3810010BB,interruptor- aceite presión,1,Repuesto,s12\motor\473\cilindro,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,motor,473-QGT,,0
-A11-3611011,sensor-cameshaft posición,1,Repuesto,s12\motor\473\cilindro,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,motor,473-QGT,,0
+A11-3611011,sensor-cameeje posición,1,Repuesto,s12\motor\473\cilindro,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,motor,473-QGT,,0
 372-1002024,bujía - bowl shape,1,Repuesto,s12\motor\473\cilindro,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,motor,473-QGT,,0
 372-1003026,bujía - bowl shape,1,Repuesto,s12\motor\473\cilindro,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,motor,473-QGT,,0
 480-1006017,acero rótula,1,Repuesto,s12\motor\473\cilindro,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,motor,473-QGT,,0
@@ -350,9 +350,9 @@ S22-1009112,tubo - aceite varilla de nivel,1,Repuesto,s12\motor\473\cilindro,0,C
 Q5500516,semicircular llave,1,Repuesto,s12\motor\473\cigüeñal y conexión biela mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,motor,473-QZLGJG,,0
 473H-1005011,cigüeñal conjunto,1,Repuesto,s12\motor\473\cigüeñal y conexión biela mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,motor,473-QZLGJG,,0
 473H-1005030,aceite retén trasero-cigüeñal 75x95x10,1,Repuesto,s12\motor\473\cigüeñal y conexión biela mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,motor,473-QZLGJG,,0
-473H-1005121,perno-flywheel-m8x1x25,8,Repuesto,s12\motor\473\cigüeñal y conexión biela mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,motor,473-QZLGJG,,0
+473H-1005121,perno-flyrueda-m8x1x25,8,Repuesto,s12\motor\473\cigüeñal y conexión biela mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,motor,473-QZLGJG,,0
 473H-1005114,señal rueda-sensor cigüeñal,1,Repuesto,s12\motor\473\cigüeñal y conexión biela mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,motor,473-QZLGJG,,0
-473H-1005110,flywheel conjunto,1,Repuesto,s12\motor\473\cigüeñal y conexión biela mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,motor,473-QZLGJG,,0
+473H-1005110,flyrueda conjunto,1,Repuesto,s12\motor\473\cigüeñal y conexión biela mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,motor,473-QZLGJG,,0
 481H-1005051,distribución engranaje,0,Repuesto,s12\motor\473\cigüeñal y conexión biela mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,motor,473-QZLGJG,,0
 QZLGJG-CDP,conducido disk conjunto,1,Grupo o referencia,s12\motor\473\cigüeñal y conexión biela mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,motor,473-QZLGJG,,0
 S21-1601030BA,conducido disk conjunto,1,Repuesto,s12\motor\473\cigüeñal y conexión biela mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,motor,QZLGJG-CDP,,0
@@ -441,12 +441,12 @@ S12-8403102-DY,guardabarros conjunto-delantero derecho,1,Repuesto,s12\desnudo ca
 S12-8403530-DY,soporte conjunto-guardabarros,1,Repuesto,s12\desnudo carrocería\guardabarros,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12BCS-YZB,,0
 S12-8403101-DY,guardabarros conjunto-delantero izquierdo,1,Repuesto,s12\desnudo carrocería\guardabarros,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12BCS-YZB,,0
 S12BCS-BCSZC,desnudo carrocería conjunto,0,Grupo o referencia,s12\desnudo carrocería,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12-BCS,,0
-S12-5000010-DY,desnudo carrocería conjunto,1,Repuesto,s12\desnudo carrocería \s12\desnudo carrocería conjunto,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12BCS-BCSZC,,0
-S12-5010010-DY,bastidor conjunto-desnudo carrocería,1,Repuesto,s12\desnudo carrocería \s12\desnudo carrocería conjunto,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12BCS-BCSZC,,0
+S12-5000010-DY,desnudo carrocería conjunto,1,Repuesto,s12\desnudo carrocería \s12\desnudo carrocería conjunto,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería ,S12BCS-BCSZC,,0
+S12-5010010-DY,bastidor conjunto-desnudo carrocería,1,Repuesto,s12\desnudo carrocería \s12\desnudo carrocería conjunto,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería ,S12BCS-BCSZC,,0
 S12BCS-CW,lateral panel,0,Grupo o referencia,s12\desnudo carrocería,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12-BCS,,0
-S12-5400010-DY,lateral panel conjunto izquierdo,1,Repuesto,s12\desnudo carrocería \lateral panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12BCS-CW,,0
-S12-5400020-DY,lateral panel conjunto derecho,1,Repuesto,s12\desnudo carrocería \lateral panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12BCS-CW,,0
-S12-5401510-DY,tapa-fueltank,1,Repuesto,s12\desnudo carrocería \lateral panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12BCS-CW,,0
+S12-5400010-DY,lateral panel conjunto izquierdo,1,Repuesto,s12\desnudo carrocería \lateral panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería ,S12BCS-CW,,0
+S12-5400020-DY,lateral panel conjunto derecho,1,Repuesto,s12\desnudo carrocería \lateral panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería ,S12BCS-CW,,0
+S12-5401510-DY,tapa-fueltank,1,Repuesto,s12\desnudo carrocería \lateral panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería ,S12BCS-CW,,0
 S12BCS-HL,beam-upr transversal,0,Grupo o referencia,s12\desnudo carrocería,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12-BCS,,0
 S12-8403020-DY,rueda cubierta miembro conjunto-delantero derecho,1,Repuesto,s12\desnudo carrocería\viga,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12BCS-HL,,0
 S12-5301520-DY,transversal viga conjunto-delantero derecho culata lámpara,1,Repuesto,s12\desnudo carrocería\viga,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12BCS-HL,,0
@@ -470,26 +470,26 @@ S12-8403520-DY,instalation bastidor-derecho faro,0,Repuesto,s12\desnudo carrocer
 S12-8403510-DY,instalation bastidor-izquierdo faro,0,Repuesto,s12\desnudo carrocería\viga,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12BCS-HL,,0
 S12-8403340-DY,soporte panel-delantero derecho rueda cubierta,1,Repuesto,s12\desnudo carrocería\viga,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12BCS-HL,,0
 S12BCS-JQB,refuerzo panel,0,Grupo o referencia,s12\desnudo carrocería,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12-BCS,,0
-S12-5400080-DY,refuerzo panel-techo viga derecho,1,Repuesto,s12\desnudo carrocería \refuerzo panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12BCS-JQB,,0
-S12-5400720-DY,refuerzo panel-doorsill derecho,1,Repuesto,s12\desnudo carrocería \refuerzo panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12BCS-JQB,,0
-S12-5100010-DY,piso conjunto delantero,1,Repuesto,s12\desnudo carrocería \refuerzo panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12BCS-JQB,,0
-S12-5400070-DY,refuerzo panel-techo viga izquierdo,1,Repuesto,s12\desnudo carrocería \refuerzo panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12BCS-JQB,,0
-S12-5101070-DY,piso carrocería conjunto trasero electrophoresis,0,Repuesto,s12\desnudo carrocería \refuerzo panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12BCS-JQB,,0
-S12-5100310-DY,panel-doorsill izquierdo interior,0,Repuesto,s12\desnudo carrocería \refuerzo panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12BCS-JQB,,0
-S12-5400710-DY,refuerzo panel-doorsill izquierdo,1,Repuesto,s12\desnudo carrocería \refuerzo panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12BCS-JQB,,0
-S12-2804570-DY,trasero parachoques cojín viga - dy,1,Repuesto,s12\desnudo carrocería \refuerzo panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12BCS-JQB,,0
-S12-5301700-DY,izquierdo delantero pilar conjunto,0,Repuesto,s12\desnudo carrocería \refuerzo panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12BCS-JQB,,0
-S12-5301800-DY,derecho delantero pilar conjunto,0,Repuesto,s12\desnudo carrocería \refuerzo panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12BCS-JQB,,0
-S12-5301200CA-DY,viga conjunto - delantero baffle exterior,1,Repuesto,s12\desnudo carrocería \refuerzo panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12BCS-JQB,,0
+S12-5400080-DY,refuerzo panel-techo viga derecho,1,Repuesto,s12\desnudo carrocería \refuerzo panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería ,S12BCS-JQB,,0
+S12-5400720-DY,refuerzo panel-doorsill derecho,1,Repuesto,s12\desnudo carrocería \refuerzo panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería ,S12BCS-JQB,,0
+S12-5100010-DY,piso conjunto delantero,1,Repuesto,s12\desnudo carrocería \refuerzo panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería ,S12BCS-JQB,,0
+S12-5400070-DY,refuerzo panel-techo viga izquierdo,1,Repuesto,s12\desnudo carrocería \refuerzo panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería ,S12BCS-JQB,,0
+S12-5101070-DY,piso carrocería conjunto trasero electrophoresis,0,Repuesto,s12\desnudo carrocería \refuerzo panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería ,S12BCS-JQB,,0
+S12-5100310-DY,panel-doorsill izquierdo interior,0,Repuesto,s12\desnudo carrocería \refuerzo panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería ,S12BCS-JQB,,0
+S12-5400710-DY,refuerzo panel-doorsill izquierdo,1,Repuesto,s12\desnudo carrocería \refuerzo panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería ,S12BCS-JQB,,0
+S12-2804570-DY,trasero parachoques cojín viga - dy,1,Repuesto,s12\desnudo carrocería \refuerzo panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería ,S12BCS-JQB,,0
+S12-5301700-DY,izquierdo delantero pilar conjunto,0,Repuesto,s12\desnudo carrocería \refuerzo panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería ,S12BCS-JQB,,0
+S12-5301800-DY,derecho delantero pilar conjunto,0,Repuesto,s12\desnudo carrocería \refuerzo panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería ,S12BCS-JQB,,0
+S12-5301200CA-DY,viga conjunto - delantero baffle exterior,1,Repuesto,s12\desnudo carrocería \refuerzo panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería ,S12BCS-JQB,,0
 S12BCS-LZ,pilar,0,Grupo o referencia,s12\desnudo carrocería,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12-BCS,,0
-S12-5400700-DY,panel-a pilar izquierdo interior upr,1,Repuesto,s12\desnudo carrocería \pilar,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12BCS-LZ,,0
-S12-5400750-DY,refuerzo panel-a pilar izquierdo,1,Repuesto,s12\desnudo carrocería \pilar,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12BCS-LZ,,0
-S12-5400500-DY,refuerzo panel-b pilar izquierdo,1,Repuesto,s12\desnudo carrocería \pilar,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12BCS-LZ,,0
-S12-8404500-DY,refuerzo panel-c pilar izquierdo,1,Repuesto,s12\desnudo carrocería \pilar,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12BCS-LZ,,0
-S12-5400800-DY,panel-a pilar derecho interior upr,1,Repuesto,s12\desnudo carrocería \pilar,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12BCS-LZ,,0
-S12-5400760-DY,refuerzo panel-a pilar derecho,1,Repuesto,s12\desnudo carrocería \pilar,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12BCS-LZ,,0
-S12-5400600-DY,refuerzo panel-b pilar derecho,1,Repuesto,s12\desnudo carrocería \pilar,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12BCS-LZ,,0
-S12-8404600-DY,refuerzo panel-c pilar derecho,1,Repuesto,s12\desnudo carrocería \pilar,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería,S12BCS-LZ,,0
+S12-5400700-DY,panel-a pilar izquierdo interior upr,1,Repuesto,s12\desnudo carrocería \pilar,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería ,S12BCS-LZ,,0
+S12-5400750-DY,refuerzo panel-a pilar izquierdo,1,Repuesto,s12\desnudo carrocería \pilar,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería ,S12BCS-LZ,,0
+S12-5400500-DY,refuerzo panel-b pilar izquierdo,1,Repuesto,s12\desnudo carrocería \pilar,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería ,S12BCS-LZ,,0
+S12-8404500-DY,refuerzo panel-c pilar izquierdo,1,Repuesto,s12\desnudo carrocería \pilar,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería ,S12BCS-LZ,,0
+S12-5400800-DY,panel-a pilar derecho interior upr,1,Repuesto,s12\desnudo carrocería \pilar,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería ,S12BCS-LZ,,0
+S12-5400760-DY,refuerzo panel-a pilar derecho,1,Repuesto,s12\desnudo carrocería \pilar,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería ,S12BCS-LZ,,0
+S12-5400600-DY,refuerzo panel-b pilar derecho,1,Repuesto,s12\desnudo carrocería \pilar,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería ,S12BCS-LZ,,0
+S12-8404600-DY,refuerzo panel-c pilar derecho,1,Repuesto,s12\desnudo carrocería \pilar,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,desnudo carrocería ,S12BCS-LZ,,0
 S12CSZSJ-AQD,seguridad correa,0,Grupo o referencia,s12\carrocería brillo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,carrocería brillo,S12-CSZSJ,,0
 S12-8212010BD,seguridad correa conjunto - delantero asiento izquierdo,1,Repuesto,s12\carrocería brillo\seguridad correa,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,carrocería brillo,S12CSZSJ-AQD,,0
 S12-8212010,seguridad correa conjunto-delantero izquierdo,1,Repuesto,s12\carrocería brillo\seguridad correa,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,carrocería brillo,S12CSZSJ-AQD,,0
@@ -505,7 +505,7 @@ S12-8212040,seguridad correa conjunto-trasero asiento derecho,1,Repuesto,s12\car
 S12-8212100,seguro anillo,1,Repuesto,s12\carrocería brillo\seguridad correa,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,carrocería brillo,S12CSZSJ-AQD,,0
 S12-8212043,cubierta,0,Repuesto,s12\carrocería brillo\seguridad correa,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,carrocería brillo,S12CSZSJ-AQD,,0
 S12CSZSJ-BXG,parachoques,0,Grupo o referencia,s12\carrocería brillo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,carrocería brillo,S12-CSZSJ,,0
-S11-3102029,nutseat,4,Repuesto,s12\carrocería brillo\parachoques,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,carrocería brillo,S12CSZSJ-BXG,,0
+S11-3102029,tuercaseat,4,Repuesto,s12\carrocería brillo\parachoques,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,carrocería brillo,S12CSZSJ-BXG,,0
 S12-8401111,radiador parrilla carrocería,1,Repuesto,s12\carrocería brillo\parachoques,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,carrocería brillo,S12CSZSJ-BXG,,0
 S12-2803560,cojín-goma-parachoques delantero,1,Repuesto,s12\carrocería brillo\parachoques,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,carrocería brillo,S12CSZSJ-BXG,,0
 S12-2803601-DQ,parachoques carrocería conjunto,1,Repuesto,s12\carrocería brillo\parachoques,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,carrocería brillo,S12CSZSJ-BXG,,0
@@ -611,7 +611,7 @@ S12-6202451-DQ,protector - trasero sd izquierdo,1,Repuesto,s12\carrocería brill
 S12-6102451-DQ,protector - delantero sd izquierdo,1,Repuesto,s12\carrocería brillo\protector- puerta,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,carrocería brillo,S12CM-FCT,,0
 S12CSZSJ-FYBB,auxiliary tablero,0,Grupo o referencia,s12\carrocería brillo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,carrocería brillo,S12-CSZSJ,,0
 S12-5305070,transversal viga conjunto - instrumento panel,1,Repuesto,s12\carrocería brillo\auxiliary tablero,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,carrocería brillo,S12CSZSJ-FYBB,,0
-S12-5305930,gearshift cubierta conjunto,1,Repuesto,s12\carrocería brillo\auxiliary tablero,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,carrocería brillo,S12CSZSJ-FYBB,,0
+S12-5305930,engranajeshift cubierta conjunto,1,Repuesto,s12\carrocería brillo\auxiliary tablero,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,carrocería brillo,S12CSZSJ-FYBB,,0
 S12-5305940,handbreak panel conjunto,1,Repuesto,s12\carrocería brillo\auxiliary tablero,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,carrocería brillo,S12CSZSJ-FYBB,,0
 S12-5305921,auxiliary tablero carrocería,1,Repuesto,s12\carrocería brillo\auxiliary tablero,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,carrocería brillo,S12CSZSJ-FYBB,,0
 S12-5305950,ash tray conjunto-trasero,1,Repuesto,s12\carrocería brillo\auxiliary tablero,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,carrocería brillo,S12CSZSJ-FYBB,,0
@@ -677,7 +677,7 @@ Q1840616,perno,6,Repuesto,s12\carrocería brillo\rueda cubierta,0,Chery S12 (SQR
 S11-3102033,grapa,7,Repuesto,s12\carrocería brillo\rueda cubierta,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,carrocería brillo,S12CSZSJ-LZ,,0
 S11-3102023,tornillo,7,Repuesto,s12\carrocería brillo\rueda cubierta,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,carrocería brillo,S12CSZSJ-LZ,,0
 S12-3102311,guía placa,1,Repuesto,s12\carrocería brillo\rueda cubierta,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,carrocería brillo,S12CSZSJ-LZ,,0
-S11-3102029,nutseat,4,Repuesto,s12\carrocería brillo\rueda cubierta,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,carrocería brillo,S12CSZSJ-LZ,,0
+S11-3102029,tuercaseat,4,Repuesto,s12\carrocería brillo\rueda cubierta,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,carrocería brillo,S12CSZSJ-LZ,,0
 S12-3102111,moldura placa- barro gurad izquierdo,1,Repuesto,s12\carrocería brillo\rueda cubierta,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,carrocería brillo,S12CSZSJ-LZ,,0
 S12-3102113,moldura placa - trasero barro gurad izquierdo,4,Repuesto,s12\carrocería brillo\rueda cubierta,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,carrocería brillo,S12CSZSJ-LZ,,0
 S12-3102040,grapa - plástico,1,Repuesto,s12\carrocería brillo\rueda cubierta,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,carrocería brillo,S12CSZSJ-LZ,,0
@@ -900,83 +900,83 @@ S12-5300583,bujía,1,Repuesto,s12\carrocería brillo¼þ\bujía,0,Chery S12 (SQR
 S12-6105151BA,bujía,1,Repuesto,s12\carrocería brillo¼þ\bujía,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,carrocería brillo¼þ,S12CSZSJ-DJ,,0
 S12-6205152BA,bujía,1,Repuesto,s12\carrocería brillo¼þ\bujía,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,carrocería brillo¼þ,S12CSZSJ-DJ,,0
 S12-8212017,cubierta,1,Repuesto,s12\carrocería brillo¼þ\bujía,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,carrocería brillo¼þ,S12CSZSJ-DJ,,0
-S12KT-GL,pipeline-a/c,0,Grupo o referencia,s12\a/c,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12-KT,,0
+S12KT-GL,tuboline-a/c,0,Grupo o referencia,s12\a/c,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12-KT,,0
 S12-8107010,evaporador conjunto,1,Repuesto,s12\a/c,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S12-8108010,evaporador-compresor conjunto,1,Tipo: MATCH WI | Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S21-8104010,compresor conjunto-a/c,1,Tipo: MATCH WI | Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S11-8104010,compresor conjunto-a/c,1,Tipo: MATCH WI | Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S12-3412041,soporte-compresor a/c,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S12-8108050,manguera conjunto-drier a evaporador,1,Tipo: MATCH WI | Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S12-8108030,manguera conjunto-compresor a condensador,1,Tipo: MATCH WI | Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S12-8109117,soporte,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S21-8109110,aceite tanque drier conjunto,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S12-8105310,manguera conjunto-condensador a drier,1,Tipo: MATCH WI | Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S11-8105021,perno-soporte,2,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S12-8105010,condensador conjunto,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S11-8108025,junta - goma,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S11-8108045,junta - goma,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S11-8105023,cojín-goma,2,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S11-8108051,tapa - llenado,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S11-8108011,tapa - llenado,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S21-8108015,junta tórica anillo,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S11-8108015,junta tórica anillo,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S11-8108019,junta tórica anillo,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S11-8108035,junta tórica anillo,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S11-8108053,junta tórica anillo,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S11-8108055,junta tórica anillo,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S11-8112127,posición grapa - cable,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S11-8112129,posición grapa - cable,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S21-8104310,imán embrague,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S12-8104051BA,correa-a/ce compresor,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S12-8104051,correa-a/ce compresor,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S12-3701315,correa-a/ce compresor,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S12-8108027,soporte-evaporador manguera conjunto,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S12-3701120BA,calor aislante cubierta-alternador,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S12-3701120,calor aislante cubierta-alternador,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S21-8104017,polea - compresor,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S11-8104017,polea - compresor,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S11-8104021BA,soporte - compresor,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S11-8104310,imán embrague,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
-S11-8105015,cojín - goma,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-GL,,0
+S12-8108010,evaporador-compresor conjunto,1,Tipo: MATCH WI | Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S21-8104010,compresor conjunto-a/c,1,Tipo: MATCH WI | Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S11-8104010,compresor conjunto-a/c,1,Tipo: MATCH WI | Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S12-3412041,soporte-compresor a/c,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S12-8108050,manguera conjunto-drier a evaporador,1,Tipo: MATCH WI | Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S12-8108030,manguera conjunto-compresor a condensador,1,Tipo: MATCH WI | Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S12-8109117,soporte,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S21-8109110,aceite tanque drier conjunto,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S12-8105310,manguera conjunto-condensador a drier,1,Tipo: MATCH WI | Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S11-8105021,perno-soporte,2,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S12-8105010,condensador conjunto,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S11-8108025,junta - goma,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S11-8108045,junta - goma,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S11-8105023,cojín-goma,2,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S11-8108051,tapa - llenado,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S11-8108011,tapa - llenado,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S21-8108015,junta tórica anillo,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S11-8108015,junta tórica anillo,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S11-8108019,junta tórica anillo,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S11-8108035,junta tórica anillo,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S11-8108053,junta tórica anillo,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S11-8108055,junta tórica anillo,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S11-8112127,posición grapa - cable,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S11-8112129,posición grapa - cable,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S21-8104310,imán embrague,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S12-8104051BA,correa-a/ce compresor,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S12-8104051,correa-a/ce compresor,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S12-3701315,correa-a/ce compresor,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S12-8108027,soporte-evaporador manguera conjunto,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S12-3701120BA,calor aislante cubierta-alternador,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S12-3701120,calor aislante cubierta-alternador,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S21-8104017,polea - compresor,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S11-8104017,polea - compresor,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S11-8104021BA,soporte - compresor,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S11-8104310,imán embrague,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
+S11-8105015,cojín - goma,1,Repuesto,s12\a/c \pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-GL,,0
 S12KT-KZMB,control panel conjunto-aire acondicionado,0,Grupo o referencia,s12\a/c,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12-KT,,0
-S12-8112323,control cable- temperture,1,Repuesto,s12\a/c \control panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-KZMB,,0
-S12-8112010,control panel conjunto-aire acondicionado,1,Repuesto,s12\a/c \control panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-KZMB,,0
-S12-3744910,defrost interruptor conjunto-trasero windsheld vidrio,1,Repuesto,s12\a/c \control panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-KZMB,,0
-S12-8112910,interruptor - a/c,1,Repuesto,s12\a/c \control panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-KZMB,,0
-S12-8112111,interruptor-interior circulation,1,Repuesto,s12\a/c \control panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-KZMB,,0
-S12-8112112,interruptor bujía,1,Repuesto,s12\a/c \control panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-KZMB,,0
-S12-8112015,moldura board-aire acondicionado control panel,1,Repuesto,s12\a/c \control panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-KZMB,,0
-S12-8112311,temperrature y modelo botón,1,Repuesto,s12\a/c \control panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-KZMB,,0
-S12-8112710,interruptor conjunto-ventilador,1,Repuesto,s12\a/c \control panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-KZMB,,0
-S11-8112710,interruptor - viento regulater,1,Repuesto,s12\a/c \control panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-KZMB,,0
-S12-8112711,interruptor - ventilador,1,Repuesto,s12\a/c \control panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-KZMB,,0
-S12-8112523,control cable -viento,1,Repuesto,s12\a/c \control panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-KZMB,,0
-S11-8112321,mecanismo conjunto-temperatura regulation,2,Repuesto,s12\a/c \control panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-KZMB,,0
-S11-8112521,mecanismo conjunto-modelo regulation,2,Repuesto,s12\a/c \control panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-KZMB,,0
-S11-9EC8112521,mecanismo conjunto-modelo regulation,2,Repuesto,s12\a/c \control panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-KZMB,,0
-S22-8112510,modelo execute mecanismo,2,Repuesto,s12\a/c \control panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-KZMB,,0
+S12-8112323,control cable- temperture,1,Repuesto,s12\a/c \control panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-KZMB,,0
+S12-8112010,control panel conjunto-aire acondicionado,1,Repuesto,s12\a/c \control panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-KZMB,,0
+S12-3744910,defrost interruptor conjunto-trasero windsheld vidrio,1,Repuesto,s12\a/c \control panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-KZMB,,0
+S12-8112910,interruptor - a/c,1,Repuesto,s12\a/c \control panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-KZMB,,0
+S12-8112111,interruptor-interior circulation,1,Repuesto,s12\a/c \control panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-KZMB,,0
+S12-8112112,interruptor bujía,1,Repuesto,s12\a/c \control panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-KZMB,,0
+S12-8112015,moldura board-aire acondicionado control panel,1,Repuesto,s12\a/c \control panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-KZMB,,0
+S12-8112311,temperrature y modelo botón,1,Repuesto,s12\a/c \control panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-KZMB,,0
+S12-8112710,interruptor conjunto-ventilador,1,Repuesto,s12\a/c \control panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-KZMB,,0
+S11-8112710,interruptor - viento regulater,1,Repuesto,s12\a/c \control panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-KZMB,,0
+S12-8112711,interruptor - ventilador,1,Repuesto,s12\a/c \control panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-KZMB,,0
+S12-8112523,control cable -viento,1,Repuesto,s12\a/c \control panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-KZMB,,0
+S11-8112321,mecanismo conjunto-temperatura regulation,2,Repuesto,s12\a/c \control panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-KZMB,,0
+S11-8112521,mecanismo conjunto-modelo regulation,2,Repuesto,s12\a/c \control panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-KZMB,,0
+S11-9EC8112521,mecanismo conjunto-modelo regulation,2,Repuesto,s12\a/c \control panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-KZMB,,0
+S22-8112510,modelo execute mecanismo,2,Repuesto,s12\a/c \control panel,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-KZMB,,0
 S12KT-ZFQ,evaporador,0,Grupo o referencia,s12\\a/c,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12-KT,,0
-S21-8107047,alojamiento-evaporador,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-ZFQ,,0
-S12-8107025,agua tubo-salida,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-ZFQ,,0
-S11-8107031,resistor - a/c,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-ZFQ,,0
-S11-9EC8107031,resistor - a/c,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-ZFQ,,0
-S12-8107010,evaporador conjunto,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-ZFQ,,0
-S21-8107019,alojamiento-evaporador,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-ZFQ,,0
-S21-8107015,carcasa conjunto-aire entrada,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-ZFQ,,0
-S12-8107310,núcleo conjunto - radiador,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-ZFQ,,0
-S21-8107510,core-evaporador,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-ZFQ,,0
-S12-8112110,motor-interior circulation,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-ZFQ,,0
-S11-8107041,interruptor-temperatura controlador(con cable),1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-ZFQ,,0
-S21-8107130,eléctrico ventilador conjunto,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-ZFQ,,0
-S11-8107110,eléctrico ventilador conjunto,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-ZFQ,,0
-S11-8107043,viento guía tubo,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-ZFQ,,0
-S12-8107910,carcasa conjunto- aire filtro,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-ZFQ,,0
-S21-8107029,carcasa conjunto-evaporador lwr,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-ZFQ,,0
-S21-8107059,alojamiento-ventilación,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-ZFQ,,0
-S21-8107017,manguito- warm agua tubo manguito,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-ZFQ,,0
-S21-8107061,ventilación-temperatura,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-ZFQ,,0
-A11-8107013,perno,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c,S12KT-ZFQ,,0
-S12-SCGJ,reparación herramientas,1,Grupo o referencia,s12,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,Vehículo,Chery,,0
+S21-8107047,alojamiento-evaporador,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-ZFQ,,0
+S12-8107025,agua tubo-salida,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-ZFQ,,0
+S11-8107031,resistor - a/c,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-ZFQ,,0
+S11-9EC8107031,resistor - a/c,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-ZFQ,,0
+S12-8107010,evaporador conjunto,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-ZFQ,,0
+S21-8107019,alojamiento-evaporador,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-ZFQ,,0
+S21-8107015,carcasa conjunto-aire entrada,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-ZFQ,,0
+S12-8107310,núcleo conjunto - radiador,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-ZFQ,,0
+S21-8107510,core-evaporador,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-ZFQ,,0
+S12-8112110,motor-interior circulation,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-ZFQ,,0
+S11-8107041,interruptor-temperatura controlador(con cable),1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-ZFQ,,0
+S21-8107130,eléctrico ventilador conjunto,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-ZFQ,,0
+S11-8107110,eléctrico ventilador conjunto,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-ZFQ,,0
+S11-8107043,viento guía tubo,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-ZFQ,,0
+S12-8107910,carcasa conjunto- aire filtro,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-ZFQ,,0
+S21-8107029,carcasa conjunto-evaporador lwr,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-ZFQ,,0
+S21-8107059,alojamiento-ventilación,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-ZFQ,,0
+S21-8107017,manguito- warm agua tubo manguito,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-ZFQ,,0
+S21-8107061,ventilación-temperatura,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-ZFQ,,0
+A11-8107013,perno,1,Repuesto,s12\a/c \evaporador,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,a/c ,S12KT-ZFQ,,0
+S12-SCGJ,reparación herramientas,1,Grupo o referencia,s12,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,reparación herramientas,Chery,,0
 B11-3900103,wrench - rueda,1,Repuesto,s12\herramientas\reparación herramientas,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,herramientas,S12-SCGJ,,0
 B11-3900030,manija conjunto - balancín,1,Repuesto,s12\herramientas\reparación herramientas,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,herramientas,S12-SCGJ,,0
 B11-3900020,jack,1,Repuesto,s12\herramientas\reparación herramientas,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,herramientas,S12-SCGJ,,0
@@ -1090,7 +1090,7 @@ S12-1303513,tubo-aire descarga ii,1,Repuesto,s12\accesorios del motor\enfriamien
 S12-1303513CA,tubo-aire descarga ii,1,Repuesto,s12\accesorios del motor\enfriamiento sistema,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,accesorios del motor,S12FDJFJ-LQXT,,0
 S21-1308010,enfriamiento ventilador conjunto,1,Repuesto,s12\accesorios del motor\enfriamiento sistema,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,accesorios del motor,S12FDJFJ-LQXT,,0
 S21-1308010AB,enfriamiento ventilador conjunto,1,Repuesto,s12\accesorios del motor\enfriamiento sistema,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,accesorios del motor,S12FDJFJ-LQXT,,0
-S21-1303310,tubo agua inletassy,1,Repuesto,s12\accesorios del motor\enfriamiento sistema,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,accesorios del motor,S12FDJFJ-LQXT,,0
+S21-1303310,tubo agua inletconjunto,1,Repuesto,s12\accesorios del motor\enfriamiento sistema,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,accesorios del motor,S12FDJFJ-LQXT,,0
 S12-1303419,salida tubo¢ò-calefactor,1,Repuesto,s12\accesorios del motor\enfriamiento sistema,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,accesorios del motor,S12FDJFJ-LQXT,,0
 S21-1303711,tubo-interior circulation,1,Repuesto,s12\accesorios del motor\enfriamiento sistema,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,accesorios del motor,S12FDJFJ-LQXT,,0
 S21-1303511,tubo-aire descarga i,1,Repuesto,s12\accesorios del motor\enfriamiento sistema,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,accesorios del motor,S12FDJFJ-LQXT,,0
@@ -1242,7 +1242,7 @@ Q2204295,tornillo,1,Repuesto,s12\accesorios del motor\aire escape sistema,0,Cher
 Q2204819,tornillo,1,Repuesto,s12\accesorios del motor\aire escape sistema,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,accesorios del motor,S12FDJFJ-PQXT,,0
 Q2360614,perno,1,Repuesto,s12\accesorios del motor\aire escape sistema,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,accesorios del motor,S12FDJFJ-PQXT,,0
 Q2560616,tornillo,1,Repuesto,s12\accesorios del motor\aire escape sistema,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,accesorios del motor,S12FDJFJ-PQXT,,0
-Q2714295,tapping tornillo,1,Repuesto,s12\accesorios del motor\aire escape sistema,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,accesorios del motor,S12FDJFJ-PQXT,,0
+Q2714295,tappasadorg tornillo,1,Repuesto,s12\accesorios del motor\aire escape sistema,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,accesorios del motor,S12FDJFJ-PQXT,,0
 Q2734813,tornillo,1,Repuesto,s12\accesorios del motor\aire escape sistema,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,accesorios del motor,S12FDJFJ-PQXT,,0
 Q2736316,tornillo,1,Repuesto,s12\accesorios del motor\aire escape sistema,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,accesorios del motor,S12FDJFJ-PQXT,,0
 Q32008,perno,1,Repuesto,s12\accesorios del motor\aire escape sistema,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,accesorios del motor,S12FDJFJ-PQXT,,0
@@ -1285,7 +1285,7 @@ A11-3714031,bombilla,1,Repuesto,s12\sistema eléctrico\lámpara,0,Chery S12 (SQR
 A11-3717017,bombilla,1,Repuesto,s12\sistema eléctrico\lámpara,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,sistema eléctrico,S12DQ-DJZM,,0
 A11-3726013,bombilla,1,Repuesto,s12\sistema eléctrico\lámpara,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,sistema eléctrico,S12DQ-DJZM,,0
 A11-3772011,bombilla,1,Repuesto,s12\sistema eléctrico\lámpara,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,sistema eléctrico,S12DQ-DJZM,,0
-A11-3772011BA,bombilla-headlamp,1,Repuesto,s12\sistema eléctrico\lámpara,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,sistema eléctrico,S12DQ-DJZM,,0
+A11-3772011BA,bombilla-headlámpara,1,Repuesto,s12\sistema eléctrico\lámpara,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,sistema eléctrico,S12DQ-DJZM,,0
 T11-3773017,bombilla,1,Repuesto,s12\sistema eléctrico\lámpara,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,sistema eléctrico,S12DQ-DJZM,,0
 T11-3773019,reversa bombilla,1,Repuesto,s12\sistema eléctrico\lámpara,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,sistema eléctrico,S12DQ-DJZM,,0
 S12-BJ3773032,lámpara asiento - trasero trasero lámpara derecho,1,Repuesto,s12\sistema eléctrico\lámpara,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,sistema eléctrico,S12DQ-DJZM,,0
@@ -1426,7 +1426,7 @@ T11-5207311,conector tres vías-l tipo,2,Repuesto,s12\sistema eléctrico\wipper 
 T11-5207317,conector tres vías- v tipo,1,Repuesto,s12\sistema eléctrico\wipper sistema,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,sistema eléctrico,S12DQ-YGXT,,0
 S12-5207191,boquilla-trasero,1,Repuesto,s12\sistema eléctrico\wipper sistema,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,sistema eléctrico,S12DQ-YGXT,,0
 S12-5207195,válvula - one vías,1,Repuesto,s12\sistema eléctrico\wipper sistema,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,sistema eléctrico,S12DQ-YGXT,,0
-S12-5207193,pipeline,1,Repuesto,s12\sistema eléctrico\wipper sistema,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,sistema eléctrico,S12DQ-YGXT,,0
+S12-5207193,tuboline,1,Repuesto,s12\sistema eléctrico\wipper sistema,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,sistema eléctrico,S12DQ-YGXT,,0
 S12-5207137,tubo 4,1,Repuesto,s12\sistema eléctrico\wipper sistema,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,sistema eléctrico,S12DQ-YGXT,,0
 S12-5207135,tubo 3,1,Repuesto,s12\sistema eléctrico\wipper sistema,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,sistema eléctrico,S12DQ-YGXT,,0
 S12-5207133,tubo 2,1,Repuesto,s12\sistema eléctrico\wipper sistema,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,sistema eléctrico,S12DQ-YGXT,,0
@@ -1439,7 +1439,7 @@ S12-3703011,placa -batería,1,Repuesto,s12\sistema eléctrico\eléctrico,0,Chery
 S12-3703015,portador - batería,1,Repuesto,s12\sistema eléctrico\eléctrico,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,sistema eléctrico,S12DQ-DY,,0
 Q40306,arandela - resorte,1,Repuesto,s12\sistema eléctrico\eléctrico,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,sistema eléctrico,S12DQ-DY,,0
 Q2736395A,tornillo,1,Repuesto,s12\sistema eléctrico\eléctrico,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,sistema eléctrico,S12DQ-DY,,0
-Q2784816,tapping tornillo,1,Repuesto,s12\sistema eléctrico\eléctrico,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,sistema eléctrico,S12DQ-DY,,0
+Q2784816,tappasadorg tornillo,1,Repuesto,s12\sistema eléctrico\eléctrico,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,sistema eléctrico,S12DQ-DY,,0
 Q1840655,perno gb/t16674 m6x55,1,Repuesto,s12\sistema eléctrico\eléctrico,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,sistema eléctrico,S12DQ-DY,,0
 Q1410830,perno,1,Repuesto,s12\sistema eléctrico\eléctrico,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,sistema eléctrico,S12DQ-DY,,0
 Q184B1245,perno,1,Repuesto,s12\sistema eléctrico\eléctrico,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,sistema eléctrico,S12DQ-DY,,0
@@ -1605,7 +1605,7 @@ AQ184B1255,perno,1,Repuesto,s12\chasis\trasero eje,0,Chery S12 (SQR7160) 1.3L �
 S12DP-XGJG,suspensión sistema,0,Precio mayorista: S12 | Grupo o referencia,s12\chasis,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,chasis,S12-DP,,0
 S21-2901011,placa - junta,1,Repuesto,s12\chasis\suspensión sistema,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,chasis,S12DP-XGJG,,0
 S21-2901025,frenot - innerer insulating amortiguador bloque,1,Repuesto,s12\chasis\suspensión sistema,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,chasis,S12DP-XGJG,,0
-S21-2901040,bering conjunto,1,Repuesto,s12\chasis\suspensión sistema,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,chasis,S12DP-XGJG,,0
+S21-2901040,beanillo conjunto,1,Repuesto,s12\chasis\suspensión sistema,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,chasis,S12DP-XGJG,,0
 S21-2901070,stock conjunto - delantero resorte uppr,1,Repuesto,s12\chasis\suspensión sistema,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,chasis,S12DP-XGJG,,0
 S21-2901033,bloque - buffer delantero,1,Repuesto,s12\chasis\suspensión sistema,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,chasis,S12DP-XGJG,,0
 S12-2901033,bloque - buffer delantero,1,Repuesto,s12\chasis\suspensión sistema,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,chasis,S12DP-XGJG,,0
@@ -1692,7 +1692,7 @@ S11-5300025,sujetador,1,Repuesto,s12\chasis\freno mecanismo\hand freno mecanismo
 AQ60131,abrazadera - elástica,1,Repuesto,s12\chasis\freno mecanismo\hand freno mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,chasis,S12ZDJG-SZDJG,,0
 FQ1200840F3A,espárrago,1,Repuesto,s12\chasis\freno mecanismo\hand freno mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,chasis,S12ZDJG-SZDJG,,0
 S12-3510031,retén anillo,1,Repuesto,s12\chasis\freno mecanismo\hand freno mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,chasis,S12ZDJG-SZDJG,,0
-S12ZDJG-ZDGL,pipeline freno,0,Precio mayorista: S12 | Grupo o referencia,s12\chasis\freno mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,chasis,S12DP-ZDJG,,0
+S12ZDJG-ZDGL,tuboline freno,0,Precio mayorista: S12 | Grupo o referencia,s12\chasis\freno mecanismo,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,chasis,S12DP-ZDJG,,0
 S12-3510010,vacío eléctrico assist y tandem maestro cilindro,1,Repuesto,s12\chasis\freno mecanismo\freno pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,chasis,S12ZDJG-ZDGL,,0
 S12-3510010BA,vacío eléctrico assist y tandem maestro cilindro,1,Repuesto,s12\chasis\freno mecanismo\freno pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,chasis,S12ZDJG-ZDGL,,0
 S12-3550132,sensor-trasero ABS derecho,1,Repuesto,s12\chasis\freno mecanismo\freno pipeline,0,Chery S12 (SQR7160) 1.3L — Arauca 1.3,chasis,S12ZDJG-ZDGL,,0
