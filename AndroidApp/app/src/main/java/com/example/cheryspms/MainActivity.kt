@@ -132,7 +132,7 @@ private fun CatalogScreen() {
             try {
                 val loaded = repository.loadParts(vehicle)
                 parts = loaded
-                selectedPart = loaded.firstOrNull { diagramIndex.pathFor(vehicle, it.serial) != null } ?: loaded.firstOrNull()
+                selectedPart = loaded.firstOrNull { diagramIndex.pathFor(vehicle, it) != null } ?: loaded.firstOrNull()
                 rawExpanded = false
             } catch (t: Throwable) {
                 error = t.message ?: strings.error
