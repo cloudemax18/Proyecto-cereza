@@ -13,6 +13,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items as lazyItems
 import androidx.compose.foundation.gestures.rememberTransformableState
 import androidx.compose.foundation.gestures.transformable
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -357,14 +358,46 @@ private fun Catalog(db: PartsDb) {
                             }
                         }
                     }
+                    if (activeVehicle.isNotBlank()) {
+                        Row(
+                            Modifier.fillMaxWidth().clip(RoundedCornerShape(24.dp)).background(Color(0xFF172B43)).padding(18.dp),
+                            verticalAlignment = Alignment.CenterVertically,
+                            horizontalArrangement = Arrangement.spacedBy(12.dp)
+                        ) {
+                            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                                Text(if (english) "PARTS FOR YOUR VEHICLE" else "REPUESTOS PARA TU VEHÍCULO",
+                                    color = Color(0xFFB8C9DC), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
+                                Text(activeVehicle, color = Color.White, fontSize = 19.sp, fontWeight = FontWeight.Bold, maxLines = 2)
+                                Text(if (english) "\${parts.count { it.vehicle == activeVehicle }} references available" else "\${parts.count { it.vehicle == activeVehicle }} referencias disponibles",
+                                    color = Color(0xFFE0E8F1), fontSize = 12.sp)
+                            }
+                            Surface(shape = RoundedCornerShape(18.dp), color = Color(0xFF294663)) {
+                                Icon(Icons.Default.Build, contentDescription = null, tint = Color.White, modifier = Modifier.padding(14.dp).size(30.dp))
+                            }
+                        }
+                    }
                     OutlinedTextField(value = search, onValueChange = { search = it }, modifier = Modifier.fillMaxWidth(),
                         placeholder = { Text(if (english) "Search part name, code or system" else "Buscar nombre, código o sistema") },
-                        leadingIcon = { Icon(Icons.Default.Search, null, tint = red) }, singleLine = true, shape = RoundedCornerShape(20.dp), colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White, unfocusedBorderColor = Color(0xFFE1E5EB), focusedBorderColor = red))
+                        leadingIcon = { Icon(Icons.Default.Search, null, tint = red) }, singleLine = true, shape = RoundedCornerShape(18.dp),
+                        colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White, unfocusedBorderColor = Color(0xFFE1E5EB), focusedBorderColor = red))
                     if (activeVehicle.isNotBlank()) {
-                        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-                            Text(if (english) "System" else "Sistema", color = Color.Gray, fontSize = 12.sp)
-                            Spacer(Modifier.width(8.dp))
-                            Box(Modifier.weight(1f)) { DropdownField(if (english) "Category / system" else "Categoría / sistema", selectedCategory, categoryOptions) { selectedCategory = it } }
+                        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                            Text(if (english) "Browse by system" else "Explorar por sistema", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = ink)
+                            Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                                categoryOptions.forEach { category ->
+                                    FilterChip(
+                                        selected = selectedCategory == category,
+                                        onClick = { selectedCategory = category },
+                                        label = { Text(if (category == "Todas las categorías") { if (english) "All systems" else "Todos" } else category, maxLines = 1) },
+                                        shape = RoundedCornerShape(14.dp),
+                                        colors = FilterChipDefaults.filterChipColors(
+                                            selectedContainerColor = Color(0xFF203D5B),
+                                            selectedLabelColor = Color.White,
+                                            containerColor = Color.White
+                                        )
+                                    )
+                                }
+                            }
                         }
                     }
                     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -416,12 +449,12 @@ private fun Catalog(db: PartsDb) {
                             LazyVerticalGrid(columns = GridCells.Fixed(2), contentPadding = PaddingValues(bottom = 24.dp, top = 2.dp),
                                 horizontalArrangement = Arrangement.spacedBy(12.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                                 items(shown, key = { it.favoriteKey }) { p ->
-                                    Card(Modifier.fillMaxWidth().clickable { detail = p }, shape = RoundedCornerShape(18.dp),
-                                        colors = CardDefaults.cardColors(containerColor = Color.White),
-                                        elevation = CardDefaults.cardElevation(defaultElevation = 1.dp)) {
+                                    Card(Modifier.fillMaxWidth().clickable { detail = p }, shape = RoundedCornerShape(22.dp),
+                                        colors = CardDefaults.cardColors(containerColor = Color(0xFFFCFDFE)),
+                                        elevation = CardDefaults.cardElevation(defaultElevation = 3.dp)) {
                                         Box {
                                             PartPhoto(p.code, p.photos, p.name, ContentScale.Fit,
-                                                Modifier.fillMaxWidth().height(132.dp).padding(7.dp))
+                                                Modifier.fillMaxWidth().height(138.dp).padding(8.dp).clip(RoundedCornerShape(16.dp)))
                                             if (p.price > 0) Surface(Modifier.align(Alignment.TopEnd).padding(8.dp),
                                                 color = Color(0xFFEAF6EE), shape = RoundedCornerShape(8.dp)) {
                                                 Text(String.format("%.2f", p.price), color = Color(0xFF267547), fontSize = 10.sp,
