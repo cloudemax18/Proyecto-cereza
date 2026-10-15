@@ -1,6 +1,11 @@
 package com.example.cheryspms
 
 import android.annotation.SuppressLint
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.webkit.JavascriptInterface
+import java.io.ByteArrayOutputStream
 import android.net.Uri
 import android.os.Bundle
 import android.webkit.WebChromeClient
@@ -8,7 +13,15 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateColorAsState
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -26,11 +39,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import org.json.JSONObject
 
 private val CheryRed = Color(0xFFB3261E)
@@ -130,7 +147,7 @@ private fun CatalogScreen() {
     val chosen = selectedPart?.let { current ->
         filtered.firstOrNull { it.serial == current.serial && it.name == current.name && it.rawFields == current.rawFields }
     }
-    val diagramFilename = chosen?.let { diagramIndex.pathFor(selectedVehicle, it.serial) }
+    val diagramFilename = chosen?.let { diagramIndex.pathFor(selectedVehicle, it) }
     val diagramUrl = diagramFilename?.let { pictureUrl(selectedVehicle, it) }
 
     LazyColumn(
@@ -256,7 +273,7 @@ private fun CatalogScreen() {
                     Card(shape = RoundedCornerShape(20.dp), colors = CardDefaults.cardColors(containerColor = Color.White),
                         border = BorderStroke(1.dp, CheryLine)) {
                         if (diagramUrl != null) {
-                            SwfDiagramViewer(url = diagramUrl, modifier = Modifier.fillMaxWidth().height(280.dp))
+                            DiagramPreview(cacheKey = selectedVehicle.id + ":" + diagramFilename.orEmpty(), url = diagramUrl, modifier = Modifier.fillMaxWidth().height(280.dp))
                         } else {
                             Box(Modifier.fillMaxWidth().height(170.dp).padding(20.dp), contentAlignment = Alignment.Center) {
                                 Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -288,10 +305,12 @@ private fun CatalogScreen() {
                                 TextButton(onClick = { rawExpanded = !rawExpanded }, contentPadding = PaddingValues(0.dp)) {
                                     Text(if (rawExpanded) strings.hideRaw else strings.showRaw)
                                 }
-                                if (rawExpanded) {
-                                    HorizontalDivider(color = CheryLine)
-                                    part.rawFields.forEach { (field, value) ->
-                                        if (value.isNotBlank()) Text(field + ": " + value, style = MaterialTheme.typography.bodySmall, color = CheryMuted)
+                                AnimatedVisibility(visible = rawExpanded, enter = fadeIn() + slideInVertically(), exit = fadeOut() + slideOutVertically()) {
+                                    Column(Modifier.animateContentSize(), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                                        HorizontalDivider(color = CheryLine)
+                                        part.rawFields.forEach { (field, value) ->
+                                            if (value.isNotBlank()) Text(field + ": " + value, style = MaterialTheme.typography.bodySmall, color = CheryMuted)
+                                        }
                                     }
                                 }
                             }
@@ -303,17 +322,19 @@ private fun CatalogScreen() {
             }
             items(filtered, key = { it.vehicleId + ":" + it.serial + ":" + it.name + ":" + it.rawFields.hashCode() }) { part ->
                 val isSelected = chosen == part
-                Card(modifier = Modifier.fillMaxWidth().clickable {
+                val cardColor by animateColorAsState(if (isSelected) Color(0xFFFFF7F6) else Color.White, label = "part-card-color")
+                val cardBorder by animateColorAsState(if (isSelected) Color(0xFFE9B9B5) else CheryLine, label = "part-card-border")
+                Card(modifier = Modifier.fillMaxWidth().animateContentSize().clickable {
                     selectedPart = part
                     rawExpanded = false
                 }, shape = RoundedCornerShape(16.dp),
-                    colors = CardDefaults.cardColors(containerColor = if (isSelected) Color(0xFFFFF7F6) else Color.White),
-                    border = BorderStroke(1.dp, if (isSelected) Color(0xFFE9B9B5) else CheryLine)) {
+                    colors = CardDefaults.cardColors(containerColor = cardColor),
+                    border = BorderStroke(1.dp, cardBorder)) {
                     Row(Modifier.fillMaxWidth().padding(14.dp), verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                         Box(Modifier.size(42.dp).clip(RoundedCornerShape(12.dp))
                             .background(if (isSelected) Color(0xFFFCE8E6) else Color(0xFFF0F2F5)), contentAlignment = Alignment.Center) {
-                            Text(if (diagramIndex.pathFor(selectedVehicle, part.serial) != null) "▧" else "·",
+                            Text(if (diagramIndex.pathFor(selectedVehicle, part) != null) "▧" else "·",
                                 color = if (isSelected) CheryRed else CheryMuted, style = MaterialTheme.typography.titleLarge)
                         }
                         Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(3.dp)) {
@@ -354,10 +375,26 @@ private fun loadDiagramIndex(context: android.content.Context): Map<String, Map<
 }
 
 private class DiagramIndex(private val entries: Map<String, Map<String, String>>) {
-    fun pathFor(vehicle: VehicleModel, partNumber: String): String? {
-        val key = normalizeCode(partNumber)
-        if (key.isBlank()) return null
-        return entries[vehicle.id]?.get(key)
+    fun pathFor(vehicle: VehicleModel, part: VehiclePart): String? {
+        val map = entries[vehicle.id] ?: return null
+        val fields = part.rawFields
+        val candidates = linkedSetOf<String>()
+        fun add(value: String?) {
+            if (value.isNullOrBlank()) return
+            value.split('/', '\\\\', ';', '|').forEach { segment ->
+                val cleaned = segment.trim()
+                if (cleaned.isNotEmpty()) candidates.add(normalizeCode(cleaned))
+            }
+            candidates.add(normalizeCode(value))
+        }
+        add(part.serial)
+        add(part.diagramRef)
+        add(part.parentRef)
+        add(fields.entries.firstOrNull { normalizeCode(it.key) == "PARTNUMBER" }?.value)
+        add(fields.entries.firstOrNull { normalizeCode(it.key) == "DIRECTORY" }?.value)
+        add(fields.entries.firstOrNull { normalizeCode(it.key) == "HYPOTAXIS" }?.value)
+        add(fields.entries.firstOrNull { normalizeCode(it.key) == "NO" || normalizeCode(it.key) == "N1" }?.value)
+        return candidates.firstNotNullOfOrNull { key -> map[key] }
     }
 }
 private fun normalizeCode(value: String): String = value.uppercase().filter { it.isLetterOrDigit() }
@@ -367,43 +404,110 @@ private fun pictureUrl(vehicle: VehicleModel, filename: String): String {
     return "https://raw.githubusercontent.com/cloudemax18/Proyecto-cereza/main/" + encodedFolder + "/" + Uri.encode(filename)
 }
 
+@Composable
+private fun DiagramPreview(cacheKey: String, url: String, modifier: Modifier = Modifier) {
+    val context = LocalContext.current
+    val database = remember(context) { DiagramImageDatabase(context.applicationContext) }
+    var cached by remember(cacheKey) { mutableStateOf<Bitmap?>(null) }
+    var attempted by remember(cacheKey) { mutableStateOf(false) }
+    val scope = rememberCoroutineScope()
+
+    LaunchedEffect(cacheKey) {
+        val bytes = withContext(Dispatchers.IO) { database.getImage(cacheKey) }
+        if (bytes != null) cached = BitmapFactory.decodeByteArray(bytes, 0, bytes.size)
+        attempted = true
+    }
+
+    if (cached != null) {
+        Image(bitmap = cached!!.asImageBitmap(), contentDescription = "Diagrama del repuesto",
+            modifier = modifier, contentScale = ContentScale.Fit)
+    } else if (attempted) {
+        SwfDiagramViewer(url = url, cacheKey = cacheKey, modifier = modifier) { webp ->
+            scope.launch {
+                withContext(Dispatchers.IO) { database.putImage(cacheKey, webp, url) }
+                cached = BitmapFactory.decodeByteArray(webp, 0, webp.size)
+            }
+        }
+    } else {
+        Box(modifier, contentAlignment = Alignment.Center) {
+            CircularProgressIndicator(color = CheryRed, strokeWidth = 3.dp)
+        }
+    }
+}
+
 @SuppressLint("SetJavaScriptEnabled")
 @Composable
-private fun SwfDiagramViewer(url: String, modifier: Modifier = Modifier) {
+private fun SwfDiagramViewer(
+    url: String,
+    cacheKey: String,
+    modifier: Modifier = Modifier,
+    onWebpReady: (ByteArray) -> Unit
+) {
     AndroidView(modifier = modifier, factory = { context ->
-        WebView(context).apply {
+        lateinit var webView: WebView
+        webView = WebView(context).apply {
             settings.javaScriptEnabled = true
             settings.domStorageEnabled = true
             settings.allowFileAccess = false
             settings.allowContentAccess = false
+            settings.loadsImagesAutomatically = true
             webChromeClient = WebChromeClient()
-            webViewClient = WebViewClient()
+            webViewClient = object : WebViewClient() {
+                override fun onReceivedError(view: WebView, request: android.webkit.WebResourceRequest, error: android.webkit.WebResourceError) {
+                    if (request.isForMainFrame) view.loadData(
+                        "<html><body style='font:14px sans-serif;color:#667085;padding:24px;text-align:center'>No se pudo cargar el visor. Comprueba la conexión e inténtalo otra vez.</body></html>",
+                        "text/html", "UTF-8")
+                }
+            }
+            addJavascriptInterface(object {
+                @JavascriptInterface
+                fun onRendered() {
+                    webView.postDelayed({
+                        try {
+                            val width = webView.width.coerceAtLeast(1)
+                            val height = webView.height.coerceAtLeast(1)
+                            val bitmap = Bitmap.createBitmap(width, height, Bitmap.Config.ARGB_8888)
+                            webView.draw(Canvas(bitmap))
+                            val output = ByteArrayOutputStream()
+                            @Suppress("DEPRECATION")
+                            bitmap.compress(Bitmap.CompressFormat.WEBP, 88, output)
+                            bitmap.recycle()
+                            val bytes = output.toByteArray()
+                            if (bytes.isNotEmpty()) onWebpReady(bytes)
+                        } catch (_: Exception) { }
+                    }, 900)
+                }
+            }, "CheryBridge")
         }
     }, update = { view ->
-        if (view.tag != url) {
-            view.tag = url
+        val signature = cacheKey + "|" + url
+        if (view.tag != signature) {
+            view.tag = signature
             val html = """
                 <!doctype html><html><head><meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=3">
-                <style>html,body,#stage{margin:0;width:100%;height:100%;background:#fff;overflow:hidden}
+                <style>
+                html,body,#stage{margin:0;width:100%;height:100%;background:#fff;overflow:hidden}
                 #stage{display:flex;align-items:center;justify-content:center}
                 ruffle-player{width:100%;height:100%;display:block}
-                #message{font:14px sans-serif;color:#667085;text-align:center;padding:20px}</style>
+                #message{font:14px sans-serif;color:#667085;text-align:center;padding:20px}
+                </style>
                 <script src="https://unpkg.com/@ruffle-rs/ruffle"></script></head>
-                <body><div id="stage"><div id="message">Loading illustration…</div></div>
+                <body><div id="stage"><div id="message">Preparando ilustración…</div></div>
                 <script>
                 (async function(){
                   const stage=document.getElementById('stage');
                   try {
-                    if(!window.RufflePlayer) throw new Error('Flash renderer unavailable');
+                    if(!window.RufflePlayer) throw new Error('No se pudo cargar el visor Flash');
                     const player=window.RufflePlayer.newest().createPlayer();
                     player.style.width='100%'; player.style.height='100%';
                     stage.innerHTML=''; stage.appendChild(player);
                     const response=await fetch('__DIAGRAM_URL__');
-                    if(!response.ok) throw new Error('Illustration unavailable ('+response.status+')');
+                    if(!response.ok) throw new Error('Archivo no disponible ('+response.status+')');
                     const data=await response.arrayBuffer();
-                    await player.load({data:data, autoplay:'on', unmuteOverlay:'hidden'});
+                    await player.load({data:data, autoplay:'off', unmuteOverlay:'hidden'});
+                    setTimeout(()=>{ if(window.CheryBridge) CheryBridge.onRendered(); }, 1400);
                   } catch(e) {
-                    stage.innerHTML='<div id="message">Unable to display this illustration.<br>'+String(e.message||e)+'</div>';
+                    stage.innerHTML='<div id="message">No se pudo mostrar esta ilustración.<br>'+String(e.message||e)+'</div>';
                   }
                 })();
                 </script></body></html>
