@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.os.Bundle
 import androidx.activity.ComponentActivity
+import androidx.activity.enableEdgeToEdge
 import androidx.activity.compose.setContent
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
@@ -162,6 +163,7 @@ private class PartsDb(context: android.content.Context) :
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        enableEdgeToEdge()
         val db = PartsDb(this)
         setContent { Catalog(db) }
     }
@@ -174,305 +176,292 @@ private fun Catalog(db: PartsDb) {
     var favorites by remember { mutableStateOf(db.favorites()) }
     var search by remember { mutableStateOf("") }
     var selectedVehicle by remember { mutableStateOf("") }
-    var fullScreenPhoto by remember { mutableStateOf<Part?>(null) }
     var selectedCategory by remember { mutableStateOf("Todas las categorías") }
     var onlyFavorites by remember { mutableStateOf(false) }
     var loading by remember { mutableStateOf(false) }
     var refreshToken by remember { mutableIntStateOf(0) }
     var detail by remember { mutableStateOf<Part?>(null) }
+    var fullScreenPhoto by remember { mutableStateOf<Part?>(null) }
     var message by remember { mutableStateOf("") }
-    var drawerOpen by remember { mutableStateOf(false) }
     var language by remember { mutableStateOf("Español") }
     var languageMenu by remember { mutableStateOf(false) }
     var listMode by remember { mutableStateOf(false) }
-    var selectedTab by remember { mutableIntStateOf(0) }
+    var filtersOpen by remember { mutableStateOf(false) }
+    var aboutOpen by remember { mutableStateOf(false) }
+    val english = language == "English"
+    val cyan = Color(0xFF55D6F5)
+    val canvas = Color(0xFF101722)
+    val surface = Color(0xFF1B2635)
+    val elevated = Color(0xFF243246)
+    val muted = Color(0xFF9BAFC4)
+    val drawerState = androidx.compose.material3.rememberDrawerState(DrawerValue.Closed)
 
     LaunchedEffect(refreshToken) {
         if (parts.isEmpty() || refreshToken > 0) {
             loading = true
             try {
-                withContext(Dispatchers.IO) {
-                    CATALOG_SOURCES.forEach { source -> db.import(URL(RAW + source).readText()) }
-                }
+                withContext(Dispatchers.IO) { CATALOG_SOURCES.forEach { db.import(URL(RAW + it).readText()) } }
                 parts = db.all()
-                message = "Catálogo actualizado"
+                message = if (english) "Catalog updated" else "Catálogo actualizado"
             } catch (_: Exception) {
-                message = if (parts.isEmpty()) "No se pudo cargar el catálogo. Revisa tu conexión e intenta actualizar."
-                else "Sin conexión: se muestran los datos guardados en el dispositivo."
+                message = if (parts.isEmpty()) (if (english) "Could not load catalog. Check your connection." else "No se pudo cargar el catálogo. Revisa tu conexión.")
+                    else (if (english) "Offline mode · saved parts are shown" else "Modo sin conexión · se muestran las piezas guardadas")
             } finally { loading = false }
         }
     }
-
-    val vehicles = parts.map { it.vehicle }.distinct().sorted()
-    val vehicleOptions = listOf("Selecciona un auto") + vehicles
+    val vehicles = parts.map { it.vehicle }.distinct().filter { it.isNotBlank() }.sorted()
     val activeVehicle = selectedVehicle.takeIf { it in vehicles } ?: ""
-    val categories = parts.filter { activeVehicle.isNotBlank() && it.vehicle == activeVehicle }
+    val categories = parts.filter { it.vehicle == activeVehicle && activeVehicle.isNotBlank() }
         .map { it.category }.filter { it.isNotBlank() }.distinct().sorted()
     val categoryOptions = listOf("Todas las categorías") + categories
     if (selectedCategory !in categoryOptions) selectedCategory = "Todas las categorías"
-
     val shown = parts.filter { p ->
-        (activeVehicle.isNotBlank() && p.vehicle == activeVehicle) &&
+        activeVehicle.isNotBlank() && p.vehicle == activeVehicle &&
         (selectedCategory == "Todas las categorías" || p.category == selectedCategory) &&
         (!onlyFavorites || p.favoriteKey in favorites) &&
-        (search.isBlank() || p.code.contains(search, true) || p.name.contains(search, true) ||
-            p.category.contains(search, true) || p.node.contains(search, true) || p.parentCode.contains(search, true))
+        (search.isBlank() || p.code.contains(search,true) || p.name.contains(search,true) ||
+         p.category.contains(search,true) || p.node.contains(search,true) || p.parentCode.contains(search,true))
     }
-    val red = Color(0xFF34C8E8)
-    val ink = Color(0xFFF4F7FB)
-    val canvas = Color(0xFF242C3B)
 
-    val drawerState = androidx.compose.material3.rememberDrawerState(DrawerValue.Closed)
-    LaunchedEffect(drawerOpen) { if (drawerOpen) drawerState.open() else drawerState.close() }
-    val english = language == "English"
-    MaterialTheme(colorScheme = darkColorScheme(primary = red, onPrimary = Color(0xFF17202D), primaryContainer = Color(0xFF354054), onPrimaryContainer = Color.White, secondary = Color(0xFF8D9DFF), background = canvas, surface = Color(0xFF2B3445), onSurface = Color(0xFFF4F7FB), surfaceVariant = Color(0xFF353F54), onSurfaceVariant = Color(0xFFD5DCE6), outline = Color(0xFF4A556B))) {
-        ModalNavigationDrawer(
-            drawerState = drawerState,
-            drawerContent = {
-                ModalDrawerSheet {
-                    Text(if (english) "CATALOG FILTERS" else "FILTROS DEL CATÁLOGO", fontWeight = FontWeight.Black, modifier = Modifier.padding(20.dp))
-                    Text(if (english) "Vehicle" else "Vehículo", color = Color(0xFFB4C0D2), modifier = Modifier.padding(start = 16.dp, top = 8.dp))
-                    vehicles.forEach { vehicle ->
-                        NavigationDrawerItem(label = { Text(vehicle) }, selected = vehicle == activeVehicle,
-                            onClick = { selectedVehicle = vehicle; selectedCategory = "Todas las categorías"; search = ""; selectedTab = 0; onlyFavorites = false; drawerOpen = false },
-                            modifier = Modifier.padding(horizontal = 8.dp))
+    MaterialTheme(colorScheme = darkColorScheme(primary=cyan,onPrimary=Color(0xFF09202B),primaryContainer=elevated,
+        onPrimaryContainer=Color.White,secondary=Color(0xFFB5A6FF),background=canvas,surface=surface,
+        onSurface=Color(0xFFF3F7FC),surfaceVariant=elevated,onSurfaceVariant=muted,outline=Color(0xFF3D4D62))) {
+        ModalNavigationDrawer(drawerState=drawerState, gesturesEnabled=true, drawerContent={
+            ModalDrawerSheet(drawerContainerColor=surface, drawerContentColor=Color.White) {
+                Spacer(Modifier.height(18.dp))
+                Row(Modifier.fillMaxWidth().padding(20.dp), verticalAlignment=Alignment.CenterVertically) {
+                    Surface(shape=RoundedCornerShape(15.dp),color=cyan) {
+                        Icon(Icons.Default.Build,null,tint=canvas,modifier=Modifier.padding(12.dp).size(27.dp))
                     }
-                    HorizontalDivider(Modifier.padding(vertical = 12.dp))
-                    Text(if (english) "Language / Idioma" else "Idioma / Language", color = Color(0xFFB4C0D2), modifier = Modifier.padding(start = 16.dp, bottom = 8.dp))
-                    listOf("Español", "English").forEach { lang ->
-                        NavigationDrawerItem(label = { Text(lang) }, selected = language == lang, onClick = { language = lang }, modifier = Modifier.padding(horizontal = 8.dp))
-                    }
+                    Spacer(Modifier.width(12.dp))
+                    Column { Text("CEREZA",fontWeight=FontWeight.Black,letterSpacing=2.sp)
+                        Text(if(english) "PARTS CATALOG" else "CATÁLOGO DE REPUESTOS",fontSize=10.sp,color=muted) }
                 }
-            },
-            gesturesEnabled = true
-        ) {
-        Scaffold(
-            containerColor = canvas,
-            topBar = {
-                TopAppBar(colors = TopAppBarDefaults.topAppBarColors(containerColor = Color(0xFF242C3B), titleContentColor = Color.White, navigationIconContentColor = Color.White, actionIconContentColor = Color.White), title = {
+                HorizontalDivider(color=elevated)
+                NavigationDrawerItem(icon={Icon(Icons.Default.Home,null)},label={Text(if(english) "Catalog" else "Catálogo")},
+                    selected=!aboutOpen,onClick={aboutOpen=false;detail=null},modifier=Modifier.padding(horizontal=10.dp))
+                NavigationDrawerItem(icon={Icon(Icons.Default.Favorite,null)},label={Text(if(english) "Favorites" else "Favoritos")},
+                    selected=onlyFavorites,onClick={onlyFavorites=!onlyFavorites;aboutOpen=false},modifier=Modifier.padding(horizontal=10.dp))
+                NavigationDrawerItem(icon={Icon(Icons.Default.Build,null)},label={Text(if(english) "About" else "Acerca de")},
+                    selected=aboutOpen,onClick={aboutOpen=true;detail=null},modifier=Modifier.padding(horizontal=10.dp))
+                Spacer(Modifier.weight(1f))
+                Text(if(english) "LANGUAGE" else "IDIOMA",color=muted,fontSize=11.sp,modifier=Modifier.padding(start=22.dp,top=12.dp))
+                listOf("Español","English").forEach { lang ->
+                    NavigationDrawerItem(label={Text(lang)},selected=language==lang,onClick={language=lang},modifier=Modifier.padding(horizontal=10.dp))
+                }
+                Spacer(Modifier.height(24.dp))
+            }
+        }) {
+            Scaffold(containerColor=canvas,topBar={
+                TopAppBar(colors=TopAppBarDefaults.topAppBarColors(containerColor=canvas,titleContentColor=Color.White,
+                    navigationIconContentColor=Color.White,actionIconContentColor=Color.White),title={
                     Column {
-                        Text("CEREZA", fontWeight = FontWeight.Black, letterSpacing = 2.sp)
-                        Text("CATÁLOGO DE REPUESTOS", fontSize = 10.sp, color = Color(0xFFB4C0D2), letterSpacing = 1.2.sp)
+                        Text(if(aboutOpen) (if(english) "About Cereza" else "Acerca de Cereza") else if(detail!=null) (if(english) "Part details" else "Detalle de pieza") else "CEREZA",
+                            fontWeight=FontWeight.Black,letterSpacing=1.5.sp)
+                        Text(if(detail!=null) detail!!.code else if(activeVehicle.isNotBlank()) activeVehicle else "SPARE PARTS EXPLORER",
+                            fontSize=10.sp,color=muted,letterSpacing=1.sp,maxLines=1)
                     }
-                }, navigationIcon = {
-                    if (activeVehicle.isNotBlank() && detail == null) {
-                        IconButton(onClick = { drawerOpen = true }) { Icon(Icons.Default.Menu, contentDescription = if (english) "Open vehicle panel" else "Abrir panel de vehículos") }
+                },navigationIcon={
+                    IconButton(onClick={ if(detail!=null) detail=null else if(aboutOpen) aboutOpen=false else { /* drawer opened by swipe or menu action below */ } }) {
+                        Icon(if(detail!=null || aboutOpen) Icons.Default.Refresh else Icons.Default.Menu,if(english) "Back or menu" else "Volver o menú")
                     }
-                }, actions = {
-                    Box {
-                        IconButton(onClick = { languageMenu = true }) { Icon(Icons.Default.Translate, contentDescription = "Language / Idioma") }
-                        DropdownMenu(expanded = languageMenu, onDismissRequest = { languageMenu = false }) {
-                            listOf("Español", "English").forEach { lang -> DropdownMenuItem(text = { Text(lang) }, onClick = { language = lang; languageMenu = false }) }
+                },actions={
+                    if(detail==null && !aboutOpen) {
+                        Box { IconButton(onClick={languageMenu=true}) { Icon(Icons.Default.Translate,"Idioma") }
+                            DropdownMenu(expanded=languageMenu,onDismissRequest={languageMenu=false}) {
+                                listOf("Español","English").forEach { lang -> DropdownMenuItem(text={Text(lang)},onClick={language=lang;languageMenu=false}) }
+                            }
                         }
-                    }
-                    IconButton(onClick = { refreshToken++; loading = true }) {
-                        Icon(Icons.Default.Refresh, contentDescription = "Actualizar catálogo")
+                        IconButton(onClick={refreshToken++;loading=true}) { Icon(Icons.Default.Refresh,"Actualizar") }
                     }
                 })
-            }
-        ) { padding ->
-            Column(Modifier.fillMaxSize().background(canvas).padding(padding).padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                if (detail != null) {
-                    val p = detail!!
-                    Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                        TextButton(onClick = { detail = null }) { Text(if (english) "← Back to catalog" else "← Volver al catálogo") }
-                        PartPhoto(p.code, p.photos, p.name, ContentScale.Fit,
-                            Modifier.fillMaxWidth().height(270.dp).clip(RoundedCornerShape(28.dp)).background(Color.White).clickable { fullScreenPhoto = p })
-                        Text(if (english) "Tap image to view full screen and zoom" else "Toca la imagen para verla a pantalla completa y hacer zoom", fontSize = 12.sp, color = Color(0xFFB4C0D2))
-                        Text(p.name, fontSize = 23.sp, fontWeight = FontWeight.Bold, color = ink)
-                        Text(p.code, color = red, fontWeight = FontWeight.Bold)
-                        Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                            InfoPill(p.vehicle); InfoPill(p.category)
-                        }
-                        HorizontalDivider(color = Color(0xFF414B60))
-                        DetailRow(if (english) "Quantity" else "Cantidad", p.qty.toString())
-                        DetailRow(if (english) "Category" else "Categoría", p.category)
-                        DetailRow(if (english) "Parent code" else "Código padre", p.parentCode.ifBlank { "—" })
-                        DetailRow(if (english) "Node" else "Nodo", p.node.ifBlank { "—" })
-                        if (p.unit.isNotBlank()) DetailRow(if (english) "Unit" else "Unidad", p.unit)
-                        if (p.price > 0) DetailRow(if (english) "Recorded price" else "Precio registrado", String.format("%.2f", p.price))
-                        if (p.note.isNotBlank()) DetailRow(if (english) "Note" else "Nota", p.note)
-                        Button(onClick = { db.toggleFavorite(p.favoriteKey); favorites = db.favorites() },
-                            modifier = Modifier.fillMaxWidth().padding(bottom = 24.dp), shape = RoundedCornerShape(14.dp)) {
-                            Icon(if (p.favoriteKey in favorites) Icons.Default.Favorite else Icons.Default.FavoriteBorder, null)
-                            Spacer(Modifier.width(8.dp))
-                            Text(if (p.favoriteKey in favorites) (if (english) "Remove from favorites" else "Quitar de favoritos") else (if (english) "Save to favorites" else "Guardar en favoritos"))
-                        }
-                    }
-                } else {
-                    if (activeVehicle.isBlank()) {
-                        Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(26.dp)).background(ink).padding(20.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                            Text(if (english) "Find the right part" else "Encuentra la pieza correcta", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Color.White)
-                            Text(if (english) "${parts.size} references organized by vehicle and system" else "${parts.size} referencias organizadas por vehículo y sistema", fontSize = 12.sp, color = Color(0xFFD5DCE6))
-                            Spacer(Modifier.height(4.dp))
-                            Text(if (english) "Choose a vehicle to begin" else "Selecciona un auto para comenzar", color = Color.White, fontSize = 13.sp)
-                            vehicles.forEach { vehicle ->
-                                TextButton(onClick = { selectedVehicle = vehicle; selectedCategory = "Todas las categorías"; search = "" }) { Text(vehicle, color = Color.White) }
-                            }
-                        }
-                    }
-                    if (activeVehicle.isNotBlank()) {
-                        Row(
-                            Modifier.fillMaxWidth().clip(RoundedCornerShape(24.dp)).background(Color(0xFF172B43)).padding(18.dp),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.spacedBy(12.dp)
-                        ) {
-                            Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(6.dp)) {
-                                Text(if (english) "PARTS FOR YOUR VEHICLE" else "REPUESTOS PARA TU VEHÍCULO",
-                                    color = Color(0xFFB8C9DC), fontSize = 10.sp, fontWeight = FontWeight.Bold, letterSpacing = 1.2.sp)
-                                Text(activeVehicle, color = Color.White, fontSize = 19.sp, fontWeight = FontWeight.Bold, maxLines = 2)
-                                Text(if (english) "\${parts.count { it.vehicle == activeVehicle }} references available" else "\${parts.count { it.vehicle == activeVehicle }} referencias disponibles",
-                                    color = Color(0xFFE0E8F1), fontSize = 12.sp)
-                            }
-                            Surface(shape = RoundedCornerShape(18.dp), color = Color(0xFF294663)) {
-                                Icon(Icons.Default.Build, contentDescription = null, tint = Color.White, modifier = Modifier.padding(14.dp).size(30.dp))
-                            }
-                        }
-                    }
-                    OutlinedTextField(value = search, onValueChange = { search = it }, modifier = Modifier.fillMaxWidth(),
-                        placeholder = { Text(if (english) "Search part name, code or system" else "Buscar nombre, código o sistema") },
-                        leadingIcon = { Icon(Icons.Default.Search, null, tint = red) }, singleLine = true, shape = RoundedCornerShape(18.dp),
-                        colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color(0xFF2B3445), focusedContainerColor = Color(0xFF2B3445), unfocusedBorderColor = Color(0xFF4A556B), focusedBorderColor = red))
-                    if (activeVehicle.isNotBlank()) {
-                        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                            Text(if (english) "Browse by system" else "Explorar por sistema", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = ink)
-                            Row(Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                                categoryOptions.forEach { category ->
-                                    FilterChip(
-                                        selected = selectedCategory == category,
-                                        onClick = { selectedCategory = category },
-                                        label = { Text(if (category == "Todas las categorías") { if (english) "All systems" else "Todos" } else category, maxLines = 1) },
-                                        shape = RoundedCornerShape(14.dp),
-                                        colors = FilterChipDefaults.filterChipColors(
-                                            selectedContainerColor = Color(0xFF4E4AF2),
-                                            selectedLabelColor = Color.White,
-                                            containerColor = Color(0xFF353F54)
-                                        )
-                                    )
+            }) { padding ->
+                Column(Modifier.fillMaxSize().padding(padding).background(canvas).padding(horizontal=16.dp),
+                    verticalArrangement=Arrangement.spacedBy(12.dp)) {
+                    when {
+                        aboutOpen -> Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()),verticalArrangement=Arrangement.spacedBy(16.dp)) {
+                            Spacer(Modifier.height(12.dp))
+                            Surface(shape=RoundedCornerShape(28.dp),color=surface,modifier=Modifier.fillMaxWidth()) {
+                                Column(Modifier.padding(24.dp),verticalArrangement=Arrangement.spacedBy(12.dp)) {
+                                    Surface(shape=RoundedCornerShape(20.dp),color=cyan) { Icon(Icons.Default.Build,null,tint=canvas,modifier=Modifier.padding(18.dp).size(42.dp)) }
+                                    Text("CEREZA",fontSize=28.sp,fontWeight=FontWeight.Black,letterSpacing=2.sp)
+                                    Text(if(english) "A focused spare-parts catalog" else "Un catálogo de repuestos claro y práctico",fontSize=17.sp,fontWeight=FontWeight.SemiBold)
+                                    Text(if(english) "Browse by vehicle and system, search references, save favorites and inspect part images." else
+                                        "Explora por vehículo y sistema, busca referencias, guarda favoritos y examina las imágenes de cada pieza.",color=muted,lineHeight=21.sp)
+                                    HorizontalDivider(color=elevated)
+                                    Text(if(english) "Design and interface" else "Diseño e interfaz",fontWeight=FontWeight.Bold)
+                                    Text(if(english) "Interface concept, interaction design and implementation assistance by ChatGPT (OpenAI), guided by Android design recommendations." else
+                                        "Concepto de interfaz, diseño de interacción y asistencia de implementación por ChatGPT (OpenAI), siguiendo recomendaciones de diseño de Android.",color=muted,lineHeight=21.sp)
+                                    Text(if(english) "Vehicle and part data comes from the catalog source." else "Los datos de vehículos y piezas provienen del catálogo.",color=muted,fontSize=12.sp)
                                 }
                             }
                         }
-                    }
-                    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        FilterChip(selected = !onlyFavorites, onClick = { onlyFavorites = false; selectedTab = 0 }, label = { Text(if (english) "All" else "Todos") })
-                        FilterChip(selected = onlyFavorites, onClick = { onlyFavorites = true; selectedTab = 1 }, label = {
-                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                Icon(Icons.Default.Favorite, null, modifier = Modifier.size(15.dp))
-                                Spacer(Modifier.width(4.dp)); Text(if (english) "Favorites" else "Favoritos")
-                            }
-                        })
-                        Spacer(Modifier.weight(1f))
-                        Text(if (activeVehicle.isBlank()) (if (english) "Select a vehicle" else "Selecciona un auto") else "${shown.size} ${if (english) "parts" else "piezas"}", color = Color(0xFFB4C0D2), fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
-                        if (activeVehicle.isNotBlank()) {
-                            IconButton(onClick = { listMode = false }) { Icon(Icons.Default.GridView, contentDescription = if (english) "Grid view" else "Vista de recuadros", tint = if (!listMode) red else Color(0xFFB4C0D2)) }
-                            IconButton(onClick = { listMode = true }) { Icon(Icons.Default.ViewList, contentDescription = if (english) "List view" else "Vista de lista", tint = if (listMode) red else Color(0xFFB4C0D2)) }
-                        }
-                    }
-                    if (loading) LinearProgressIndicator(Modifier.fillMaxWidth())
-                    if (message.isNotBlank()) Text(if (english) message.replace("Catálogo actualizado", "Catalog updated").replace("No se pudo cargar el catálogo. Revisa tu conexión e intenta actualizar.", "Could not load catalog. Check your connection and try again.").replace("Sin conexión: se muestran los datos guardados en el dispositivo.", "Offline: showing data saved on this device.") else message, fontSize = 11.sp, color = Color(0xFFB4C0D2))
-                    Box(Modifier.weight(1f).fillMaxWidth()) {
-                        if (activeVehicle.isBlank() || shown.isEmpty()) {
-                            Column(Modifier.align(Alignment.Center).padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally,
-                                verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                                Icon(Icons.Default.Build, null, tint = Color.LightGray, modifier = Modifier.size(42.dp))
-                                Text(if (activeVehicle.isBlank()) (if (english) "Select your vehicle" else "Selecciona tu auto") else (if (english) "No parts found" else "No encontramos piezas"), fontWeight = FontWeight.SemiBold, color = ink)
-                                Text(if (activeVehicle.isBlank()) (if (english) "Choose a vehicle from the menu to see its parts." else "Elige un vehículo para ver únicamente sus repuestos.") else (if (english) "Try another name, code or category." else "Prueba otro nombre, código o categoría."), color = Color(0xFFB4C0D2), fontSize = 13.sp)
-                            }
-                        } else {
-                            if (listMode) {
-                                LazyColumn(contentPadding = PaddingValues(bottom = 24.dp, top = 2.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                                    lazyItems(shown, key = { it.favoriteKey }) { p ->
-                                        Card(Modifier.fillMaxWidth().clickable { detail = p }, shape = RoundedCornerShape(20.dp), elevation = CardDefaults.cardElevation(defaultElevation = 2.dp), colors = CardDefaults.cardColors(containerColor = Color.White)) {
-                                            Row(Modifier.fillMaxWidth().padding(10.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                                                PartPhoto(p.code, p.photos, p.name, ContentScale.Fit, Modifier.size(88.dp).clip(RoundedCornerShape(10.dp)))
-                                                Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                                                    Text(p.name, fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
-                                                    Text(p.code, color = red, fontSize = 11.sp, fontWeight = FontWeight.Bold)
-                                                    Text(p.category, color = Color(0xFFB4C0D2), fontSize = 11.sp)
-                                                    Text(if (english) "Qty. ${p.qty}" else "Cant. ${p.qty}", fontSize = 11.sp, color = ink)
-                                                }
-                                                IconButton(onClick = { db.toggleFavorite(p.favoriteKey); favorites = db.favorites() }) {
-                                                    Icon(if (p.favoriteKey in favorites) Icons.Default.Favorite else Icons.Default.FavoriteBorder, contentDescription = null, tint = if (p.favoriteKey in favorites) red else Color(0xFFB4C0D2))
-                                                }
-                                            }
-                                        }
+                        detail!=null -> {
+                            val p=detail!!
+                            Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()),verticalArrangement=Arrangement.spacedBy(14.dp)) {
+                                PartPhoto(p.code,p.photos,p.name,ContentScale.Fit,Modifier.fillMaxWidth().height(300.dp).clip(RoundedCornerShape(26.dp)).clickable { fullScreenPhoto=p })
+                                Text(if(english) "Tap image to open · pinch to zoom" else "Toca la imagen para abrirla · pellizca para ampliar",fontSize=12.sp,color=muted)
+                                Text(p.name,fontSize=24.sp,fontWeight=FontWeight.Bold,color=Color.White)
+                                Text(p.code,color=cyan,fontWeight=FontWeight.Bold,letterSpacing=1.sp)
+                                Row(horizontalArrangement=Arrangement.spacedBy(8.dp)) { InfoPill(p.vehicle); InfoPill(p.category) }
+                                Surface(color=surface,shape=RoundedCornerShape(22.dp),modifier=Modifier.fillMaxWidth()) {
+                                    Column(Modifier.padding(18.dp),verticalArrangement=Arrangement.spacedBy(14.dp)) {
+                                        DetailRow(if(english) "Quantity" else "Cantidad",p.qty.toString())
+                                        DetailRow(if(english) "Category" else "Categoría",p.category)
+                                        DetailRow(if(english) "Parent code" else "Código padre",p.parentCode.ifBlank{"—"})
+                                        DetailRow(if(english) "Node" else "Nodo",p.node.ifBlank{"—"})
+                                        if(p.unit.isNotBlank()) DetailRow(if(english) "Unit" else "Unidad",p.unit)
+                                        if(p.price>0) DetailRow(if(english) "Recorded price" else "Precio registrado",String.format("%.2f",p.price))
+                                        if(p.note.isNotBlank()) DetailRow(if(english) "Note" else "Nota",p.note)
                                     }
                                 }
-                            } else {
-                            LazyVerticalGrid(columns = GridCells.Fixed(2), contentPadding = PaddingValues(bottom = 24.dp, top = 2.dp),
-                                horizontalArrangement = Arrangement.spacedBy(12.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                                items(shown, key = { it.favoriteKey }) { p ->
-                                    Card(Modifier.fillMaxWidth().animateContentSize(spring()).clickable { detail = p }, shape = RoundedCornerShape(22.dp),
-                                        colors = CardDefaults.cardColors(containerColor = Color(0xFF2B3445)),
-                                        elevation = CardDefaults.cardElevation(defaultElevation = 3.dp)) {
-                                        Box {
-                                            PartPhoto(p.code, p.photos, p.name, ContentScale.Fit,
-                                                Modifier.fillMaxWidth().height(138.dp).padding(8.dp).clip(RoundedCornerShape(16.dp)).animateContentSize(spring()))
-                                            if (p.price > 0) Surface(Modifier.align(Alignment.TopEnd).padding(8.dp),
-                                                color = Color(0xFFEAF6EE), shape = RoundedCornerShape(8.dp)) {
-                                                Text(String.format("%.2f", p.price), color = Color(0xFF267547), fontSize = 10.sp,
-                                                    fontWeight = FontWeight.Bold, modifier = Modifier.padding(horizontal = 7.dp, vertical = 4.dp))
+                                Button(onClick={db.toggleFavorite(p.favoriteKey);favorites=db.favorites()},modifier=Modifier.fillMaxWidth().padding(bottom=24.dp),shape=RoundedCornerShape(16.dp)) {
+                                    Icon(if(p.favoriteKey in favorites) Icons.Default.Favorite else Icons.Default.FavoriteBorder,null)
+                                    Spacer(Modifier.width(8.dp))
+                                    Text(if(p.favoriteKey in favorites) (if(english) "Remove favorite" else "Quitar de favoritos") else (if(english) "Save favorite" else "Guardar en favoritos"))
+                                }
+                            }
+                        }
+                        else -> {
+                            AnimatedVisibility(visible=activeVehicle.isBlank(),enter=fadeIn()+slideInVertically{-it/8}) {
+                                Column(Modifier.fillMaxWidth().padding(top=10.dp),verticalArrangement=Arrangement.spacedBy(8.dp)) {
+                                    Text(if(english) "Parts, without the guesswork." else "Tus repuestos, sin perderte.",fontSize=27.sp,lineHeight=32.sp,fontWeight=FontWeight.Bold,color=Color.White)
+                                    Text(if(english) "Choose a vehicle to reveal its catalog." else "Elige un vehículo para descubrir su catálogo.",color=muted,fontSize=14.sp)
+                                }
+                            }
+                            Surface(shape=RoundedCornerShape(20.dp),color=surface,modifier=Modifier.fillMaxWidth()) {
+                                Column(Modifier.padding(12.dp),verticalArrangement=Arrangement.spacedBy(10.dp)) {
+                                    DropdownField(if(english) "Vehicle" else "Vehículo",activeVehicle.ifBlank{if(english) "Choose a vehicle" else "Seleccionar vehículo"},
+                                        vehicles,{ selectedVehicle=it;selectedCategory="Todas las categorías";search="";onlyFavorites=false;filtersOpen=false })
+                                    AnimatedVisibility(visible=activeVehicle.isNotBlank()) {
+                                        Column(verticalArrangement=Arrangement.spacedBy(10.dp)) {
+                                            Row(verticalAlignment=Alignment.CenterVertically) {
+                                                Column(Modifier.weight(1f)) {
+                                                    Text(activeVehicle,fontWeight=FontWeight.Bold,color=Color.White)
+                                                    Text(parts.count{it.vehicle==activeVehicle}.toString()+" "+(if(english) "references" else "referencias"),fontSize=11.sp,color=muted)
+                                                }
+                                                TextButton(onClick={filtersOpen=!filtersOpen}) {
+                                                    Text(if(filtersOpen) (if(english) "Hide filters" else "Ocultar filtros") else (if(english) "Filters" else "Filtros"))
+                                                }
                                             }
-                                        }
-                                        Column(Modifier.fillMaxWidth().animateContentSize(spring()).padding(start = 12.dp, end = 12.dp, bottom = 10.dp),
-                                            verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                                            Text(p.name, fontWeight = FontWeight.SemiBold, fontSize = 13.sp, minLines = 2, maxLines = 2)
-                                            Text(p.code, color = red, fontSize = 10.sp, fontWeight = FontWeight.Bold, maxLines = 1)
-                                            Text(p.category, color = Color(0xFFB4C0D2), fontSize = 10.sp, maxLines = 1)
-                                            Row(verticalAlignment = Alignment.CenterVertically) {
-                                                Text("Cant. ${p.qty}", fontSize = 10.sp, color = ink)
-                                                Spacer(Modifier.weight(1f))
-                                                IconButton(onClick = { db.toggleFavorite(p.favoriteKey); favorites = db.favorites() },
-                                                    modifier = Modifier.size(30.dp)) {
-                                                    Icon(if (p.favoriteKey in favorites) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
-                                                        if (p.favoriteKey in favorites) "Quitar favorito" else "Añadir favorito",
-                                                        tint = if (p.favoriteKey in favorites) red else Color(0xFFB4C0D2), modifier = Modifier.size(18.dp))
+                                            AnimatedVisibility(visible=filtersOpen,enter=fadeIn()+slideInVertically{-it/5}) {
+                                                Column(verticalArrangement=Arrangement.spacedBy(8.dp)) {
+                                                    DropdownField(if(english) "System / category" else "Sistema / categoría",
+                                                        if(selectedCategory=="Todas las categorías") (if(english) "All systems" else "Todos los sistemas") else selectedCategory,
+                                                        categoryOptions,{selectedCategory=it;filtersOpen=false})
+                                                    Row(horizontalArrangement=Arrangement.spacedBy(8.dp)) {
+                                                        FilterChip(selected=!onlyFavorites,onClick={onlyFavorites=false},label={Text(if(english) "All parts" else "Todas las piezas")})
+                                                        FilterChip(selected=onlyFavorites,onClick={onlyFavorites=true},label={Text(if(english) "Favorites" else "Favoritos")})
+                                                    }
                                                 }
                                             }
                                         }
                                     }
                                 }
                             }
+                            AnimatedVisibility(visible=activeVehicle.isNotBlank(),enter=fadeIn()+slideInVertically{it/8}) {
+                                Column(verticalArrangement=Arrangement.spacedBy(10.dp)) {
+                                    OutlinedTextField(value=search,onValueChange={search=it},modifier=Modifier.fillMaxWidth(),
+                                        placeholder={Text(if(english) "Search name, code or system" else "Buscar nombre, código o sistema")},
+                                        leadingIcon={Icon(Icons.Default.Search,null,tint=cyan)},singleLine=true,shape=RoundedCornerShape(17.dp),
+                                        colors=OutlinedTextFieldDefaults.colors(unfocusedContainerColor=surface,focusedContainerColor=surface,
+                                            unfocusedBorderColor=elevated,focusedBorderColor=cyan))
+                                    Row(verticalAlignment=Alignment.CenterVertically) {
+                                        Text(shown.size.toString()+" "+(if(english) "parts" else "piezas"),color=muted,fontSize=12.sp,modifier=Modifier.weight(1f))
+                                        SingleChoiceSegmentedButtonRow {
+                                            SegmentedButton(selected=!listMode,onClick={listMode=false},shape=SegmentedButtonDefaults.itemShape(0)) { Icon(Icons.Default.GridView,"Cuadrícula") }
+                                            SegmentedButton(selected=listMode,onClick={listMode=true},shape=SegmentedButtonDefaults.itemShape(1)) { Icon(Icons.Default.ViewList,"Lista") }
+                                        }
+                                    }
+                                }
+                            }
+                            if(loading) LinearProgressIndicator(Modifier.fillMaxWidth(),color=cyan)
+                            if(message.isNotBlank()) Text(message,color=muted,fontSize=11.sp)
+                            Box(Modifier.weight(1f).fillMaxWidth()) {
+                                if(activeVehicle.isBlank()) {
+                                    Column(Modifier.align(Alignment.Center).padding(28.dp),horizontalAlignment=Alignment.CenterHorizontally,verticalArrangement=Arrangement.spacedBy(10.dp)) {
+                                        Surface(shape=RoundedCornerShape(28.dp),color=surface) { Icon(Icons.Default.Build,null,tint=cyan,modifier=Modifier.padding(22.dp).size(42.dp)) }
+                                        Text(if(english) "No vehicle selected" else "Ningún auto seleccionado",color=Color.White,fontWeight=FontWeight.SemiBold,fontSize=17.sp)
+                                        Text(if(english) "Select a vehicle above. Parts stay hidden until you choose one." else "Selecciona un auto arriba. Las piezas permanecerán ocultas hasta que elijas uno.",color=muted,fontSize=13.sp,lineHeight=19.sp)
+                                    }
+                                } else if(shown.isEmpty()) {
+                                    Column(Modifier.align(Alignment.Center).padding(24.dp),horizontalAlignment=Alignment.CenterHorizontally) {
+                                        Icon(Icons.Default.Search,null,tint=muted,modifier=Modifier.size(36.dp))
+                                        Text(if(english) "No parts found" else "No encontramos piezas",color=Color.White,fontWeight=FontWeight.SemiBold)
+                                    }
+                                } else if(listMode) {
+                                    LazyColumn(contentPadding=PaddingValues(top=2.dp,bottom=28.dp),verticalArrangement=Arrangement.spacedBy(9.dp)) {
+                                        lazyItems(shown,key={it.favoriteKey}) { p ->
+                                            Card(Modifier.fillMaxWidth().animateContentSize(spring()).clickable{detail=p},shape=RoundedCornerShape(20.dp),colors=CardDefaults.cardColors(containerColor=surface)) {
+                                                Row(Modifier.fillMaxWidth().padding(10.dp),verticalAlignment=Alignment.CenterVertically,horizontalArrangement=Arrangement.spacedBy(12.dp)) {
+                                                    PartPhoto(p.code,p.photos,p.name,ContentScale.Fit,Modifier.size(84.dp).clip(RoundedCornerShape(13.dp)))
+                                                    Column(Modifier.weight(1f),verticalArrangement=Arrangement.spacedBy(4.dp)) {
+                                                        Text(p.name,fontWeight=FontWeight.SemiBold,fontSize=14.sp,maxLines=2)
+                                                        Text(p.code,color=cyan,fontSize=11.sp,fontWeight=FontWeight.Bold)
+                                                        Text(p.category,color=muted,fontSize=11.sp,maxLines=1)
+                                                        Text((if(english) "Qty. " else "Cant. ")+p.qty,color=Color.White,fontSize=11.sp)
+                                                    }
+                                                    IconButton(onClick={db.toggleFavorite(p.favoriteKey);favorites=db.favorites()}) {
+                                                        Icon(if(p.favoriteKey in favorites) Icons.Default.Favorite else Icons.Default.FavoriteBorder,null,tint=if(p.favoriteKey in favorites) cyan else muted)
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                } else {
+                                    LazyVerticalGrid(columns=GridCells.Adaptive(minSize=148.dp),contentPadding=PaddingValues(top=2.dp,bottom=28.dp),
+                                        horizontalArrangement=Arrangement.spacedBy(10.dp),verticalArrangement=Arrangement.spacedBy(10.dp)) {
+                                        items(shown,key={it.favoriteKey}) { p ->
+                                            Card(Modifier.fillMaxWidth().animateContentSize(spring()).clickable{detail=p},shape=RoundedCornerShape(21.dp),colors=CardDefaults.cardColors(containerColor=surface)) {
+                                                Box {
+                                                    PartPhoto(p.code,p.photos,p.name,ContentScale.Fit,Modifier.fillMaxWidth().height(142.dp).padding(7.dp).clip(RoundedCornerShape(15.dp)))
+                                                    if(p.price>0) Surface(Modifier.align(Alignment.TopEnd).padding(9.dp),color=Color(0xFF153B3A),shape=RoundedCornerShape(8.dp)) {
+                                                        Text(String.format("%.2f",p.price),color=Color(0xFF9EF1D2),fontSize=10.sp,fontWeight=FontWeight.Bold,modifier=Modifier.padding(horizontal=7.dp,vertical=4.dp))
+                                                    }
+                                                }
+                                                Column(Modifier.fillMaxWidth().padding(start=11.dp,end=8.dp,bottom=8.dp),verticalArrangement=Arrangement.spacedBy(4.dp)) {
+                                                    Text(p.name,fontWeight=FontWeight.SemiBold,fontSize=13.sp,minLines=2,maxLines=2)
+                                                    Text(p.code,color=cyan,fontSize=10.sp,fontWeight=FontWeight.Bold,maxLines=1)
+                                                    Text(p.category,color=muted,fontSize=10.sp,maxLines=1)
+                                                    Row(verticalAlignment=Alignment.CenterVertically) {
+                                                        Text((if(english) "Qty. " else "Cant. ")+p.qty,fontSize=10.sp,color=Color.White)
+                                                        Spacer(Modifier.weight(1f))
+                                                        IconButton(onClick={db.toggleFavorite(p.favoriteKey);favorites=db.favorites()},modifier=Modifier.size(30.dp)) {
+                                                            Icon(if(p.favoriteKey in favorites) Icons.Default.Favorite else Icons.Default.FavoriteBorder,"Favorito",tint=if(p.favoriteKey in favorites) cyan else muted,modifier=Modifier.size(17.dp))
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
                             }
                         }
                     }
                 }
-            }
-        }
-        }
-    }
-    if (fullScreenPhoto != null) {
-        val photo = fullScreenPhoto!!
-        var zoom by remember(photo.code) { mutableFloatStateOf(1f) }
-        var pan by remember(photo.code) { mutableStateOf(Offset.Zero) }
-        val zoomState = rememberTransformableState { zoomChange, panChange, _ ->
-            zoom = (zoom * zoomChange).coerceIn(1f, 5f)
-            pan = if (zoom > 1f) pan + panChange else Offset.Zero
-        }
-        val photoCandidates = remember(photo.code, photo.photos) {
-            (0..maxOf(photo.photos, 4)).map { i -> RAW + "fotos/" + photo.code + (if (i == 0) "" else "_$i") + ".jpg" }
-        }
-        var photoCandidateIndex by remember(photo.code) { mutableIntStateOf(0) }
-        Dialog(onDismissRequest = { fullScreenPhoto = null }) {
-            Box(Modifier.fillMaxSize().background(Color.Black), contentAlignment = Alignment.Center) {
-                AsyncImage(
-                    model = photoCandidates[photoCandidateIndex],
-                    contentDescription = "Imagen ampliada de ${photo.name}",
-                    contentScale = ContentScale.Fit,
-                    modifier = Modifier.fillMaxSize()
-                        .graphicsLayer(scaleX = zoom, scaleY = zoom, translationX = pan.x, translationY = pan.y)
-                        .transformable(zoomState),
-                    onError = { if (photoCandidateIndex < photoCandidates.lastIndex) photoCandidateIndex++ }
-                )
-                TextButton(onClick = { fullScreenPhoto = null }, modifier = Modifier.align(Alignment.TopEnd).padding(8.dp)) {
-                    Text("Cerrar", color = Color.White)
-                }
-                Text("Pellizca para ampliar · ${photo.name}", color = Color.White,
-                    modifier = Modifier.align(Alignment.BottomCenter).padding(16.dp))
             }
         }
     }
 
+    if(fullScreenPhoto!=null) {
+        val photo=fullScreenPhoto!!
+        var zoom by remember(photo.favoriteKey) { mutableFloatStateOf(1f) }
+        var pan by remember(photo.favoriteKey) { mutableStateOf(Offset.Zero) }
+        val zoomState=rememberTransformableState { zoomChange,panChange,_ ->
+            zoom=(zoom*zoomChange).coerceIn(1f,6f);pan=if(zoom>1f) pan+panChange else Offset.Zero
+        }
+        val candidates=remember(photo.code,photo.photos) {(0..maxOf(photo.photos,4)).map{i->RAW+"fotos/"+photo.code+(if(i==0) "" else "_"+i)+".jpg"}}
+        var candidateIndex by remember(photo.code) { mutableIntStateOf(0) }
+        Dialog(onDismissRequest={fullScreenPhoto=null}) {
+            Box(Modifier.fillMaxSize().background(Color.Black),contentAlignment=Alignment.Center) {
+                AsyncImage(model=candidates[candidateIndex],contentDescription="Imagen ampliada de "+photo.name,contentScale=ContentScale.Fit,
+                    modifier=Modifier.fillMaxSize().graphicsLayer(scaleX=zoom,scaleY=zoom,translationX=pan.x,translationY=pan.y).transformable(zoomState),
+                    onError={if(candidateIndex<candidates.lastIndex) candidateIndex++})
+                TextButton(onClick={fullScreenPhoto=null},modifier=Modifier.align(Alignment.TopEnd).padding(8.dp)) { Text(if(english) "Close" else "Cerrar",color=Color.White) }
+                Text((if(english) "Pinch to zoom · " else "Pellizca para ampliar · ")+photo.name,color=Color.White,modifier=Modifier.align(Alignment.BottomCenter).padding(16.dp))
+            }
+        }
+    }
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
