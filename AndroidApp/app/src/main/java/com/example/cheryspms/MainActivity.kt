@@ -243,7 +243,7 @@ private fun CatalogScreen() {
                     Row(verticalAlignment = Alignment.CenterVertically) {
                         Column(Modifier.weight(1f)) {
                             Text(strings.diagram, style = MaterialTheme.typography.labelMedium, color = CheryRed, fontWeight = FontWeight.Bold)
-                            Text(chosen?.name?.ifBlank { chosen.serial } ?: strings.choosePart,
+                            Text(chosen?.let { it.name.ifBlank { it.serial } } ?: strings.choosePart,
                                 style = MaterialTheme.typography.titleMedium, fontWeight = FontWeight.Bold, color = CheryInk)
                         }
                         chosen?.serial?.takeIf { it.isNotBlank() }?.let { code ->
