@@ -381,7 +381,7 @@ private class DiagramIndex(private val entries: Map<String, Map<String, String>>
         val candidates = linkedSetOf<String>()
         fun add(value: String?) {
             if (value.isNullOrBlank()) return
-            value.split('/', '\\\\', ';', '|').forEach { segment ->
+            value.split('/', '\\', ';', '|').forEach { segment ->
                 val cleaned = segment.trim()
                 if (cleaned.isNotEmpty()) candidates.add(normalizeCode(cleaned))
             }
