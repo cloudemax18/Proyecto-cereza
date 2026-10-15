@@ -9,6 +9,8 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.gestures.rememberTransformableState
+import androidx.compose.foundation.gestures.transformable
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -22,11 +24,14 @@ import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
+import androidx.compose.ui.window.Dialog
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -154,7 +159,8 @@ private fun Catalog(db: PartsDb) {
     var parts by remember { mutableStateOf(db.all()) }
     var favorites by remember { mutableStateOf(db.favorites()) }
     var search by remember { mutableStateOf("") }
-    var selectedVehicle by remember { mutableStateOf("Chery S12 (SQR7160) 1.3L — Arauca 1.3") }
+    var selectedVehicle by remember { mutableStateOf("") }
+    var fullScreenPhoto by remember { mutableStateOf<Part?>(null) }
     var selectedCategory by remember { mutableStateOf("Todas las categorías") }
     var onlyFavorites by remember { mutableStateOf(false) }
     var loading by remember { mutableStateOf(false) }
@@ -179,16 +185,15 @@ private fun Catalog(db: PartsDb) {
     }
 
     val vehicles = parts.map { it.vehicle }.distinct().sorted()
-    val vehicleOptions = listOf("Todos los autos") + vehicles
-    val activeVehicle = if (selectedVehicle == "Todos los autos" || selectedVehicle in vehicles) selectedVehicle
-        else vehicles.firstOrNull { it.contains("Arauca 1.3", true) } ?: vehicles.firstOrNull() ?: "Chery Arauca 1.3"
-    val categories = parts.filter { activeVehicle == "Todos los autos" || it.vehicle == activeVehicle }
+    val vehicleOptions = listOf("Selecciona un auto") + vehicles
+    val activeVehicle = selectedVehicle.takeIf { it in vehicles } ?: ""
+    val categories = parts.filter { activeVehicle.isNotBlank() && it.vehicle == activeVehicle }
         .map { it.category }.filter { it.isNotBlank() }.distinct().sorted()
     val categoryOptions = listOf("Todas las categorías") + categories
     if (selectedCategory !in categoryOptions) selectedCategory = "Todas las categorías"
 
     val shown = parts.filter { p ->
-        (activeVehicle == "Todos los autos" || p.vehicle == activeVehicle) &&
+        (activeVehicle.isNotBlank() && p.vehicle == activeVehicle) &&
         (selectedCategory == "Todas las categorías" || p.category == selectedCategory) &&
         (!onlyFavorites || p.favoriteKey in favorites) &&
         (search.isBlank() || p.code.contains(search, true) || p.name.contains(search, true) ||
@@ -220,7 +225,8 @@ private fun Catalog(db: PartsDb) {
                     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                         TextButton(onClick = { detail = null }) { Text("← Volver al catálogo") }
                         PartPhoto(p.code, p.photos, p.name, ContentScale.Fit,
-                            Modifier.fillMaxWidth().height(270.dp).clip(RoundedCornerShape(24.dp)).background(Color.White))
+                            Modifier.fillMaxWidth().height(270.dp).clip(RoundedCornerShape(24.dp)).background(Color.White).clickable { fullScreenPhoto = p })
+                        Text("Toca la imagen para verla a pantalla completa y hacer zoom", fontSize = 12.sp, color = Color.Gray)
                         Text(p.name, fontSize = 23.sp, fontWeight = FontWeight.Bold, color = ink)
                         Text(p.code, color = red, fontWeight = FontWeight.Bold)
                         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -247,14 +253,17 @@ private fun Catalog(db: PartsDb) {
                         Text("Encuentra la pieza correcta", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Color.White)
                         Text("${parts.size} referencias organizadas por vehículo y sistema", fontSize = 12.sp, color = Color(0xFFD5DCE6))
                     }
-                    DropdownField("Vehículo", activeVehicle, vehicleOptions) {
-                        selectedVehicle = it
+                    DropdownField("Vehículo", activeVehicle.ifBlank { "Selecciona un auto" }, vehicleOptions) {
+                        selectedVehicle = if (it == "Selecciona un auto") "" else it
                         selectedCategory = "Todas las categorías"
+                        search = ""
                     }
                     OutlinedTextField(value = search, onValueChange = { search = it }, modifier = Modifier.fillMaxWidth(),
                         placeholder = { Text("Buscar nombre, código o sistema") },
                         leadingIcon = { Icon(Icons.Default.Search, null) }, singleLine = true, shape = RoundedCornerShape(15.dp))
-                    DropdownField("Categoría / sistema", selectedCategory, categoryOptions) { selectedCategory = it }
+                    if (activeVehicle.isNotBlank()) {
+                        DropdownField("Categoría / sistema", selectedCategory, categoryOptions) { selectedCategory = it }
+                    }
                     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                         FilterChip(selected = !onlyFavorites, onClick = { onlyFavorites = false }, label = { Text("Todos") })
                         FilterChip(selected = onlyFavorites, onClick = { onlyFavorites = true }, label = {
@@ -264,17 +273,17 @@ private fun Catalog(db: PartsDb) {
                             }
                         })
                         Spacer(Modifier.weight(1f))
-                        Text("${shown.size} piezas", color = Color.Gray, fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                        Text(if (activeVehicle.isBlank()) "Selecciona un auto" else "${shown.size} piezas", color = Color.Gray, fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
                     }
                     if (loading) LinearProgressIndicator(Modifier.fillMaxWidth())
                     if (message.isNotBlank()) Text(message, fontSize = 11.sp, color = Color.Gray)
                     Box(Modifier.weight(1f).fillMaxWidth()) {
-                        if (shown.isEmpty()) {
+                        if (activeVehicle.isBlank() || shown.isEmpty()) {
                             Column(Modifier.align(Alignment.Center).padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.spacedBy(8.dp)) {
-                                Icon(Icons.Default.Search, null, tint = Color.LightGray, modifier = Modifier.size(42.dp))
-                                Text("No encontramos piezas", fontWeight = FontWeight.SemiBold, color = ink)
-                                Text("Prueba otro nombre, código o categoría.", color = Color.Gray, fontSize = 13.sp)
+                                Icon(Icons.Default.Build, null, tint = Color.LightGray, modifier = Modifier.size(42.dp))
+                                Text(if (activeVehicle.isBlank()) "Selecciona tu auto" else "No encontramos piezas", fontWeight = FontWeight.SemiBold, color = ink)
+                                Text(if (activeVehicle.isBlank()) "Elige un vehículo en el selector para ver únicamente sus repuestos." else "Prueba otro nombre, código o categoría.", color = Color.Gray, fontSize = 13.sp)
                             }
                         } else {
                             LazyVerticalGrid(columns = GridCells.Fixed(2), contentPadding = PaddingValues(bottom = 24.dp, top = 2.dp),
@@ -317,6 +326,38 @@ private fun Catalog(db: PartsDb) {
             }
         }
     }
+    if (fullScreenPhoto != null) {
+        val photo = fullScreenPhoto!!
+        var zoom by remember(photo.code) { mutableFloatStateOf(1f) }
+        var pan by remember(photo.code) { mutableStateOf(Offset.Zero) }
+        val zoomState = rememberTransformableState { zoomChange, panChange, _ ->
+            zoom = (zoom * zoomChange).coerceIn(1f, 5f)
+            pan = if (zoom > 1f) pan + panChange else Offset.Zero
+        }
+        val photoCandidates = remember(photo.code, photo.photos) {
+            (0..maxOf(photo.photos, 4)).map { i -> RAW + "fotos/" + photo.code + (if (i == 0) "" else "_$i") + ".jpg" }
+        }
+        var photoCandidateIndex by remember(photo.code) { mutableIntStateOf(0) }
+        Dialog(onDismissRequest = { fullScreenPhoto = null }) {
+            Box(Modifier.fillMaxSize().background(Color.Black), contentAlignment = Alignment.Center) {
+                AsyncImage(
+                    model = photoCandidates[photoCandidateIndex],
+                    contentDescription = "Imagen ampliada de ${photo.name}",
+                    contentScale = ContentScale.Fit,
+                    modifier = Modifier.fillMaxSize()
+                        .graphicsLayer(scaleX = zoom, scaleY = zoom, translationX = pan.x, translationY = pan.y)
+                        .transformable(zoomState),
+                    onError = { if (photoCandidateIndex < photoCandidates.lastIndex) photoCandidateIndex++ }
+                )
+                TextButton(onClick = { fullScreenPhoto = null }, modifier = Modifier.align(Alignment.TopEnd).padding(8.dp)) {
+                    Text("Cerrar", color = Color.White)
+                }
+                Text("Pellizca para ampliar · ${photo.name}", color = Color.White,
+                    modifier = Modifier.align(Alignment.BottomCenter).padding(16.dp))
+            }
+        }
+    }
+
 }
 
 @OptIn(ExperimentalMaterial3Api::class)
