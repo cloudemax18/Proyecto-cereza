@@ -216,7 +216,7 @@ private fun Catalog(db: PartsDb) {
     val drawerState = androidx.compose.material3.rememberDrawerState(DrawerValue.Closed)
     LaunchedEffect(drawerOpen) { if (drawerOpen) drawerState.open() else drawerState.close() }
     val english = language == "English"
-    MaterialTheme(colorScheme = lightColorScheme(primary = red, background = canvas, surface = Color.White)) {
+    MaterialTheme(colorScheme = lightColorScheme(primary = red, onPrimary = Color.White, primaryContainer = Color(0xFFFFE3E5), onPrimaryContainer = Color(0xFF6E1420), secondary = Color(0xFF355C7D), background = canvas, surface = Color.White, surfaceVariant = Color(0xFFF0F2F5), outline = Color(0xFFDCE1E8))) {
         ModalNavigationDrawer(
             drawerState = drawerState,
             drawerContent = {
@@ -240,7 +240,7 @@ private fun Catalog(db: PartsDb) {
         Scaffold(
             containerColor = canvas,
             topBar = {
-                TopAppBar(title = {
+                TopAppBar(colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.White, titleContentColor = ink, navigationIconContentColor = ink, actionIconContentColor = ink), title = {
                     Column {
                         Text("CEREZA", fontWeight = FontWeight.Black, letterSpacing = 2.sp)
                         Text("CATÁLOGO DE REPUESTOS", fontSize = 10.sp, color = Color.Gray, letterSpacing = 1.2.sp)
@@ -262,13 +262,13 @@ private fun Catalog(db: PartsDb) {
                 })
             }
         ) { padding ->
-            Column(Modifier.fillMaxSize().padding(padding).padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            Column(Modifier.fillMaxSize().background(canvas).padding(padding).padding(horizontal = 16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 if (detail != null) {
                     val p = detail!!
                     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                         TextButton(onClick = { detail = null }) { Text(if (english) "← Back to catalog" else "← Volver al catálogo") }
                         PartPhoto(p.code, p.photos, p.name, ContentScale.Fit,
-                            Modifier.fillMaxWidth().height(270.dp).clip(RoundedCornerShape(24.dp)).background(Color.White).clickable { fullScreenPhoto = p })
+                            Modifier.fillMaxWidth().height(270.dp).clip(RoundedCornerShape(28.dp)).background(Color.White).clickable { fullScreenPhoto = p })
                         Text(if (english) "Tap image to view full screen and zoom" else "Toca la imagen para verla a pantalla completa y hacer zoom", fontSize = 12.sp, color = Color.Gray)
                         Text(p.name, fontSize = 23.sp, fontWeight = FontWeight.Bold, color = ink)
                         Text(p.code, color = red, fontWeight = FontWeight.Bold)
@@ -292,7 +292,7 @@ private fun Catalog(db: PartsDb) {
                     }
                 } else {
                     if (activeVehicle.isBlank()) {
-                        Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(22.dp)).background(ink).padding(18.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                        Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(26.dp)).background(ink).padding(20.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                             Text(if (english) "Find the right part" else "Encuentra la pieza correcta", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Color.White)
                             Text(if (english) "${parts.size} references organized by vehicle and system" else "${parts.size} referencias organizadas por vehículo y sistema", fontSize = 12.sp, color = Color(0xFFD5DCE6))
                             Spacer(Modifier.height(4.dp))
@@ -304,7 +304,7 @@ private fun Catalog(db: PartsDb) {
                     }
                     OutlinedTextField(value = search, onValueChange = { search = it }, modifier = Modifier.fillMaxWidth(),
                         placeholder = { Text(if (english) "Search part name, code or system" else "Buscar nombre, código o sistema") },
-                        leadingIcon = { Icon(Icons.Default.Search, null) }, singleLine = true, shape = RoundedCornerShape(15.dp))
+                        leadingIcon = { Icon(Icons.Default.Search, null, tint = red) }, singleLine = true, shape = RoundedCornerShape(20.dp), colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White, unfocusedBorderColor = Color(0xFFE1E5EB), focusedBorderColor = red))
                     if (activeVehicle.isNotBlank()) {
                         Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                             Text(if (english) "System" else "Sistema", color = Color.Gray, fontSize = 12.sp)
@@ -341,7 +341,7 @@ private fun Catalog(db: PartsDb) {
                             if (listMode) {
                                 LazyColumn(contentPadding = PaddingValues(bottom = 24.dp, top = 2.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                                     lazyItems(shown, key = { it.favoriteKey }) { p ->
-                                        Card(Modifier.fillMaxWidth().clickable { detail = p }, shape = RoundedCornerShape(14.dp), colors = CardDefaults.cardColors(containerColor = Color.White)) {
+                                        Card(Modifier.fillMaxWidth().clickable { detail = p }, shape = RoundedCornerShape(20.dp), elevation = CardDefaults.cardElevation(defaultElevation = 2.dp), colors = CardDefaults.cardColors(containerColor = Color.White)) {
                                             Row(Modifier.fillMaxWidth().padding(10.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                                                 PartPhoto(p.code, p.photos, p.name, ContentScale.Fit, Modifier.size(88.dp).clip(RoundedCornerShape(10.dp)))
                                                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
