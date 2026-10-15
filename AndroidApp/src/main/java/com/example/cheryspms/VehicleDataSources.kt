@@ -12,8 +12,9 @@ data class VehicleDataSource(
 }
 
 object VehicleDataSources {
+    // Preserve exact case in GitHub paths: S12 uses lowercase pictures.
     val all = listOf(
-        VehicleDataSource(VehicleModel.S12, "S12-Sep08", "S12-Sep08/DData/chery.dbf", "Pictures"),
+        VehicleDataSource(VehicleModel.S12, "S12-Sep08", "S12-Sep08/DData/chery.dbf", "pictures"),
         VehicleDataSource(VehicleModel.M11, "M11", "M11/DData/chery.dbf", "Pictures"),
         VehicleDataSource(VehicleModel.S21, "S21-Sep08", "S21-Sep08/DData/chery.dbf", "Pictures")
     )
