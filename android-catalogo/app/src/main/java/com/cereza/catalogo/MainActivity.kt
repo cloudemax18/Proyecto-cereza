@@ -266,28 +266,28 @@ private fun Catalog(db: PartsDb) {
                 if (detail != null) {
                     val p = detail!!
                     Column(Modifier.fillMaxSize().verticalScroll(rememberScrollState()), verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                        TextButton(onClick = { detail = null }) { Text("← Volver al catálogo") }
+                        TextButton(onClick = { detail = null }) { Text(if (english) "← Back to catalog" else "← Volver al catálogo") }
                         PartPhoto(p.code, p.photos, p.name, ContentScale.Fit,
                             Modifier.fillMaxWidth().height(270.dp).clip(RoundedCornerShape(24.dp)).background(Color.White).clickable { fullScreenPhoto = p })
-                        Text("Toca la imagen para verla a pantalla completa y hacer zoom", fontSize = 12.sp, color = Color.Gray)
+                        Text(if (english) "Tap image to view full screen and zoom" else "Toca la imagen para verla a pantalla completa y hacer zoom", fontSize = 12.sp, color = Color.Gray)
                         Text(p.name, fontSize = 23.sp, fontWeight = FontWeight.Bold, color = ink)
                         Text(p.code, color = red, fontWeight = FontWeight.Bold)
                         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             InfoPill(p.vehicle); InfoPill(p.category)
                         }
                         HorizontalDivider(color = Color(0xFFE7EAF0))
-                        DetailRow("Cantidad", p.qty.toString())
-                        DetailRow("Categoría", p.category)
-                        DetailRow("Código padre", p.parentCode.ifBlank { "—" })
-                        DetailRow("Nodo", p.node.ifBlank { "—" })
-                        if (p.unit.isNotBlank()) DetailRow("Unidad", p.unit)
-                        if (p.price > 0) DetailRow("Precio registrado", String.format("%.2f", p.price))
-                        if (p.note.isNotBlank()) DetailRow("Nota", p.note)
+                        DetailRow(if (english) "Quantity" else "Cantidad", p.qty.toString())
+                        DetailRow(if (english) "Category" else "Categoría", p.category)
+                        DetailRow(if (english) "Parent code" else "Código padre", p.parentCode.ifBlank { "—" })
+                        DetailRow(if (english) "Node" else "Nodo", p.node.ifBlank { "—" })
+                        if (p.unit.isNotBlank()) DetailRow(if (english) "Unit" else "Unidad", p.unit)
+                        if (p.price > 0) DetailRow(if (english) "Recorded price" else "Precio registrado", String.format("%.2f", p.price))
+                        if (p.note.isNotBlank()) DetailRow(if (english) "Note" else "Nota", p.note)
                         Button(onClick = { db.toggleFavorite(p.favoriteKey); favorites = db.favorites() },
                             modifier = Modifier.fillMaxWidth().padding(bottom = 24.dp), shape = RoundedCornerShape(14.dp)) {
                             Icon(if (p.favoriteKey in favorites) Icons.Default.Favorite else Icons.Default.FavoriteBorder, null)
                             Spacer(Modifier.width(8.dp))
-                            Text(if (p.favoriteKey in favorites) "Quitar de favoritos" else "Guardar en favoritos")
+                            Text(if (p.favoriteKey in favorites) (if (english) "Remove from favorites" else "Quitar de favoritos") else (if (english) "Save to favorites" else "Guardar en favoritos"))
                         }
                     }
                 } else {
@@ -328,7 +328,7 @@ private fun Catalog(db: PartsDb) {
                         }
                     }
                     if (loading) LinearProgressIndicator(Modifier.fillMaxWidth())
-                    if (message.isNotBlank()) Text(message, fontSize = 11.sp, color = Color.Gray)
+                    if (message.isNotBlank()) Text(if (english) message.replace("Catálogo actualizado", "Catalog updated").replace("No se pudo cargar el catálogo. Revisa tu conexión e intenta actualizar.", "Could not load catalog. Check your connection and try again.").replace("Sin conexión: se muestran los datos guardados en el dispositivo.", "Offline: showing data saved on this device.") else message, fontSize = 11.sp, color = Color.Gray)
                     Box(Modifier.weight(1f).fillMaxWidth()) {
                         if (activeVehicle.isBlank() || shown.isEmpty()) {
                             Column(Modifier.align(Alignment.Center).padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally,
