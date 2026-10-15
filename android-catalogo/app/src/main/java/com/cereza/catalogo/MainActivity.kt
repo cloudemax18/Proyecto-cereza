@@ -37,7 +37,7 @@ import kotlinx.coroutines.withContext
 import java.net.URL
 
 private const val RAW = "https://raw.githubusercontent.com/cloudemax18/Proyecto-cereza/main/v1%20web/importar/"
-private val CATALOG_SOURCES = listOf("chery_arauca_13.csv")
+private val CATALOG_SOURCES = listOf("chery_s12.csv", "chery_arauca_13.csv")
 
 private data class Part(
     val code: String, val name: String, val qty: Int, val note: String,
@@ -98,7 +98,7 @@ private class PartsDb(context: android.content.Context) :
         try {
             csv.lineSequence().drop(1).filter { it.isNotBlank() }.forEach { line ->
                 val f = csvLine(line)
-                if (f.size >= 15 && f[0].isNotBlank() && f[1].isNotBlank()) {
+                if (f.size >= 11 && f[0].isNotBlank() && f[1].isNotBlank()) {
                     val v = ContentValues().apply {
                         put("code", f[0].trim()); put("name", f[1].trim())
                         put("qty", f[2].toIntOrNull() ?: 0); put("note", f[3]); put("node", f[4])
@@ -144,7 +144,7 @@ private fun Catalog(db: PartsDb) {
     var parts by remember { mutableStateOf(db.all()) }
     var favorites by remember { mutableStateOf(db.favorites()) }
     var search by remember { mutableStateOf("") }
-    var selectedVehicle by remember { mutableStateOf("Chery Arauca 1.3") }
+    var selectedVehicle by remember { mutableStateOf("Chery S12 (SQR7160) 1.3L — Arauca 1.3") }
     var selectedCategory by remember { mutableStateOf("Todas las categorías") }
     var onlyFavorites by remember { mutableStateOf(false) }
     var loading by remember { mutableStateOf(false) }
@@ -171,7 +171,7 @@ private fun Catalog(db: PartsDb) {
     val vehicles = parts.map { it.vehicle }.distinct().sorted()
     val vehicleOptions = listOf("Todos los autos") + vehicles
     val activeVehicle = if (selectedVehicle == "Todos los autos" || selectedVehicle in vehicles) selectedVehicle
-        else vehicles.firstOrNull() ?: "Chery Arauca 1.3"
+        else vehicles.firstOrNull { it.contains("Arauca 1.3", true) } ?: vehicles.firstOrNull() ?: "Chery Arauca 1.3"
     val categories = parts.filter { activeVehicle == "Todos los autos" || it.vehicle == activeVehicle }
         .map { it.category }.filter { it.isNotBlank() }.distinct().sorted()
     val categoryOptions = listOf("Todas las categorías") + categories
