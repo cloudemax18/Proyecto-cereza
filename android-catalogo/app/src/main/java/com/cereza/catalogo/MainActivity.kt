@@ -55,14 +55,40 @@ class MainActivity:ComponentActivity(){override fun onCreate(savedInstanceState:
  MaterialTheme(colorScheme=lightColorScheme(primary=red,background=Color(0xFFF5F6F8),surface=Color.White)){
  Scaffold(containerColor=Color(0xFFF5F6F8),topBar={TopAppBar(title={Column{Text("CEREZA",fontWeight=FontWeight.Black,letterSpacing=2.sp);Text("CATÁLOGO DE REPUESTOS",fontSize=10.sp,color=Color.Gray,letterSpacing=1.sp)}},actions={TextButton(onClick={loading=true}){Text("Actualizar")}})}){pad->
  Column(Modifier.fillMaxSize().padding(pad).padding(horizontal=16.dp)){
- if(detail!=null){val p=detail!!;TextButton(onClick={detail=null}){Text("← Volver")};AsyncImage(model=RAW+"fotos/"+p.code+".jpg",contentDescription=p.name,contentScale=ContentScale.Fit,modifier=Modifier.fillMaxWidth().height(270.dp).clip(RoundedCornerShape(24.dp)).background(Color.White));Spacer(Modifier.height(18.dp));Text(p.name,fontSize=24.sp,fontWeight=FontWeight.Bold,color=ink);Text(p.code,color=red,fontWeight=FontWeight.Bold);HorizontalDivider(Modifier.padding(vertical=12.dp));Text("Nodo: "+p.node);Text("Cantidad: "+p.qty);Text("Fotos indicadas: "+p.photos);if(p.note.isNotBlank())Text("Nota: "+p.note);Button(onClick={db.toggle(p.code);favs=db.favs()},modifier=Modifier.fillMaxWidth().padding(top=16.dp)){Text(if(p.code in favs)"♥ Quitar de favoritos" else "♡ Guardar en favoritos")}
+ if(detail!=null){val p=detail!!;TextButton(onClick={detail=null}){Text("← Volver")};PartPhoto(code=p.code,count=p.photos,contentDescription=p.name,contentScale=ContentScale.Fit,modifier=Modifier.fillMaxWidth().height(270.dp).clip(RoundedCornerShape(24.dp)).background(Color.White));Spacer(Modifier.height(18.dp));Text(p.name,fontSize=24.sp,fontWeight=FontWeight.Bold,color=ink);Text(p.code,color=red,fontWeight=FontWeight.Bold);HorizontalDivider(Modifier.padding(vertical=12.dp));Text("Nodo: "+p.node);Text("Cantidad: "+p.qty);Text("Fotos indicadas: "+p.photos);if(p.note.isNotBlank())Text("Nota: "+p.note);Button(onClick={db.toggle(p.code);favs=db.favs()},modifier=Modifier.fillMaxWidth().padding(top=16.dp)){Text(if(p.code in favs)"♥ Quitar de favoritos" else "♡ Guardar en favoritos")}
  }else{
  Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(22.dp)).background(ink).padding(20.dp)){Text("Encuentra la pieza correcta.",fontSize=23.sp,fontWeight=FontWeight.Bold,color=Color.White);Text(parts.size.toString()+" referencias · búsqueda por código y nombre",color=Color.LightGray,fontSize=12.sp)}
  Spacer(Modifier.height(14.dp));OutlinedTextField(value=search,onValueChange={search=it},modifier=Modifier.fillMaxWidth(),placeholder={Text("Nombre, código o nodo")},leadingIcon={Icon(Icons.Default.Search,null)},singleLine=true,shape=RoundedCornerShape(16.dp))
  Row(horizontalArrangement=Arrangement.spacedBy(8.dp)){FilterChip(selected=!onlyFav,onClick={onlyFav=false},label={Text("Todas")});FilterChip(selected=onlyFav,onClick={onlyFav=true},label={Text("♥ Favoritas")})}
  if(loading)LinearProgressIndicator(Modifier.fillMaxWidth());if(message.isNotBlank())Text(message,fontSize=11.sp,color=Color.Gray);Text(shown.size.toString()+" repuestos",fontWeight=FontWeight.SemiBold,color=Color.Gray,modifier=Modifier.padding(vertical=8.dp))
- LazyVerticalGrid(columns=GridCells.Fixed(2),contentPadding=PaddingValues(bottom=24.dp),horizontalArrangement=Arrangement.spacedBy(12.dp),verticalArrangement=Arrangement.spacedBy(12.dp)){items(shown,key={it.code}){p->Card(Modifier.fillMaxWidth().clickable{detail=p},shape=RoundedCornerShape(18.dp)){AsyncImage(model=RAW+"fotos/"+p.code+".jpg",contentDescription=p.name,contentScale=ContentScale.Fit,modifier=Modifier.fillMaxWidth().height(140.dp).padding(8.dp));Column(Modifier.padding(start=12.dp,end=12.dp,bottom=14.dp)){Text(p.name,fontWeight=FontWeight.SemiBold,fontSize=14.sp,minLines=2,maxLines=2);Text(p.code,color=red,fontSize=11.sp,fontWeight=FontWeight.Bold,maxLines=1);Text("Nodo "+p.node,color=Color.Gray,fontSize=10.sp,maxLines=1);Text("Stock: "+p.qty,fontSize=11.sp);TextButton(onClick={db.toggle(p.code);favs=db.favs()},contentPadding=PaddingValues(0.dp)){Icon(if(p.code in favs)Icons.Default.Favorite else Icons.Default.FavoriteBorder,null);Text(if(p.code in favs)"Guardado" else "Favorito")}}}}}
+ LazyVerticalGrid(columns=GridCells.Fixed(2),contentPadding=PaddingValues(bottom=24.dp),horizontalArrangement=Arrangement.spacedBy(12.dp),verticalArrangement=Arrangement.spacedBy(12.dp)){items(shown,key={it.code}){p->Card(Modifier.fillMaxWidth().clickable{detail=p},shape=RoundedCornerShape(18.dp)){PartPhoto(code=p.code,count=p.photos,contentDescription=p.name,contentScale=ContentScale.Fit,modifier=Modifier.fillMaxWidth().height(140.dp).padding(8.dp));Column(Modifier.padding(start=12.dp,end=12.dp,bottom=14.dp)){Text(p.name,fontWeight=FontWeight.SemiBold,fontSize=14.sp,minLines=2,maxLines=2);Text(p.code,color=red,fontSize=11.sp,fontWeight=FontWeight.Bold,maxLines=1);Text("Nodo "+p.node,color=Color.Gray,fontSize=10.sp,maxLines=1);Text("Stock: "+p.qty,fontSize=11.sp);TextButton(onClick={db.toggle(p.code);favs=db.favs()},contentPadding=PaddingValues(0.dp)){Icon(if(p.code in favs)Icons.Default.Favorite else Icons.Default.FavoriteBorder,null);Text(if(p.code in favs)"Guardado" else "Favorito")}}}}}
  }
  }}
  LaunchedEffect(loading){if(loading&&parts.isNotEmpty()){try{val s=withContext(Dispatchers.IO){URL(RAW+"piezas.csv").readText()};withContext(Dispatchers.IO){db.import(s)};parts=db.all();message="Catálogo actualizado"}catch(e:Exception){message="No se pudo actualizar"};loading=false}}
+}
+
+
+@Composable
+private fun PartPhoto(
+    code: String,
+    count: Int,
+    contentDescription: String,
+    contentScale: ContentScale,
+    modifier: Modifier = Modifier
+) {
+    val candidates = remember(code, count) {
+        (0..maxOf(count, 4)).map { index ->
+            RAW + "fotos/" + code + (if (index == 0) "" else "_$index") + ".jpg"
+        }
+    }
+    var candidateIndex by remember(code, count) { mutableIntStateOf(0) }
+    AsyncImage(
+        model = candidates[candidateIndex],
+        contentDescription = contentDescription,
+        contentScale = contentScale,
+        modifier = modifier,
+        onError = {
+            if (candidateIndex < candidates.lastIndex) candidateIndex++
+        }
+    )
 }
