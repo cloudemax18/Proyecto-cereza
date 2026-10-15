@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /gracias.html
+Sitemap: https://chinocatalogo.xo.je/sitemap.xml

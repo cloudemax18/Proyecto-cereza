@@ -1,0 +1,21 @@
+# Catálogo Chery S12 - Apache (InfinityFree)
+Options -Indexes
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+# PASO 2 - cuando el certificado SSL ya esté activo, quita el # de las 3 líneas siguientes:
+#RewriteEngine On
+#RewriteCond %{HTTPS} off
+#RewriteRule ^(.*)$ https://%{HTTP_HOST}/$1 [R=301,L]
+
+<IfModule mod_headers.c>
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+Header always set X-Content-Type-Options "nosniff"
+Header always set X-Frame-Options "DENY"
+Header always set Referrer-Policy "no-referrer"
+Header always set Permissions-Policy "camera=(), microphone=(), geolocation=(), payment=()"
+Header always set Content-Security-Policy "frame-ancestors 'none'"
+</IfModule>
+<IfModule mod_deflate.c>
+AddOutputFilterByType DEFLATE text/html text/css application/javascript image/svg+xml
+</IfModule>
