@@ -52,6 +52,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil.compose.AsyncImage
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.net.URL
@@ -195,6 +196,7 @@ private fun Catalog(db: PartsDb) {
     val elevated = Color(0xFF243246)
     val muted = Color(0xFF9BAFC4)
     val drawerState = androidx.compose.material3.rememberDrawerState(DrawerValue.Closed)
+    val scope = rememberCoroutineScope()
 
     LaunchedEffect(refreshToken) {
         if (parts.isEmpty() || refreshToken > 0) {
@@ -262,7 +264,7 @@ private fun Catalog(db: PartsDb) {
                             fontSize=10.sp,color=muted,letterSpacing=1.sp,maxLines=1)
                     }
                 },navigationIcon={
-                    IconButton(onClick={ if(detail!=null) detail=null else if(aboutOpen) aboutOpen=false else { /* drawer opened by swipe or menu action below */ } }) {
+                    IconButton(onClick={ if(detail!=null) detail=null else if(aboutOpen) aboutOpen=false else scope.launch { drawerState.open() } }) {
                         Icon(if(detail!=null || aboutOpen) Icons.Default.Refresh else Icons.Default.Menu,if(english) "Back or menu" else "Volver o menú")
                     }
                 },actions={
