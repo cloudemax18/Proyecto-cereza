@@ -213,27 +213,27 @@ private fun Catalog(db: PartsDb) {
         (search.isBlank() || p.code.contains(search, true) || p.name.contains(search, true) ||
             p.category.contains(search, true) || p.node.contains(search, true) || p.parentCode.contains(search, true))
     }
-    val red = Color(0xFFD83A45)
-    val ink = Color(0xFF172334)
-    val canvas = Color(0xFFF4F6F8)
+    val red = Color(0xFF34C8E8)
+    val ink = Color(0xFFF4F7FB)
+    val canvas = Color(0xFF242C3B)
 
     val drawerState = androidx.compose.material3.rememberDrawerState(DrawerValue.Closed)
     LaunchedEffect(drawerOpen) { if (drawerOpen) drawerState.open() else drawerState.close() }
     val english = language == "English"
-    MaterialTheme(colorScheme = lightColorScheme(primary = red, onPrimary = Color.White, primaryContainer = Color(0xFFFFE3E5), onPrimaryContainer = Color(0xFF6E1420), secondary = Color(0xFF355C7D), background = canvas, surface = Color.White, surfaceVariant = Color(0xFFF0F2F5), outline = Color(0xFFDCE1E8))) {
+    MaterialTheme(colorScheme = darkColorScheme(primary = red, onPrimary = Color(0xFF17202D), primaryContainer = Color(0xFF354054), onPrimaryContainer = Color.White, secondary = Color(0xFF8D9DFF), background = canvas, surface = Color(0xFF2B3445), onSurface = Color(0xFFF4F7FB), surfaceVariant = Color(0xFF353F54), onSurfaceVariant = Color(0xFFD5DCE6), outline = Color(0xFF4A556B))) {
         ModalNavigationDrawer(
             drawerState = drawerState,
             drawerContent = {
                 ModalDrawerSheet {
                     Text(if (english) "CATALOG FILTERS" else "FILTROS DEL CATÁLOGO", fontWeight = FontWeight.Black, modifier = Modifier.padding(20.dp))
-                    Text(if (english) "Vehicle" else "Vehículo", color = Color.Gray, modifier = Modifier.padding(start = 16.dp, top = 8.dp))
+                    Text(if (english) "Vehicle" else "Vehículo", color = Color(0xFFB4C0D2), modifier = Modifier.padding(start = 16.dp, top = 8.dp))
                     vehicles.forEach { vehicle ->
                         NavigationDrawerItem(label = { Text(vehicle) }, selected = vehicle == activeVehicle,
                             onClick = { selectedVehicle = vehicle; selectedCategory = "Todas las categorías"; search = ""; selectedTab = 0; onlyFavorites = false; drawerOpen = false },
                             modifier = Modifier.padding(horizontal = 8.dp))
                     }
                     HorizontalDivider(Modifier.padding(vertical = 12.dp))
-                    Text(if (english) "Language / Idioma" else "Idioma / Language", color = Color.Gray, modifier = Modifier.padding(start = 16.dp, bottom = 8.dp))
+                    Text(if (english) "Language / Idioma" else "Idioma / Language", color = Color(0xFFB4C0D2), modifier = Modifier.padding(start = 16.dp, bottom = 8.dp))
                     listOf("Español", "English").forEach { lang ->
                         NavigationDrawerItem(label = { Text(lang) }, selected = language == lang, onClick = { language = lang }, modifier = Modifier.padding(horizontal = 8.dp))
                     }
@@ -244,10 +244,10 @@ private fun Catalog(db: PartsDb) {
         Scaffold(
             containerColor = canvas,
             topBar = {
-                TopAppBar(colors = TopAppBarDefaults.topAppBarColors(containerColor = Color.White, titleContentColor = ink, navigationIconContentColor = ink, actionIconContentColor = ink), title = {
+                TopAppBar(colors = TopAppBarDefaults.topAppBarColors(containerColor = Color(0xFF242C3B), titleContentColor = Color.White, navigationIconContentColor = Color.White, actionIconContentColor = Color.White), title = {
                     Column {
                         Text("CEREZA", fontWeight = FontWeight.Black, letterSpacing = 2.sp)
-                        Text("CATÁLOGO DE REPUESTOS", fontSize = 10.sp, color = Color.Gray, letterSpacing = 1.2.sp)
+                        Text("CATÁLOGO DE REPUESTOS", fontSize = 10.sp, color = Color(0xFFB4C0D2), letterSpacing = 1.2.sp)
                     }
                 }, navigationIcon = {
                     if (activeVehicle.isNotBlank() && detail == null) {
@@ -273,13 +273,13 @@ private fun Catalog(db: PartsDb) {
                         TextButton(onClick = { detail = null }) { Text(if (english) "← Back to catalog" else "← Volver al catálogo") }
                         PartPhoto(p.code, p.photos, p.name, ContentScale.Fit,
                             Modifier.fillMaxWidth().height(270.dp).clip(RoundedCornerShape(28.dp)).background(Color.White).clickable { fullScreenPhoto = p })
-                        Text(if (english) "Tap image to view full screen and zoom" else "Toca la imagen para verla a pantalla completa y hacer zoom", fontSize = 12.sp, color = Color.Gray)
+                        Text(if (english) "Tap image to view full screen and zoom" else "Toca la imagen para verla a pantalla completa y hacer zoom", fontSize = 12.sp, color = Color(0xFFB4C0D2))
                         Text(p.name, fontSize = 23.sp, fontWeight = FontWeight.Bold, color = ink)
                         Text(p.code, color = red, fontWeight = FontWeight.Bold)
                         Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
                             InfoPill(p.vehicle); InfoPill(p.category)
                         }
-                        HorizontalDivider(color = Color(0xFFE7EAF0))
+                        HorizontalDivider(color = Color(0xFF414B60))
                         DetailRow(if (english) "Quantity" else "Cantidad", p.qty.toString())
                         DetailRow(if (english) "Category" else "Categoría", p.category)
                         DetailRow(if (english) "Parent code" else "Código padre", p.parentCode.ifBlank { "—" })
@@ -327,7 +327,7 @@ private fun Catalog(db: PartsDb) {
                     OutlinedTextField(value = search, onValueChange = { search = it }, modifier = Modifier.fillMaxWidth(),
                         placeholder = { Text(if (english) "Search part name, code or system" else "Buscar nombre, código o sistema") },
                         leadingIcon = { Icon(Icons.Default.Search, null, tint = red) }, singleLine = true, shape = RoundedCornerShape(18.dp),
-                        colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color.White, focusedContainerColor = Color.White, unfocusedBorderColor = Color(0xFFE1E5EB), focusedBorderColor = red))
+                        colors = OutlinedTextFieldDefaults.colors(unfocusedContainerColor = Color(0xFF2B3445), focusedContainerColor = Color(0xFF2B3445), unfocusedBorderColor = Color(0xFF4A556B), focusedBorderColor = red))
                     if (activeVehicle.isNotBlank()) {
                         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                             Text(if (english) "Browse by system" else "Explorar por sistema", fontSize = 14.sp, fontWeight = FontWeight.Bold, color = ink)
@@ -339,9 +339,9 @@ private fun Catalog(db: PartsDb) {
                                         label = { Text(if (category == "Todas las categorías") { if (english) "All systems" else "Todos" } else category, maxLines = 1) },
                                         shape = RoundedCornerShape(14.dp),
                                         colors = FilterChipDefaults.filterChipColors(
-                                            selectedContainerColor = Color(0xFF203D5B),
+                                            selectedContainerColor = Color(0xFF4E4AF2),
                                             selectedLabelColor = Color.White,
-                                            containerColor = Color.White
+                                            containerColor = Color(0xFF353F54)
                                         )
                                     )
                                 }
@@ -357,21 +357,21 @@ private fun Catalog(db: PartsDb) {
                             }
                         })
                         Spacer(Modifier.weight(1f))
-                        Text(if (activeVehicle.isBlank()) (if (english) "Select a vehicle" else "Selecciona un auto") else "${shown.size} ${if (english) "parts" else "piezas"}", color = Color.Gray, fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                        Text(if (activeVehicle.isBlank()) (if (english) "Select a vehicle" else "Selecciona un auto") else "${shown.size} ${if (english) "parts" else "piezas"}", color = Color(0xFFB4C0D2), fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
                         if (activeVehicle.isNotBlank()) {
-                            IconButton(onClick = { listMode = false }) { Icon(Icons.Default.GridView, contentDescription = if (english) "Grid view" else "Vista de recuadros", tint = if (!listMode) red else Color.Gray) }
-                            IconButton(onClick = { listMode = true }) { Icon(Icons.Default.ViewList, contentDescription = if (english) "List view" else "Vista de lista", tint = if (listMode) red else Color.Gray) }
+                            IconButton(onClick = { listMode = false }) { Icon(Icons.Default.GridView, contentDescription = if (english) "Grid view" else "Vista de recuadros", tint = if (!listMode) red else Color(0xFFB4C0D2)) }
+                            IconButton(onClick = { listMode = true }) { Icon(Icons.Default.ViewList, contentDescription = if (english) "List view" else "Vista de lista", tint = if (listMode) red else Color(0xFFB4C0D2)) }
                         }
                     }
                     if (loading) LinearProgressIndicator(Modifier.fillMaxWidth())
-                    if (message.isNotBlank()) Text(if (english) message.replace("Catálogo actualizado", "Catalog updated").replace("No se pudo cargar el catálogo. Revisa tu conexión e intenta actualizar.", "Could not load catalog. Check your connection and try again.").replace("Sin conexión: se muestran los datos guardados en el dispositivo.", "Offline: showing data saved on this device.") else message, fontSize = 11.sp, color = Color.Gray)
+                    if (message.isNotBlank()) Text(if (english) message.replace("Catálogo actualizado", "Catalog updated").replace("No se pudo cargar el catálogo. Revisa tu conexión e intenta actualizar.", "Could not load catalog. Check your connection and try again.").replace("Sin conexión: se muestran los datos guardados en el dispositivo.", "Offline: showing data saved on this device.") else message, fontSize = 11.sp, color = Color(0xFFB4C0D2))
                     Box(Modifier.weight(1f).fillMaxWidth()) {
                         if (activeVehicle.isBlank() || shown.isEmpty()) {
                             Column(Modifier.align(Alignment.Center).padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.spacedBy(8.dp)) {
                                 Icon(Icons.Default.Build, null, tint = Color.LightGray, modifier = Modifier.size(42.dp))
                                 Text(if (activeVehicle.isBlank()) (if (english) "Select your vehicle" else "Selecciona tu auto") else (if (english) "No parts found" else "No encontramos piezas"), fontWeight = FontWeight.SemiBold, color = ink)
-                                Text(if (activeVehicle.isBlank()) (if (english) "Choose a vehicle from the menu to see its parts." else "Elige un vehículo para ver únicamente sus repuestos.") else (if (english) "Try another name, code or category." else "Prueba otro nombre, código o categoría."), color = Color.Gray, fontSize = 13.sp)
+                                Text(if (activeVehicle.isBlank()) (if (english) "Choose a vehicle from the menu to see its parts." else "Elige un vehículo para ver únicamente sus repuestos.") else (if (english) "Try another name, code or category." else "Prueba otro nombre, código o categoría."), color = Color(0xFFB4C0D2), fontSize = 13.sp)
                             }
                         } else {
                             if (listMode) {
@@ -383,11 +383,11 @@ private fun Catalog(db: PartsDb) {
                                                 Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
                                                     Text(p.name, fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
                                                     Text(p.code, color = red, fontSize = 11.sp, fontWeight = FontWeight.Bold)
-                                                    Text(p.category, color = Color.Gray, fontSize = 11.sp)
+                                                    Text(p.category, color = Color(0xFFB4C0D2), fontSize = 11.sp)
                                                     Text(if (english) "Qty. ${p.qty}" else "Cant. ${p.qty}", fontSize = 11.sp, color = ink)
                                                 }
                                                 IconButton(onClick = { db.toggleFavorite(p.favoriteKey); favorites = db.favorites() }) {
-                                                    Icon(if (p.favoriteKey in favorites) Icons.Default.Favorite else Icons.Default.FavoriteBorder, contentDescription = null, tint = if (p.favoriteKey in favorites) red else Color.Gray)
+                                                    Icon(if (p.favoriteKey in favorites) Icons.Default.Favorite else Icons.Default.FavoriteBorder, contentDescription = null, tint = if (p.favoriteKey in favorites) red else Color(0xFFB4C0D2))
                                                 }
                                             }
                                         }
@@ -398,7 +398,7 @@ private fun Catalog(db: PartsDb) {
                                 horizontalArrangement = Arrangement.spacedBy(12.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                                 items(shown, key = { it.favoriteKey }) { p ->
                                     Card(Modifier.fillMaxWidth().clickable { detail = p }, shape = RoundedCornerShape(22.dp),
-                                        colors = CardDefaults.cardColors(containerColor = Color(0xFFFCFDFE)),
+                                        colors = CardDefaults.cardColors(containerColor = Color(0xFF2B3445)),
                                         elevation = CardDefaults.cardElevation(defaultElevation = 3.dp)) {
                                         Box {
                                             PartPhoto(p.code, p.photos, p.name, ContentScale.Fit,
@@ -413,7 +413,7 @@ private fun Catalog(db: PartsDb) {
                                             verticalArrangement = Arrangement.spacedBy(4.dp)) {
                                             Text(p.name, fontWeight = FontWeight.SemiBold, fontSize = 13.sp, minLines = 2, maxLines = 2)
                                             Text(p.code, color = red, fontSize = 10.sp, fontWeight = FontWeight.Bold, maxLines = 1)
-                                            Text(p.category, color = Color.Gray, fontSize = 10.sp, maxLines = 1)
+                                            Text(p.category, color = Color(0xFFB4C0D2), fontSize = 10.sp, maxLines = 1)
                                             Row(verticalAlignment = Alignment.CenterVertically) {
                                                 Text("Cant. ${p.qty}", fontSize = 10.sp, color = ink)
                                                 Spacer(Modifier.weight(1f))
@@ -421,7 +421,7 @@ private fun Catalog(db: PartsDb) {
                                                     modifier = Modifier.size(30.dp)) {
                                                     Icon(if (p.favoriteKey in favorites) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                                                         if (p.favoriteKey in favorites) "Quitar favorito" else "Añadir favorito",
-                                                        tint = if (p.favoriteKey in favorites) red else Color.Gray, modifier = Modifier.size(18.dp))
+                                                        tint = if (p.favoriteKey in favorites) red else Color(0xFFB4C0D2), modifier = Modifier.size(18.dp))
                                                 }
                                             }
                                         }
@@ -488,15 +488,15 @@ private fun DropdownField(label: String, value: String, options: List<String>, o
 
 @Composable
 private fun InfoPill(text: String) {
-    Surface(color = Color(0xFFFDECEF), shape = RoundedCornerShape(9.dp)) {
-        Text(text, color = Color(0xFFB62936), fontSize = 11.sp, modifier = Modifier.padding(horizontal = 9.dp, vertical = 6.dp))
+    Surface(color = Color(0xFF353F54), shape = RoundedCornerShape(9.dp)) {
+        Text(text, color = Color(0xFF34C8E8), fontSize = 11.sp, modifier = Modifier.padding(horizontal = 9.dp, vertical = 6.dp))
     }
 }
 
 @Composable
 private fun DetailRow(label: String, value: String) {
     Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.Top) {
-        Text(label, color = Color.Gray, fontSize = 13.sp, modifier = Modifier.weight(0.8f))
+        Text(label, color = Color(0xFFB4C0D2), fontSize = 13.sp, modifier = Modifier.weight(0.8f))
         Text(value, fontSize = 13.sp, fontWeight = FontWeight.Medium, modifier = Modifier.weight(1.2f))
     }
 }
@@ -507,8 +507,8 @@ private fun PartPhoto(code: String, count: Int, contentDescription: String, cont
         (0..maxOf(count, 4)).map { i -> RAW + "fotos/" + code + (if (i == 0) "" else "_$i") + ".jpg" }
     }
     var candidateIndex by remember(code, count) { mutableIntStateOf(0) }
-    Box(modifier = modifier.clip(RoundedCornerShape(14.dp)).background(Color(0xFFF7F8FA)), contentAlignment = Alignment.Center) {
-        Icon(Icons.Default.Build, null, tint = Color(0xFFD7DDE5), modifier = Modifier.size(36.dp))
+    Box(modifier = modifier.clip(RoundedCornerShape(14.dp)).background(Color(0xFF353F54)), contentAlignment = Alignment.Center) {
+        Icon(Icons.Default.Build, null, tint = Color(0xFF63718A), modifier = Modifier.size(36.dp))
         AsyncImage(model = candidates[candidateIndex], contentDescription = contentDescription,
             contentScale = contentScale, modifier = Modifier.fillMaxSize(),
             onError = { if (candidateIndex < candidates.lastIndex) candidateIndex++ })
