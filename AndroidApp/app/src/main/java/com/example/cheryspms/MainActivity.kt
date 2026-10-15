@@ -527,7 +527,9 @@ private fun SwfDiagramViewer(
                       try {
                         const findCanvas=(node)=>{
                           if(node instanceof HTMLCanvasElement) return node;
-                          if(!node || !node.querySelectorAll) return null;
+                          if(!node) return null;
+                          if(node.shadowRoot){ const nested=findCanvas(node.shadowRoot); if(nested) return nested; }
+                          if(!node.querySelectorAll) return null;
                           const direct=node.querySelector('canvas');
                           if(direct) return direct;
                           for(const el of node.querySelectorAll('*')){
