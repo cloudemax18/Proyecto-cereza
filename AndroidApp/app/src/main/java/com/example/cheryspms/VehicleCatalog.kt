@@ -6,8 +6,8 @@ enum class VehicleModel(val id: String, val folder: String, val displayNameEs: S
     S21("s21", "S21-Sep08", "Modelo S21", "S21 model", "Модель S21");
 
     fun displayName(language: String): String = when (language) {
-        "English" -> displayNameEn
-        "Русский", "Ruso" -> displayNameRu
+        "en" -> displayNameEn
+        "ru" -> displayNameRu
         else -> displayNameEs
     }
 }
@@ -19,6 +19,8 @@ data class VehiclePart(
     val model: String,
     val stock: Int,
     val location: String,
+    val diagramRef: String = "",
+    val parentRef: String = "",
     val rawFields: Map<String, String> = emptyMap()
 )
 
@@ -33,6 +35,7 @@ object VehicleCatalog {
         return selectedParts.filter { p ->
             p.serial.contains(term, true) || p.name.contains(term, true) ||
                 p.model.contains(term, true) || p.location.contains(term, true) ||
+                p.diagramRef.contains(term, true) || p.parentRef.contains(term, true) ||
                 p.rawFields.values.any { it.contains(term, true) }
         }
     }
