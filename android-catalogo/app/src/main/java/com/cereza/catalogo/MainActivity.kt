@@ -6,6 +6,11 @@ import android.database.sqlite.SQLiteOpenHelper
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.core.spring
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.slideInVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -397,19 +402,19 @@ private fun Catalog(db: PartsDb) {
                             LazyVerticalGrid(columns = GridCells.Fixed(2), contentPadding = PaddingValues(bottom = 24.dp, top = 2.dp),
                                 horizontalArrangement = Arrangement.spacedBy(12.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                                 items(shown, key = { it.favoriteKey }) { p ->
-                                    Card(Modifier.fillMaxWidth().clickable { detail = p }, shape = RoundedCornerShape(22.dp),
+                                    Card(Modifier.fillMaxWidth().animateContentSize(spring()).clickable { detail = p }, shape = RoundedCornerShape(22.dp),
                                         colors = CardDefaults.cardColors(containerColor = Color(0xFF2B3445)),
                                         elevation = CardDefaults.cardElevation(defaultElevation = 3.dp)) {
                                         Box {
                                             PartPhoto(p.code, p.photos, p.name, ContentScale.Fit,
-                                                Modifier.fillMaxWidth().height(138.dp).padding(8.dp).clip(RoundedCornerShape(16.dp)))
+                                                Modifier.fillMaxWidth().height(138.dp).padding(8.dp).clip(RoundedCornerShape(16.dp)).animateContentSize(spring()))
                                             if (p.price > 0) Surface(Modifier.align(Alignment.TopEnd).padding(8.dp),
                                                 color = Color(0xFFEAF6EE), shape = RoundedCornerShape(8.dp)) {
                                                 Text(String.format("%.2f", p.price), color = Color(0xFF267547), fontSize = 10.sp,
                                                     fontWeight = FontWeight.Bold, modifier = Modifier.padding(horizontal = 7.dp, vertical = 4.dp))
                                             }
                                         }
-                                        Column(Modifier.fillMaxWidth().padding(start = 12.dp, end = 12.dp, bottom = 10.dp),
+                                        Column(Modifier.fillMaxWidth().animateContentSize(spring()).padding(start = 12.dp, end = 12.dp, bottom = 10.dp),
                                             verticalArrangement = Arrangement.spacedBy(4.dp)) {
                                             Text(p.name, fontWeight = FontWeight.SemiBold, fontSize = 13.sp, minLines = 2, maxLines = 2)
                                             Text(p.code, color = red, fontSize = 10.sp, fontWeight = FontWeight.Bold, maxLines = 1)
