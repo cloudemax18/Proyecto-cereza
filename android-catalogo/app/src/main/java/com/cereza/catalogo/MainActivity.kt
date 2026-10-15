@@ -371,8 +371,8 @@ private fun Catalog(db: PartsDb) {
                                     Row(verticalAlignment=Alignment.CenterVertically) {
                                         Text(shown.size.toString()+" "+(if(english) "parts" else "piezas"),color=muted,fontSize=12.sp,modifier=Modifier.weight(1f))
                                         SingleChoiceSegmentedButtonRow {
-                                            SegmentedButton(selected=!listMode,onClick={listMode=false},shape=SegmentedButtonDefaults.itemShape(0)) { Icon(Icons.Default.GridView,"Cuadrícula") }
-                                            SegmentedButton(selected=listMode,onClick={listMode=true},shape=SegmentedButtonDefaults.itemShape(1)) { Icon(Icons.Default.ViewList,"Lista") }
+                                            SegmentedButton(selected=!listMode,onClick={listMode=false},shape=SegmentedButtonDefaults.itemShape(index = 0, count = 2)) { Icon(Icons.Default.GridView,"Cuadrícula") }
+                                            SegmentedButton(selected=listMode,onClick={listMode=true},shape=SegmentedButtonDefaults.itemShape(index = 1, count = 2)) { Icon(Icons.Default.ViewList,"Lista") }
                                         }
                                     }
                                 }
