@@ -13,6 +13,7 @@ android {
         versionCode = 4
         versionName = "0.4.0"
     }
+    sourceSets.getByName("main").java.srcDir("../src/main/java")
     buildFeatures { compose = true }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
