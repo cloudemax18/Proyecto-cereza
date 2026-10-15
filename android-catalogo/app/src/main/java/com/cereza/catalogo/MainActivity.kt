@@ -76,7 +76,17 @@ private class PartsDb(context: android.content.Context) :
         db.execSQL("CREATE TABLE fav(partKey TEXT PRIMARY KEY)")
         db.execSQL("CREATE INDEX idx_parts_vehicle_category ON parts(vehicle, category)")
     }
-    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {\n        if (oldVersion < 2) {\n            db.execSQL("DROP TABLE IF EXISTS parts")\n            db.execSQL("""CREATE TABLE parts(\n                code TEXT NOT NULL, name TEXT NOT NULL, qty INTEGER NOT NULL DEFAULT 0,\n                note TEXT, node TEXT, photos INTEGER NOT NULL DEFAULT 0, vehicle TEXT NOT NULL,\n                category TEXT NOT NULL, parentCode TEXT, unit TEXT, price REAL NOT NULL DEFAULT 0,\n                PRIMARY KEY(code, vehicle, parentCode, node))""".trimIndent())\n            db.execSQL("CREATE INDEX idx_parts_vehicle_category ON parts(vehicle, category)")\n        }\n    }
+    override fun onUpgrade(db: SQLiteDatabase, oldVersion: Int, newVersion: Int) {
+        if (oldVersion < 2) {
+            db.execSQL("DROP TABLE IF EXISTS parts")
+            db.execSQL("""CREATE TABLE parts(
+                code TEXT NOT NULL, name TEXT NOT NULL, qty INTEGER NOT NULL DEFAULT 0,
+                note TEXT, node TEXT, photos INTEGER NOT NULL DEFAULT 0, vehicle TEXT NOT NULL,
+                category TEXT NOT NULL, parentCode TEXT, unit TEXT, price REAL NOT NULL DEFAULT 0,
+                PRIMARY KEY(code, vehicle, parentCode, node))""".trimIndent())
+            db.execSQL("CREATE INDEX idx_parts_vehicle_category ON parts(vehicle, category)")
+        }
+    }
 
     fun all(): List<Part> {
         val result = mutableListOf<Part>()
