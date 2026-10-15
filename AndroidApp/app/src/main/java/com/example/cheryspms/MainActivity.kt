@@ -479,6 +479,7 @@ private fun SwfDiagramViewer(
                 }
             }, "CheryBridge")
         }
+        webView
     }, update = { view ->
         val signature = cacheKey + "|" + url
         if (view.tag != signature) {
