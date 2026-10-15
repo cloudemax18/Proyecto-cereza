@@ -9,6 +9,8 @@ import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items as lazyItems
 import androidx.compose.foundation.gestures.rememberTransformableState
 import androidx.compose.foundation.gestures.transformable
 import androidx.compose.foundation.lazy.grid.GridCells
@@ -19,6 +21,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Build
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material.icons.filled.GridView
+import androidx.compose.material.icons.filled.ViewList
+import androidx.compose.material.icons.filled.Translate
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material.icons.filled.Refresh
@@ -167,6 +173,10 @@ private fun Catalog(db: PartsDb) {
     var refreshToken by remember { mutableIntStateOf(0) }
     var detail by remember { mutableStateOf<Part?>(null) }
     var message by remember { mutableStateOf("") }
+    var drawerOpen by remember { mutableStateOf(false) }
+    var language by remember { mutableStateOf("Español") }
+    var languageMenu by remember { mutableStateOf(false) }
+    var listMode by remember { mutableStateOf(false) }
 
     LaunchedEffect(refreshToken) {
         if (parts.isEmpty() || refreshToken > 0) {
@@ -203,7 +213,28 @@ private fun Catalog(db: PartsDb) {
     val ink = Color(0xFF172334)
     val canvas = Color(0xFFF4F6F8)
 
+    val english = language == "English"
     MaterialTheme(colorScheme = lightColorScheme(primary = red, background = canvas, surface = Color.White)) {
+        ModalNavigationDrawer(
+            drawerState = androidx.compose.material3.rememberDrawerState(if (drawerOpen) DrawerValue.Open else DrawerValue.Closed),
+            drawerContent = {
+                ModalDrawerSheet {
+                    Text(if (english) "CATALOG FILTERS" else "FILTROS DEL CATÁLOGO", fontWeight = FontWeight.Black, modifier = Modifier.padding(20.dp))
+                    Text(if (english) "Vehicle" else "Vehículo", color = Color.Gray, modifier = Modifier.padding(start = 16.dp, top = 8.dp))
+                    vehicles.forEach { vehicle ->
+                        NavigationDrawerItem(label = { Text(vehicle) }, selected = vehicle == activeVehicle,
+                            onClick = { selectedVehicle = vehicle; selectedCategory = "Todas las categorías"; search = ""; drawerOpen = false },
+                            modifier = Modifier.padding(horizontal = 8.dp))
+                    }
+                    HorizontalDivider(Modifier.padding(vertical = 12.dp))
+                    Text(if (english) "Language / Idioma" else "Idioma / Language", color = Color.Gray, modifier = Modifier.padding(start = 16.dp, bottom = 8.dp))
+                    listOf("Español", "English").forEach { lang ->
+                        NavigationDrawerItem(label = { Text(lang) }, selected = language == lang, onClick = { language = lang }, modifier = Modifier.padding(horizontal = 8.dp))
+                    }
+                }
+            },
+            gesturesEnabled = true
+        ) {
         Scaffold(
             containerColor = canvas,
             topBar = {
@@ -212,7 +243,17 @@ private fun Catalog(db: PartsDb) {
                         Text("CEREZA", fontWeight = FontWeight.Black, letterSpacing = 2.sp)
                         Text("CATÁLOGO DE REPUESTOS", fontSize = 10.sp, color = Color.Gray, letterSpacing = 1.2.sp)
                     }
+                }, navigationIcon = {
+                    if (activeVehicle.isNotBlank() && detail == null) {
+                        IconButton(onClick = { drawerOpen = true }) { Icon(Icons.Default.Menu, contentDescription = if (english) "Open vehicle panel" else "Abrir panel de vehículos") }
+                    }
                 }, actions = {
+                    Box {
+                        IconButton(onClick = { languageMenu = true }) { Icon(Icons.Default.Translate, contentDescription = "Language / Idioma") }
+                        DropdownMenu(expanded = languageMenu, onDismissRequest = { languageMenu = false }) {
+                            listOf("Español", "English").forEach { lang -> DropdownMenuItem(text = { Text(lang) }, onClick = { language = lang; languageMenu = false }) }
+                        }
+                    }
                     IconButton(onClick = { refreshToken++; loading = true }) {
                         Icon(Icons.Default.Refresh, contentDescription = "Actualizar catálogo")
                     }
@@ -248,32 +289,41 @@ private fun Catalog(db: PartsDb) {
                         }
                     }
                 } else {
-                    Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(22.dp)).background(ink).padding(18.dp),
-                        verticalArrangement = Arrangement.spacedBy(4.dp)) {
-                        Text("Encuentra la pieza correcta", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Color.White)
-                        Text("${parts.size} referencias organizadas por vehículo y sistema", fontSize = 12.sp, color = Color(0xFFD5DCE6))
-                    }
-                    DropdownField("Vehículo", activeVehicle.ifBlank { "Selecciona un auto" }, vehicleOptions) {
-                        selectedVehicle = if (it == "Selecciona un auto") "" else it
-                        selectedCategory = "Todas las categorías"
-                        search = ""
+                    if (activeVehicle.isBlank()) {
+                        Column(Modifier.fillMaxWidth().clip(RoundedCornerShape(22.dp)).background(ink).padding(18.dp), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                            Text(if (english) "Find the right part" else "Encuentra la pieza correcta", fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Color.White)
+                            Text(if (english) "${parts.size} references organized by vehicle and system" else "${parts.size} referencias organizadas por vehículo y sistema", fontSize = 12.sp, color = Color(0xFFD5DCE6))
+                            Spacer(Modifier.height(4.dp))
+                            Text(if (english) "Choose a vehicle to begin" else "Selecciona un auto para comenzar", color = Color.White, fontSize = 13.sp)
+                            vehicles.forEach { vehicle ->
+                                TextButton(onClick = { selectedVehicle = vehicle; selectedCategory = "Todas las categorías"; search = "" }) { Text(vehicle, color = Color.White) }
+                            }
+                        }
                     }
                     OutlinedTextField(value = search, onValueChange = { search = it }, modifier = Modifier.fillMaxWidth(),
-                        placeholder = { Text("Buscar nombre, código o sistema") },
+                        placeholder = { Text(if (english) "Search part name, code or system" else "Buscar nombre, código o sistema") },
                         leadingIcon = { Icon(Icons.Default.Search, null) }, singleLine = true, shape = RoundedCornerShape(15.dp))
                     if (activeVehicle.isNotBlank()) {
-                        DropdownField("Categoría / sistema", selectedCategory, categoryOptions) { selectedCategory = it }
+                        Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                            Text(if (english) "System" else "Sistema", color = Color.Gray, fontSize = 12.sp)
+                            Spacer(Modifier.width(8.dp))
+                            Box(Modifier.weight(1f)) { DropdownField(if (english) "Category / system" else "Categoría / sistema", selectedCategory, categoryOptions) { selectedCategory = it } }
+                        }
                     }
                     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(8.dp)) {
-                        FilterChip(selected = !onlyFavorites, onClick = { onlyFavorites = false }, label = { Text("Todos") })
+                        FilterChip(selected = !onlyFavorites, onClick = { onlyFavorites = false }, label = { Text(if (english) "All" else "Todos") })
                         FilterChip(selected = onlyFavorites, onClick = { onlyFavorites = true }, label = {
                             Row(verticalAlignment = Alignment.CenterVertically) {
                                 Icon(Icons.Default.Favorite, null, modifier = Modifier.size(15.dp))
-                                Spacer(Modifier.width(4.dp)); Text("Favoritos")
+                                Spacer(Modifier.width(4.dp)); Text(if (english) "Favorites" else "Favoritos")
                             }
                         })
                         Spacer(Modifier.weight(1f))
-                        Text(if (activeVehicle.isBlank()) "Selecciona un auto" else "${shown.size} piezas", color = Color.Gray, fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                        Text(if (activeVehicle.isBlank()) (if (english) "Select a vehicle" else "Selecciona un auto") else "${shown.size} ${if (english) "parts" else "piezas"}", color = Color.Gray, fontSize = 12.sp, fontWeight = FontWeight.SemiBold)
+                        if (activeVehicle.isNotBlank()) {
+                            IconButton(onClick = { listMode = false }) { Icon(Icons.Default.GridView, contentDescription = if (english) "Grid view" else "Vista de recuadros", tint = if (!listMode) red else Color.Gray) }
+                            IconButton(onClick = { listMode = true }) { Icon(Icons.Default.ViewList, contentDescription = if (english) "List view" else "Vista de lista", tint = if (listMode) red else Color.Gray) }
+                        }
                     }
                     if (loading) LinearProgressIndicator(Modifier.fillMaxWidth())
                     if (message.isNotBlank()) Text(message, fontSize = 11.sp, color = Color.Gray)
@@ -282,10 +332,30 @@ private fun Catalog(db: PartsDb) {
                             Column(Modifier.align(Alignment.Center).padding(24.dp), horizontalAlignment = Alignment.CenterHorizontally,
                                 verticalArrangement = Arrangement.spacedBy(8.dp)) {
                                 Icon(Icons.Default.Build, null, tint = Color.LightGray, modifier = Modifier.size(42.dp))
-                                Text(if (activeVehicle.isBlank()) "Selecciona tu auto" else "No encontramos piezas", fontWeight = FontWeight.SemiBold, color = ink)
-                                Text(if (activeVehicle.isBlank()) "Elige un vehículo en el selector para ver únicamente sus repuestos." else "Prueba otro nombre, código o categoría.", color = Color.Gray, fontSize = 13.sp)
+                                Text(if (activeVehicle.isBlank()) (if (english) "Select your vehicle" else "Selecciona tu auto") else (if (english) "No parts found" else "No encontramos piezas"), fontWeight = FontWeight.SemiBold, color = ink)
+                                Text(if (activeVehicle.isBlank()) (if (english) "Choose a vehicle from the menu to see its parts." else "Elige un vehículo para ver únicamente sus repuestos.") else (if (english) "Try another name, code or category." else "Prueba otro nombre, código o categoría."), color = Color.Gray, fontSize = 13.sp)
                             }
                         } else {
+                            if (listMode) {
+                                LazyColumn(contentPadding = PaddingValues(bottom = 24.dp, top = 2.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                                    lazyItems(shown, key = { it.favoriteKey }) { p ->
+                                        Card(Modifier.fillMaxWidth().clickable { detail = p }, shape = RoundedCornerShape(14.dp), colors = CardDefaults.cardColors(containerColor = Color.White)) {
+                                            Row(Modifier.fillMaxWidth().padding(10.dp), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.spacedBy(12.dp)) {
+                                                PartPhoto(p.code, p.photos, p.name, ContentScale.Fit, Modifier.size(88.dp).clip(RoundedCornerShape(10.dp)))
+                                                Column(Modifier.weight(1f), verticalArrangement = Arrangement.spacedBy(4.dp)) {
+                                                    Text(p.name, fontWeight = FontWeight.SemiBold, fontSize = 14.sp)
+                                                    Text(p.code, color = red, fontSize = 11.sp, fontWeight = FontWeight.Bold)
+                                                    Text(p.category, color = Color.Gray, fontSize = 11.sp)
+                                                    Text(if (english) "Qty. ${p.qty}" else "Cant. ${p.qty}", fontSize = 11.sp, color = ink)
+                                                }
+                                                IconButton(onClick = { db.toggleFavorite(p.favoriteKey); favorites = db.favorites() }) {
+                                                    Icon(if (p.favoriteKey in favorites) Icons.Default.Favorite else Icons.Default.FavoriteBorder, contentDescription = null, tint = if (p.favoriteKey in favorites) red else Color.Gray)
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            } else {
                             LazyVerticalGrid(columns = GridCells.Fixed(2), contentPadding = PaddingValues(bottom = 24.dp, top = 2.dp),
                                 horizontalArrangement = Arrangement.spacedBy(12.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
                                 items(shown, key = { it.favoriteKey }) { p ->
@@ -320,10 +390,12 @@ private fun Catalog(db: PartsDb) {
                                     }
                                 }
                             }
+                            }
                         }
                     }
                 }
             }
+        }
         }
     }
     if (fullScreenPhoto != null) {
