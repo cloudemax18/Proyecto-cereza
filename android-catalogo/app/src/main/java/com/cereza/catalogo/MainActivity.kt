@@ -213,10 +213,12 @@ private fun Catalog(db: PartsDb) {
     val ink = Color(0xFF172334)
     val canvas = Color(0xFFF4F6F8)
 
+    val drawerState = androidx.compose.material3.rememberDrawerState(DrawerValue.Closed)
+    LaunchedEffect(drawerOpen) { if (drawerOpen) drawerState.open() else drawerState.close() }
     val english = language == "English"
     MaterialTheme(colorScheme = lightColorScheme(primary = red, background = canvas, surface = Color.White)) {
         ModalNavigationDrawer(
-            drawerState = androidx.compose.material3.rememberDrawerState(if (drawerOpen) DrawerValue.Open else DrawerValue.Closed),
+            drawerState = drawerState,
             drawerContent = {
                 ModalDrawerSheet {
                     Text(if (english) "CATALOG FILTERS" else "FILTROS DEL CATÁLOGO", fontWeight = FontWeight.Black, modifier = Modifier.padding(20.dp))
