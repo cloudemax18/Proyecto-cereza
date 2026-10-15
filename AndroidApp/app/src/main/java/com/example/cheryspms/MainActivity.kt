@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Canvas
+import android.util.Base64
 import android.webkit.JavascriptInterface
 import java.io.ByteArrayOutputStream
 import android.net.Uri
@@ -461,6 +462,22 @@ private fun SwfDiagramViewer(
             }
             addJavascriptInterface(object {
                 @JavascriptInterface
+                fun onImage(base64Png: String) {
+                    try {
+                        val png = Base64.decode(base64Png, Base64.DEFAULT)
+                        val bitmap = BitmapFactory.decodeByteArray(png, 0, png.size) ?: return
+                        val output = ByteArrayOutputStream()
+                        @Suppress("DEPRECATION")
+                        bitmap.compress(Bitmap.CompressFormat.WEBP, 88, output)
+                        bitmap.recycle()
+                        val webp = output.toByteArray()
+                        if (webp.isNotEmpty()) onWebpReady(webp)
+                    } catch (_: Exception) {
+                        onRendered()
+                    }
+                }
+
+                @JavascriptInterface
                 fun onRendered() {
                     webView.postDelayed({
                         try {
@@ -506,7 +523,24 @@ private fun SwfDiagramViewer(
                     if(!response.ok) throw new Error('Archivo no disponible ('+response.status+')');
                     const data=await response.arrayBuffer();
                     await player.load({data:data, autoplay:'off', unmuteOverlay:'hidden'});
-                    setTimeout(()=>{ if(window.CheryBridge) CheryBridge.onRendered(); }, 1400);
+                    setTimeout(()=>{
+                      try {
+                        const findCanvas=(node)=>{
+                          if(node instanceof HTMLCanvasElement) return node;
+                          if(!node || !node.querySelectorAll) return null;
+                          const direct=node.querySelector('canvas');
+                          if(direct) return direct;
+                          for(const el of node.querySelectorAll('*')){
+                            if(el.shadowRoot){ const found=findCanvas(el.shadowRoot); if(found) return found; }
+                          }
+                          return null;
+                        };
+                        const canvas=findCanvas(player);
+                        if(canvas && canvas.width>0 && canvas.height>0 && window.CheryBridge)
+                          CheryBridge.onImage(canvas.toDataURL('image/png').split(',')[1]);
+                        else if(window.CheryBridge) CheryBridge.onRendered();
+                      } catch(e) { if(window.CheryBridge) CheryBridge.onRendered(); }
+                    }, 1400);
                   } catch(e) {
                     stage.innerHTML='<div id="message">No se pudo mostrar esta ilustración.<br>'+String(e.message||e)+'</div>';
                   }
